@@ -4,7 +4,6 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.WPF.runtimeconfig
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.WPF.runtimeconfig.dev.json
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.WPF.dll
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.WPF.pdb
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csprojAssemblyReference.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\App.g.cs
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF_MarkupCompile.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF_MarkupCompile.lref
@@ -27,8 +26,6 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Caliburn.Micro.Core.dl
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Microsoft.Xaml.Behaviors.dll
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.Domain.dll
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.Domain.pdb
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\ShellView.baml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csproj.Fody.CopyLocal.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csproj.CopyComplete

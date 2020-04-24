@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace cRGB.WPF
+namespace cRGB.WPF.Views
 {
     /// <summary>
     /// Interaktionslogik für BlinkStickSettings.xaml

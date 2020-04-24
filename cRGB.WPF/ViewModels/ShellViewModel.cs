@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
+using Caliburn.Micro;
 
 namespace cRGB.WPF.ViewModels
 {
-    public class ShellViewModel : ViewModelBase
+    public class ShellViewModel : Conductor<IScreen>.Collection.OneActive
     {
-        string _name;
+        #region Properties
 
-        public string Name
+
+        #endregion Properties
+
+        int count = 1;
+
+        public void OpenTab()
         {
-            get { return _name; }
-            set
+            ActivateItemAsync(new BlinkStickViewModel
             {
-                _name = value;
-                NotifyOfPropertyChange(() => Name);
-                NotifyOfPropertyChange(() => CanSayHello);
-            }
-        }
-
-        public bool CanSayHello => !string.IsNullOrWhiteSpace(Name);
-
-        public void SayHello()
-        {
-
+                DisplayName = "Tab " + count++
+            }, new CancellationToken());
         }
     }
 }
