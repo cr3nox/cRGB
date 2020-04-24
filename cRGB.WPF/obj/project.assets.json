@@ -1334,16 +1334,6 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
-      },
-      "cRGB.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/cRGB.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/cRGB.Domain.dll": {}
-        }
       }
     }
   },
@@ -4874,11 +4864,6 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
-    },
-    "cRGB.Domain/1.0.0": {
-      "type": "project",
-      "path": "../cRGB.Domain/cRGB.Domain.csproj",
-      "msbuildProject": "../cRGB.Domain/cRGB.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4886,7 +4871,6 @@
       "Caliburn.Micro >= 4.0.105-alpha",
       "Caliburn.Micro.Core >= 4.0.105-alpha",
       "PropertyChanged.Fody >= 3.2.8",
-      "cRGB.Domain >= 1.0.0",
       "microsoft.extensions.DependencyInjection >= 3.1.3"
     ]
   },
@@ -4923,11 +4907,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {
-            "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj": {
-              "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

@@ -1,8 +1,0 @@
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\bin\Debug\netcoreapp3.1\cRGB.BlinkStickController.deps.json
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\bin\Debug\netcoreapp3.1\cRGB.BlinkStickController.dll
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\bin\Debug\netcoreapp3.1\cRGB.BlinkStickController.pdb
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\obj\Debug\netcoreapp3.1\cRGB.BlinkStickController.csproj.CoreCompileInputs.cache
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\obj\Debug\netcoreapp3.1\cRGB.BlinkStickController.AssemblyInfoInputs.cache
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\obj\Debug\netcoreapp3.1\cRGB.BlinkStickController.AssemblyInfo.cs
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\obj\Debug\netcoreapp3.1\cRGB.BlinkStickController.dll
-D:\VS\cr3nox@github\cRGB\cRGB.BlinkStickController\obj\Debug\netcoreapp3.1\cRGB.BlinkStickController.pdb
