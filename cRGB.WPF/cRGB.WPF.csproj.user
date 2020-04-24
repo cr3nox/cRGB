@@ -7,7 +7,21 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
+    <Compile Update="Views\BlinkStickView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ShellView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Localization\Translations\Strings.en-GB.xaml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Page Update="Views\BlinkStickView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ShellView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

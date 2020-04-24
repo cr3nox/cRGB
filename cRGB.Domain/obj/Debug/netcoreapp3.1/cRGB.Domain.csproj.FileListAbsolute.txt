@@ -1,0 +1,8 @@
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\bin\Debug\netcoreapp3.1\cRGB.Domain.deps.json
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\bin\Debug\netcoreapp3.1\cRGB.Domain.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\bin\Debug\netcoreapp3.1\cRGB.Domain.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.csproj.CoreCompileInputs.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.AssemblyInfoInputs.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.AssemblyInfo.cs
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.pdb
