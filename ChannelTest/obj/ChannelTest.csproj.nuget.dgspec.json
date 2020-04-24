@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VS\\cr3nox@github\\cRGB\\cRGB\\cRGB.csproj": {}
+    "D:\\VS\\cr3nox@github\\cRGB\\ChannelTest\\ChannelTest.csproj": {}
   },
   "projects": {
-    "D:\\VS\\cr3nox@github\\cRGB\\cRGB\\cRGB.csproj": {
+    "D:\\VS\\cr3nox@github\\cRGB\\ChannelTest\\ChannelTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB\\cRGB.csproj",
-        "projectName": "cRGB",
-        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB\\cRGB.csproj",
+        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\ChannelTest\\ChannelTest.csproj",
+        "projectName": "ChannelTest",
+        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\ChannelTest\\ChannelTest.csproj",
         "packagesPath": "C:\\Users\\Andi\\.nuget\\packages\\",
-        "outputPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB\\obj\\",
+        "outputPath": "D:\\VS\\cr3nox@github\\cRGB\\ChannelTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
