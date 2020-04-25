@@ -5,7 +5,7 @@ using cRGB.WPF.ViewModels;
 
 namespace cRGB.WPF
 {
-    public abstract class LedDevice :  ViewModelBase
+    public abstract class LedDeviceViewModel :  ViewModelBase
     {
 
     }

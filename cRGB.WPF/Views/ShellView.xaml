@@ -11,7 +11,50 @@
     Height="450"
     mc:Ignorable="d">
 
-    <DockPanel HorizontalAlignment="Stretch">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Rectangle
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Fill="Black" />
+
+        <StackPanel
+            Grid.RowSpan="3"
+            Grid.Column="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Black">
+            <Image
+                Width="80"
+                Height="80"
+                Source="/Resources/Images/cRGB Logo.png" />
+        </StackPanel>
+
+        <ListBox
+            Name="MenuItems"
+            Grid.Row="1"
+            Grid.Column="0"
+            Background="Black"
+            DisplayMemberPath="DisplayName"
+            Foreground="White"
+            SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" />
+
+        <ContentControl
+            Name="SelectedMenuItem"
+            Grid.Row="1"
+            Grid.Column="1" />
+
+    </Grid>
+
+    <!--<DockPanel HorizontalAlignment="Stretch">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="{DynamicResource ResourceKey=MenuHeader_File}" />
             <MenuItem Name="OpenTab" Header="OpenTab" />
@@ -35,6 +78,6 @@
 
 
         </TabControl>
-    </DockPanel>
+    </DockPanel>-->
 
 </Window>

@@ -8,6 +8,7 @@
     <sys:String x:Key="Name">Name</sys:String>
     <sys:String x:Key="SerialNumber">Serial Number</sys:String>
     <sys:String x:Key="MenuHeader_File">File</sys:String>
+    <sys:String x:Key="MenuItem_Overview">Overview</sys:String>
 
 
 

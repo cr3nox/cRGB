@@ -29,6 +29,10 @@ namespace cRGB.WPF
 
             container
                 .PerRequest<ShellViewModel>();
+            
+            // MenuItems
+            container.Singleton<MenuItemOverviewViewModel>();
+
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)

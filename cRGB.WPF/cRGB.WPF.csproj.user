@@ -10,6 +10,9 @@
     <Compile Update="Views\BlinkStickView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\MenuItemOverviewView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ShellView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -19,6 +22,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Page Update="Views\BlinkStickView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MenuItemOverviewView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ShellView.xaml">

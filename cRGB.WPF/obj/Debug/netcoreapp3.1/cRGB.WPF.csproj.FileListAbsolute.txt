@@ -23,9 +23,11 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF_Content.g.cs
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Localization\Translations\Strings.en-GB.xaml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Caliburn.Micro.Platform.dll
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Caliburn.Micro.Core.dll
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Microsoft.Xaml.Behaviors.dll
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\ShellView.baml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csproj.Fody.CopyLocal.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csproj.CopyComplete
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Resources\Images\cRGB Logo.png
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csprojAssemblyReference.cache
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\MenuItemOverviewView.g.cs
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\MenuItemOverviewView.baml

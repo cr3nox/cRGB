@@ -1,14 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KuXsEJ+YuHQfnV9yGnRHlnt/5Tf6N+jSfNX8qxOWoWJ0yPJvN45OdgpL/Tp0mxlBpF8SocFsW4UJUI7xfDRRXA==",
+  "dgSpecHash": "f0Ssj9TOzEQYtSTHNmc3+/CSo4162+8Izyt/eIkRgZY+brVw04zPtRGwQTUjR/7rM5ltIfV9DvFBAsdZoveICQ==",
   "success": true,
   "projectFilePath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.WPF\\cRGB.WPF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Andi\\.nuget\\packages\\caliburn.micro\\4.0.105-alpha\\caliburn.micro.4.0.105-alpha.nupkg.sha512",
     "C:\\Users\\Andi\\.nuget\\packages\\caliburn.micro.core\\4.0.105-alpha\\caliburn.micro.core.4.0.105-alpha.nupkg.sha512",
     "C:\\Users\\Andi\\.nuget\\packages\\fody\\6.1.1\\fody.6.1.1.nupkg.sha512",
-    "C:\\Users\\Andi\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.3\\microsoft.extensions.dependencyinjection.3.1.3.nupkg.sha512",
-    "C:\\Users\\Andi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.3\\microsoft.extensions.dependencyinjection.abstractions.3.1.3.nupkg.sha512",
     "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",

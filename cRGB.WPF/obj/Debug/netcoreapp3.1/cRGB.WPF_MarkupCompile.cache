@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\App.xaml
-21646548514
-1-1486002811
-91302926469
-205622027979
-Views\BlinkStickView.xaml;Views\ShellView.xaml;
+3-1708040529
+21731727612
+121047781645
+203651894826
+Views\BlinkStickView.xaml;Views\MenuItemOverviewView.xaml;Views\ShellView.xaml;
 
 False
 

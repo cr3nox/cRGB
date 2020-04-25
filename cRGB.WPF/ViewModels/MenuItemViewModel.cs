@@ -4,11 +4,8 @@ using System.Text;
 
 namespace cRGB.WPF.ViewModels
 {
-    public class BlinkStickViewModel : LedDeviceViewModel
+    public class MenuItemViewModel : ViewModelBase
     {
-        #region Properties
 
-
-        #endregion Properties
     }
 }
