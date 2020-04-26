@@ -7,8 +7,8 @@
     xmlns:local="clr-namespace:cRGB.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{DynamicResource ResourceKey=ShellViewWindowTitle}"
-    Width="800"
-    Height="450"
+    Width="1000"
+    Height="600"
     mc:Ignorable="d">
 
     <Grid>
@@ -21,35 +21,48 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Rectangle
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
-            Fill="Black" />
+        <!--<Rectangle Grid.Row="0" Grid.ColumnSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0" Color="White" />
+                    <GradientStop Offset="0.1" Color="#464646" />
+                    <GradientStop Offset="1" Color="Black" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>-->
 
         <StackPanel
             Grid.RowSpan="3"
             Grid.Column="0"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="Black">
+            VerticalAlignment="Stretch">
+
             <Image
                 Width="80"
                 Height="80"
-                Source="/Resources/Images/cRGB Logo.png" />
+                Source="/Resources/Icons/cRGB Logo.png" />
         </StackPanel>
+
 
         <ListBox
             Name="MenuItems"
             Grid.Row="1"
             Grid.Column="0"
-            Background="Black"
             DisplayMemberPath="DisplayName"
-            Foreground="White"
-            SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" />
+            SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+            <!--<ListBox.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0" Color="Black" />
+                    <GradientStop Offset="0.8" Color="#464646" />
+                    <GradientStop Offset="1" Color="White" />
+                </LinearGradientBrush>
+            </ListBox.Background>-->
+        </ListBox>
+
 
         <ContentControl
             Name="SelectedMenuItem"
-            Grid.Row="1"
+            Grid.RowSpan="2"
             Grid.Column="1" />
 
     </Grid>

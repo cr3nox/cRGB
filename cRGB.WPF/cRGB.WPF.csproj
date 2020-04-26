@@ -9,6 +9,11 @@
 
   <ItemGroup>
     <None Remove="Resources\cRGB Logo.png" />
+    <None Remove="Resources\Icons\AddConnection_16x.png" />
+    <None Remove="Resources\Icons\arduino.png" />
+    <None Remove="Resources\Icons\BlinkStick_Logo.png" />
+    <None Remove="Resources\Icons\cRGB Logo.ico" />
+    <None Remove="Resources\Icons\cRGB Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +25,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>MSBuild:Compile</Generator>
     </Content>
-    <Content Include="Resources\Images\cRGB Logo.png">
+    <Content Include="Resources\Icons\AddConnection_16x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\arduino.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\BlinkStick_Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\cRGB Logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\cRGB Logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -32,7 +49,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\Images\" />
     <Folder Include="Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\cRGB.Core\cRGB.Core.csproj" />
   </ItemGroup>
 
 </Project>

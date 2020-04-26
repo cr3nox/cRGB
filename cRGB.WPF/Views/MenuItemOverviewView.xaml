@@ -12,41 +12,49 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <MenuItem x:Name="AddPresetButton">
-                <MenuItem.Icon>
-                    <Image Height="20" Source="" />
-                </MenuItem.Icon>
-                <MenuItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Add Preset" />
-                        <Image
-                            Height="10"
-                            Margin="2,0,0,0"
-                            Source="/Resources/Icons/AddConnection_16x.png" />
-                    </StackPanel>
-                </MenuItem.Header>
-                <MenuItem.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Add 1" />
-                        <MenuItem Header="Add 2" />
-                        <MenuItem Header="Add 3" />
-                    </ContextMenu>
-                </MenuItem.ContextMenu>
-            </MenuItem>
-            <Label Content="TEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEST" Foreground="Green" />
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Horizontal">
+            <Label Content="{DynamicResource ResourceKey=MenuItemOverview_AddDevices}" />
+            <Button
+                Name="AddBlinkStick"
+                Width="25"
+                Height="25">
+                <Image Source="/Resources/Icons/BlinkStick_Logo.png" />
+            </Button>
+            <Button
+                Name="AddArduino"
+                Width="{Binding Path=ActualWidth, ElementName=AddBlinkStick}"
+                Height="{Binding Path=ActualHeight, ElementName=AddBlinkStick}">
+                <Image Source="/Resources/Icons/arduino.png" />
+            </Button>
+            <Button
+                Name="AddTestDevice"
+                Width="{Binding Path=ActualWidth, ElementName=AddBlinkStick}"
+                Height="{Binding Path=ActualHeight, ElementName=AddBlinkStick}">
+                <Image Source="/Resources/Icons/AddConnection_16x.png" />
+            </Button>
         </StackPanel>
+
         <ListBox
             Name="LedDevices"
             Grid.Row="1"
             Grid.Column="0"
-            Background="Black"
-            Foreground="White" />
+            DisplayMemberPath="Name"
+            SelectedItem="{Binding SelectedLedDevice, Mode=TwoWay}" />
+
+        <ContentControl
+            Name="SelectedLedDevice"
+            Grid.Row="1"
+            Grid.Column="1" />
+
     </Grid>
 </UserControl>

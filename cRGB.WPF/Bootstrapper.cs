@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
+using cRGB.Core;
 using cRGB.WPF.ViewModels;
 
 namespace cRGB.WPF
@@ -32,6 +33,9 @@ namespace cRGB.WPF
             
             // MenuItems
             container.Singleton<MenuItemOverviewViewModel>();
+
+            // Controllers
+            container.Singleton<BlinkStickController>();
 
         }
 

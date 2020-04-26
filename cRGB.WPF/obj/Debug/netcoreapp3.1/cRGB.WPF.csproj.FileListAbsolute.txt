@@ -27,7 +27,19 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Microsoft.Xaml.Behavio
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\ShellView.baml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csproj.Fody.CopyLocal.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csproj.CopyComplete
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Resources\Images\cRGB Logo.png
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csprojAssemblyReference.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\MenuItemOverviewView.g.cs
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\MenuItemOverviewView.baml
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Resources\Icons\AddConnection_16x.png
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Resources\Icons\arduino.png
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Resources\Icons\BlinkStick_Logo.png
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Resources\Icons\cRGB Logo.ico
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\Resources\Icons\cRGB Logo.png
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\BlinkStickDotNet.dll
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.Core.dll
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\HidSharp.dll
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\LibUsbDotNet.dll
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.Core.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\BlinkStickDotNet.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\HidSharp.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\LibUsbDotNet.pdb

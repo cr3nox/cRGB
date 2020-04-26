@@ -1313,6 +1313,53 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "BlinkStickDotNet/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "HidSharp": "1.0.0",
+          "LibUsbDotNet": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BlinkStickDotNet.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlinkStickDotNet.dll": {}
+        }
+      },
+      "cRGB.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "BlinkStickDotNet": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/cRGB.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/cRGB.Core.dll": {}
+        }
+      },
+      "HidSharp/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "LibUsbDotNet": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HidSharp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HidSharp.dll": {}
+        }
+      },
+      "LibUsbDotNet/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/LibUsbDotNet.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LibUsbDotNet.dll": {}
+        }
       }
     }
   },
@@ -4809,13 +4856,34 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "BlinkStickDotNet/1.0.0": {
+      "type": "project",
+      "path": "../BlinkStickDotNet/BlinkStickDotNet/BlinkStickDotNet.csproj",
+      "msbuildProject": "../BlinkStickDotNet/BlinkStickDotNet/BlinkStickDotNet.csproj"
+    },
+    "cRGB.Core/1.0.0": {
+      "type": "project",
+      "path": "../cRGB.Core/cRGB.Core.csproj",
+      "msbuildProject": "../cRGB.Core/cRGB.Core.csproj"
+    },
+    "HidSharp/1.0.0": {
+      "type": "project",
+      "path": "../BlinkStickDotNet/Components/HidSharp/HidSharp.csproj",
+      "msbuildProject": "../BlinkStickDotNet/Components/HidSharp/HidSharp.csproj"
+    },
+    "LibUsbDotNet/1.0.0": {
+      "type": "project",
+      "path": "../BlinkStickDotNet/Components/LibWinUsb/LibUsbDotNet.csproj",
+      "msbuildProject": "../BlinkStickDotNet/Components/LibWinUsb/LibUsbDotNet.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Caliburn.Micro >= 4.0.105-alpha",
       "Caliburn.Micro.Core >= 4.0.105-alpha",
-      "PropertyChanged.Fody >= 3.2.8"
+      "PropertyChanged.Fody >= 3.2.8",
+      "cRGB.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4851,7 +4919,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj": {
+              "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

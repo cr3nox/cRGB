@@ -8,6 +8,7 @@ namespace cRGB.WPF.ViewModels
     {
         #region Properties
 
+        public string Name { get; set; }
 
         #endregion Properties
     }

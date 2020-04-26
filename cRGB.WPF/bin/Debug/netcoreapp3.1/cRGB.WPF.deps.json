@@ -10,7 +10,8 @@
         "dependencies": {
           "Caliburn.Micro": "4.0.105-alpha",
           "Caliburn.Micro.Core": "4.0.105-alpha",
-          "PropertyChanged.Fody": "3.2.8"
+          "PropertyChanged.Fody": "3.2.8",
+          "cRGB.Core": "1.0.0"
         },
         "runtime": {
           "cRGB.WPF.dll": {}
@@ -734,6 +735,36 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
+      },
+      "BlinkStickDotNet/1.0.0": {
+        "dependencies": {
+          "HidSharp": "1.0.0",
+          "LibUsbDotNet": "1.0.0"
+        },
+        "runtime": {
+          "BlinkStickDotNet.dll": {}
+        }
+      },
+      "cRGB.Core/1.0.0": {
+        "dependencies": {
+          "BlinkStickDotNet": "1.0.0"
+        },
+        "runtime": {
+          "cRGB.Core.dll": {}
+        }
+      },
+      "HidSharp/1.0.0": {
+        "dependencies": {
+          "LibUsbDotNet": "1.0.0"
+        },
+        "runtime": {
+          "HidSharp.dll": {}
+        }
+      },
+      "LibUsbDotNet/1.0.0": {
+        "runtime": {
+          "LibUsbDotNet.dll": {}
+        }
       }
     }
   },
@@ -1302,6 +1333,26 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "BlinkStickDotNet/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "cRGB.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HidSharp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LibUsbDotNet/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
