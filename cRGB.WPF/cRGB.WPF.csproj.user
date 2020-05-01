@@ -7,13 +7,22 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\BlinkStickSettingsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DeviceSelectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\BlinkStickView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Devices\DeviceListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\MenuItemOverviewView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\ShellView.xaml.cs">
+    <Compile Update="Views\Shell\ShellView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -21,13 +30,22 @@
     <Content Update="Localization\Translations\Strings.en-GB.xaml">
       <SubType>Designer</SubType>
     </Content>
+    <Page Update="Views\BlinkStickSettingsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DeviceSelectionView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\BlinkStickView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Devices\DeviceListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\MenuItemOverviewView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\ShellView.xaml">
+    <Page Update="Views\Shell\ShellView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

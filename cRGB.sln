@@ -19,14 +19,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{1E121F55-001D-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experimentational", "Experimentational", "{1EAE6A21-3B96-4490-B3BB-DB02F15414F7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3B0F584D-3516-4FA3-B526-02E8844087E4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{3B0F584D-3516-4FA3-B526-02E8844087E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A62B3643-4081-4538-9AEB-18EE149F95B5}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cRGB.Core", "cRGB.Core\cRGB.Core.csproj", "{4FFBBE49-8F74-4D47-B9F6-08117F2CB612}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cRGB.Domain", "cRGB.Core\cRGB.Domain.csproj", "{4FFBBE49-8F74-4D47-B9F6-08117F2CB612}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

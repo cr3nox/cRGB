@@ -1,0 +1,16 @@
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\cRGB.Domain.deps.json
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\cRGB.Domain.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\cRGB.Domain.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\BlinkStickDotNet.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\HidSharp.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\LibUsbDotNet.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\BlinkStickDotNet.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\HidSharp.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.Core\bin\Debug\netcoreapp3.1\LibUsbDotNet.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.Core\obj\Debug\netcoreapp3.1\cRGB.Domain.csprojAssemblyReference.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Core\obj\Debug\netcoreapp3.1\cRGB.Domain.csproj.CoreCompileInputs.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Core\obj\Debug\netcoreapp3.1\cRGB.Domain.AssemblyInfoInputs.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Core\obj\Debug\netcoreapp3.1\cRGB.Domain.AssemblyInfo.cs
+D:\VS\cr3nox@github\cRGB\cRGB.Core\obj\Debug\netcoreapp3.1\cRGB.Domain.csproj.CopyComplete
+D:\VS\cr3nox@github\cRGB\cRGB.Core\obj\Debug\netcoreapp3.1\cRGB.Domain.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Core\obj\Debug\netcoreapp3.1\cRGB.Domain.pdb

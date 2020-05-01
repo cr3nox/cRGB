@@ -68,9 +68,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj",
-      "projectName": "cRGB.Core",
-      "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj",
+      "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj",
+      "projectName": "cRGB.Domain",
+      "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj",
       "packagesPath": "C:\\Users\\Andi\\.nuget\\packages\\",
       "outputPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\obj\\",
       "projectStyle": "PackageReference",

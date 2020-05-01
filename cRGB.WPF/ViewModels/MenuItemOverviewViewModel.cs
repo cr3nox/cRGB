@@ -2,27 +2,29 @@
 using System.Collections.Generic;
 using System.Text;
 using Caliburn.Micro;
-using cRGB.Core;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+using cRGB.Domain;
+using cRGB.WPF.Messages;
+using cRGB.WPF.ViewModels.Menu;
 
 namespace cRGB.WPF.ViewModels
 {
-    public sealed class MenuItemOverviewViewModel : MenuItemViewModel
+    public sealed class MenuItemOverviewViewModel : ViewModelBase, IHandle<DeviceSelectedMessage>
     {
-        public BindableCollection<LedDeviceViewModel> LedDevices { get; set; } = new BindableCollection<LedDeviceViewModel>();
-        public LedDeviceViewModel SelectedLedDevice { get; set; }
+        public BindableCollection<ViewModelBase> LedDevices { get; set; } = new BindableCollection<ViewModelBase>();
+        public ViewModelBase SelectedLedDevice { get; set; }
 
-        BlinkStickController _blinkStickController;
-
-        public MenuItemOverviewViewModel(BlinkStickController blinkStickController)
+        public MenuItemOverviewViewModel(IEventAggregator aggregator)
         {
             DisplayName = "Overview";
-            _blinkStickController = blinkStickController;
-        } 
+            aggregator.SubscribeOnUIThread(this);
+        }
 
         public void AddBlinkStick()
         {
-            var x = _blinkStickController.GetAllConnected();
-            var newDevice = new BlinkStickViewModel(){Name = "New Device"};
+            var newDevice = IoC.Get<BlinkStickViewModel>();
             LedDevices.Add(newDevice);
             SelectedLedDevice = newDevice;
         }
@@ -35,6 +37,16 @@ namespace cRGB.WPF.ViewModels
         public void AddTestDevice()
         {
             //throw new NotImplementedException();
+        }
+
+        public Task HandleAsync(DeviceSelectedMessage message, CancellationToken cancellationToken)
+        {
+            if (message.SelectedDevice != null)
+                return null;
+            LedDevices.Remove(SelectedLedDevice);
+            SelectedLedDevice = null;
+            return Task.CompletedTask;
+
         }
     }
 }

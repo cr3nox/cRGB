@@ -9,10 +9,10 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("localization/translations/strings.en-gb.xaml")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/addconnection_16x.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/arduino.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/arduino_logo.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/blinkstick_logo.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/crgb%20logo.ico")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/crgb%20logo.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/raspberry_pi_logo.png")]
 
 

@@ -1,7 +1,3 @@
-D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.csprojAssemblyReference.cache
-D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.csproj.CoreCompileInputs.cache
-D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.AssemblyInfoInputs.cache
-D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.AssemblyInfo.cs
 D:\VS\cr3nox@github\cRGB\ChannelTest\bin\Debug\netcoreapp3.1\ChannelTest.exe
 D:\VS\cr3nox@github\cRGB\ChannelTest\bin\Debug\netcoreapp3.1\ChannelTest.deps.json
 D:\VS\cr3nox@github\cRGB\ChannelTest\bin\Debug\netcoreapp3.1\ChannelTest.runtimeconfig.json
@@ -14,6 +10,10 @@ D:\VS\cr3nox@github\cRGB\ChannelTest\bin\Debug\netcoreapp3.1\LibUsbDotNet.dll
 D:\VS\cr3nox@github\cRGB\ChannelTest\bin\Debug\netcoreapp3.1\BlinkStickDotNet.pdb
 D:\VS\cr3nox@github\cRGB\ChannelTest\bin\Debug\netcoreapp3.1\HidSharp.pdb
 D:\VS\cr3nox@github\cRGB\ChannelTest\bin\Debug\netcoreapp3.1\LibUsbDotNet.pdb
+D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.csprojAssemblyReference.cache
+D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.csproj.CoreCompileInputs.cache
+D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.AssemblyInfoInputs.cache
+D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.AssemblyInfo.cs
 D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.csproj.CopyComplete
 D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.dll
 D:\VS\cr3nox@github\cRGB\ChannelTest\obj\Debug\netcoreapp3.1\ChannelTest.pdb

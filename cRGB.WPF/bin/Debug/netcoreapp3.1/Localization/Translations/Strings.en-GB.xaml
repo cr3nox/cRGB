@@ -2,15 +2,32 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
-    <sys:String x:Key="ResourceDictionaryName">Loc-en-GB</sys:String>
 
     <sys:String x:Key="ShellViewWindowTitle">cRGB</sys:String>
     <sys:String x:Key="Name">Name</sys:String>
+    <sys:String x:Key="Description">Description</sys:String>
+    <sys:String x:Key="Devices">Devices</sys:String>
+    <sys:String x:Key="DeviceType">Device Type</sys:String>
     <sys:String x:Key="SerialNumber">Serial Number</sys:String>
+    <sys:String x:Key="InfoBlock1">Info Block 1</sys:String>
+    <sys:String x:Key="InfoBlock2">Info Block 2</sys:String>
+    <sys:String x:Key="RChannelLeds">R Channel LEDs</sys:String>
+    <sys:String x:Key="GChannelLeds">G Channel LEDs</sys:String>
+    <sys:String x:Key="BChannelLeds">B Channel LEDs</sys:String>
+    <sys:String x:Key="LimitBrightness">Limit Brightness</sys:String>
+    <sys:String x:Key="Invert">Invert</sys:String>
+    <sys:String x:Key="IgnoredLeds">Ignored Leds</sys:String>
+    <sys:String x:Key="MenuItem_DeviceList">Devices</sys:String>
+    <sys:String x:Key="MenuItem_NewDevice">New Device</sys:String>
     <sys:String x:Key="MenuHeader_File">File</sys:String>
     <sys:String x:Key="MenuItem_Overview">Overview</sys:String>
-    <sys:String x:Key="MenuItemOverview_AddDevices">Add Devices</sys:String>
-
-
-
+    <sys:String x:Key="AddDevices">Add Device</sys:String>
+    <sys:String x:Key="DeviceSelectionView_Title">Device Selection</sys:String>
+    <sys:String x:Key="DeviceSelectionView_FoundDevices">Found Devices</sys:String>
+    <sys:String x:Key="Button_OK">Ok</sys:String>
+    <sys:String x:Key="Button_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Button_Apply">Apply</sys:String>
+    <sys:String x:Key="AddDeviceBlinkStick">BlinkStick</sys:String>
+    <sys:String x:Key="AddDeviceArduino">Arduino</sys:String>
+    <sys:String x:Key="AddDeviceTestDevice">Test Device</sys:String>
 </ResourceDictionary>

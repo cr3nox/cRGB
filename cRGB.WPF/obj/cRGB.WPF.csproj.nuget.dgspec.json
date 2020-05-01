@@ -58,12 +58,12 @@
         "net40": {}
       }
     },
-    "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj": {
+    "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj",
-        "projectName": "cRGB.Core",
-        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj",
+        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj",
+        "projectName": "cRGB.Domain",
+        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj",
         "packagesPath": "C:\\Users\\Andi\\.nuget\\packages\\",
         "outputPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\obj\\",
         "projectStyle": "PackageReference",
@@ -149,8 +149,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj": {
-                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Core.csproj"
+              "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj": {
+                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj"
               }
             }
           }
@@ -171,6 +171,10 @@
             "Caliburn.Micro.Core": {
               "target": "Package",
               "version": "[4.0.105-alpha, )"
+            },
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[3.1.1, )"
             },
             "PropertyChanged.Fody": {
               "target": "Package",

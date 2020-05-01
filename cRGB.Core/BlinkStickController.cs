@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using BlinkStickDotNet;
 
-namespace cRGB.Core
+namespace cRGB.Domain
 {
     public class BlinkStickController
     {
@@ -16,12 +14,37 @@ namespace cRGB.Core
 
         }
 
-        public ObservableCollection<string> GetAllConnected()
+        public List<BlinkStick> FindAll()
         {
-            var x = BlinkStick.FindAll();
-            var dev = x.First();
-            
-            return null;
+            return BlinkStick.FindAll().ToList();
+        }
+
+        public List<BlinkStick> FindAllNotAlreadyConfigured()
+        {
+            var sticks = FindAll();
+            return sticks.Where(o => BlinkSticks.All(b => b.Serial != o.Serial)).ToList();
+        }
+
+        public BlinkStick Find(string serial)
+        {
+            return BlinkStick.FindBySerial(serial);
+        }
+
+        public BlinkStick AddBlinkStick(string serial)
+        {
+            var stick = BlinkStick.FindBySerial(serial);
+            BlinkSticks.Add(stick);
+            return stick;
+        }
+
+        public void AddBlinkStick(BlinkStick stick)
+        {
+            BlinkSticks.Add(stick);
+        }
+
+        public ObservableCollection<BlinkStick> GetAllConfigured()
+        {
+            return BlinkSticks;
         }
     }
 }
