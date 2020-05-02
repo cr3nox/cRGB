@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.DirectoryServices.ActiveDirectory;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using BlinkStickDotNet;
 using Caliburn.Micro;
-using cRGB.Domain;
 using cRGB.WPF.Messages;
 using PropertyChanged;
 
-namespace cRGB.WPF.ViewModels
+namespace cRGB.WPF.ViewModels.Device
 {
     public class DeviceSelectionViewModel : ViewModelBase
     {

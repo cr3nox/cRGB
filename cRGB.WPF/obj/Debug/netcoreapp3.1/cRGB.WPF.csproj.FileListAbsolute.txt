@@ -25,9 +25,6 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\HidSharp.pdb
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\LibUsbDotNet.pdb
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csprojAssemblyReference.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\BlinkStickSettingsView.g.cs
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\BlinkStickView.g.cs
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\DeviceSelectionView.g.cs
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Devices\DeviceListView.g.cs
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\MenuItemOverviewView.g.cs
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Shell\ShellView.g.cs
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\App.g.cs
@@ -37,9 +34,6 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF_MarkupCompile
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF_MarkupCompile.lref
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\App.baml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\BlinkStickSettingsView.baml
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\BlinkStickView.baml
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\DeviceSelectionView.baml
-D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Devices\DeviceListView.baml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\MenuItemOverviewView.baml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Shell\ShellView.baml
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.g.resources
@@ -51,3 +45,9 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.csproj.CopyCo
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.dll
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.pdb
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.genruntimeconfig.cache
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\BlinkStickView.g.cs
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\DeviceListView.g.cs
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\DeviceSelectionView.g.cs
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\BlinkStickView.baml
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\DeviceListView.baml
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\DeviceSelectionView.baml

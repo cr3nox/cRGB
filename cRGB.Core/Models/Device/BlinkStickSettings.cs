@@ -1,7 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace cRGB.Domain.Models
+namespace cRGB.Domain.Models.Device
 {
     [Serializable]
     public class BlinkStickSettings

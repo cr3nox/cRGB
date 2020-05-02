@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="cRGB.WPF.Views.Devices.DeviceListView"
+    x:Class="cRGB.WPF.Views.Device.DeviceListView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
@@ -59,17 +59,21 @@
                     </DockPanel>
                 </GroupBox.Header>
                 <StackPanel>
-                    <ListView Name="LedDevices">
+
+                    <ListView
+                        Name="LedDevices"
+                        cm:Message.Attach="[Event MouseDoubleClick] = [Action RowDoubleClick()]"
+                        SelectedItem="SelectedLedDevice">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Settings.Name}" Header="{DynamicResource ResourceKey=Name}" />
-                                <GridViewColumn DisplayMemberBinding="{Binding Settings.Description}" Header="{DynamicResource ResourceKey=Description}" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="{DynamicResource ResourceKey=Name}" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="{DynamicResource ResourceKey=Description}" />
                                 <GridViewColumn DisplayMemberBinding="{Binding DeviceType}" Header="{DynamicResource ResourceKey=DeviceType}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
+
                     <materialDesign:PopupBox
-                        Name="AddDevicePopupBox"
                         Width="40"
                         Height="40"
                         Margin="0,5,0,0"

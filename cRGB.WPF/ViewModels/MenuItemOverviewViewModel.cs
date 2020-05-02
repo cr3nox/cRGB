@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using cRGB.Domain;
 using cRGB.WPF.Messages;
+using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Menu;
 
 namespace cRGB.WPF.ViewModels

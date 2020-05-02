@@ -10,13 +10,13 @@
     <Compile Update="Views\BlinkStickSettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\DeviceSelectionView.xaml.cs">
+    <Compile Update="Views\Device\DeviceSelectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\BlinkStickView.xaml.cs">
+    <Compile Update="Views\Device\BlinkStickView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Devices\DeviceListView.xaml.cs">
+    <Compile Update="Views\Device\DeviceListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\MenuItemOverviewView.xaml.cs">
@@ -33,13 +33,13 @@
     <Page Update="Views\BlinkStickSettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\DeviceSelectionView.xaml">
+    <Page Update="Views\Device\DeviceSelectionView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\BlinkStickView.xaml">
+    <Page Update="Views\Device\BlinkStickView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Devices\DeviceListView.xaml">
+    <Page Update="Views\Device\DeviceListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\MenuItemOverviewView.xaml">

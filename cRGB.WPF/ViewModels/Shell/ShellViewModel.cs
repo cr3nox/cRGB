@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
-using cRGB.WPF.ViewModels.Devices;
+using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Menu;
 using MaterialDesignThemes.Wpf;
 using Screen = Caliburn.Micro.Screen;
@@ -44,7 +44,11 @@ namespace cRGB.WPF.ViewModels.Shell
             if (message.SelectedItem.IsSelected)
             {
                 SelectedMenuItem = message.SelectedItem;
-                ActivateItemAsync(SelectedMenuItem.ViewModel, new CancellationToken());
+                if (SelectedMenuItem.ViewModel is INotifyMeOnMenuSelect menuViewModel)
+                {
+                    menuViewModel.OnMenuSelect();
+                }
+                ActivateView(SelectedMenuItem);
             }
 
             return Task.CompletedTask;

@@ -7,10 +7,9 @@ using Caliburn.Micro;
 using cRGB.Domain;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.ViewModels;
-using cRGB.WPF.ViewModels.Devices;
+using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Menu;
 using cRGB.WPF.ViewModels.Shell;
-using cRGB.WPF.Views;
 
 namespace cRGB.WPF
 {
@@ -25,6 +24,8 @@ namespace cRGB.WPF
 
         protected override void Configure()
         {
+            LogManager.GetLog = type => new DebugLog(type);
+
             _container = new SimpleContainer();
 
             _container.Instance(_container);
@@ -42,14 +43,14 @@ namespace cRGB.WPF
             // ViewModels
             _container.PerRequest<MenuItemViewModel>();
             _container.PerRequest<DeviceListViewModel>();
-            //old
-            _container.Singleton<MenuItemOverviewViewModel>();
             _container.Singleton<BlinkStickViewModel>();
             _container.PerRequest<DeviceSelectionViewModel>();
             _container.PerRequest<BlinkStickSettingsViewModel>();
+            //old
+            _container.Singleton<MenuItemOverviewViewModel>();
 
             // Controllers
-            _container.Singleton<BlinkStickController>();
+            _container.Singleton<BlinkStickService>();
             
         }
 

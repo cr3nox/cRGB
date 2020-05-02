@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace cRGB.WPF.Views
+namespace cRGB.WPF.Views.Device
 {
     /// <summary>
     /// Interaction logic for BlinkStickSelection.xaml

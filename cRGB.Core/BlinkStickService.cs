@@ -5,11 +5,11 @@ using BlinkStickDotNet;
 
 namespace cRGB.Domain
 {
-    public class BlinkStickController
+    public class BlinkStickService
     {
         public ObservableCollection<BlinkStick> BlinkSticks = new ObservableCollection<BlinkStick>();
 
-        public BlinkStickController()
+        public BlinkStickService()
         {
 
         }

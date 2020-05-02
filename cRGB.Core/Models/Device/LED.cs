@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
-namespace cRGB.Domain.Models
+namespace cRGB.Domain.Models.Device
 {
-    public class LED
+    public class Led : ILed
     {
         public bool Enabled { get; set; } = true;
 
@@ -16,7 +16,7 @@ namespace cRGB.Domain.Models
 
         public Color GetLedAsColor => Color.FromArgb(0, R, G, B);
 
-        public byte[] GetLedAsBytes => new byte[3] {(byte)R, (byte)G, (byte)B};
+        public byte[] GetLedAsByteArray => new byte[3] {(byte)R, (byte)G, (byte)B};
         
     }
 }
