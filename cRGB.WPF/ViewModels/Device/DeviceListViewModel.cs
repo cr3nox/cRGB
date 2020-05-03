@@ -34,8 +34,8 @@ namespace cRGB.WPF.ViewModels.Device
         {
             var newDevice = IoC.Get<BlinkStickViewModel>();
             LedDevices.Add(newDevice);
+            newDevice.Create(Menu.CreateChild(newDevice, icon: PackIconKind.UsbFlashDriveOutline));
             newDevice.DeviceName = _loc.GetByKey("MenuItem_NewDevice");
-            newDevice.Create(Menu.CreateChild(newDevice, false, PackIconKind.UsbFlashDriveOutline));
         }
 
         public void AddArduino()

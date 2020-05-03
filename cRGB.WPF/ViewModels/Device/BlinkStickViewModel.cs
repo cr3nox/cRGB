@@ -18,6 +18,7 @@ using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
 using cRGB.WPF.ViewModels.Menu;
 using cRGB.WPF.Views.Device;
+using MaterialDesignThemes.Wpf;
 using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Device
@@ -29,6 +30,7 @@ namespace cRGB.WPF.ViewModels.Device
 
         readonly IBlinkStickService _blinkStickService;
         readonly IEventAggregator _eventAggregator;
+        readonly ILocalizationHelper _loc;
         BlinkStick _device;
 
         public BlinkStick Device
@@ -37,7 +39,6 @@ namespace cRGB.WPF.ViewModels.Device
             set
             {
                 _device = value ?? throw new ArgumentNullException(nameof(value));
-                InitSettings();
                 Settings.SerialNumber = _device.Serial;
                 _blinkStickService.AddBlinkStick(Device);
                 InitDevice();
@@ -46,25 +47,28 @@ namespace cRGB.WPF.ViewModels.Device
 
         public override string DeviceName
         {
-            get => Settings?.Name;
+            get => Settings.DeviceName;
             set
             {
-                InitSettings();
+                if (value == null || Settings.DeviceName == value) return;
 
-                if (value == null || Settings.Name == value) return;
-
-                Settings.Name = value;
-                DisplayName = DeviceName;
+                Settings.DeviceName = value;
             }
+        }
+
+        /// <summary>
+        /// Gets called when DeviceName throws PropertyChanged
+        /// </summary>
+        public void OnDeviceNameChanged()
+        {
+            DisplayName = DeviceName;
         }
 
         public override string Description
         {
-            get => Settings?.Description;
+            get => Settings.Description;
             set
             {
-                InitSettings();
-
                 if (value == null || Settings.Description == value) return;
 
                 Settings.Description = value;
@@ -82,29 +86,40 @@ namespace cRGB.WPF.ViewModels.Device
         #endregion Properties
 
 
-        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator)
+        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc)
         {
             _blinkStickService = blinkStickService;
             DeviceSelection = IoC.Get<DeviceSelectionViewModel>();
             DeviceSelection.AddBlinkSticks(_blinkStickService.FindAllNotAlreadyConfigured());
             _eventAggregator = aggregator;
             _eventAggregator.SubscribeOnUIThread(this);
+            _loc = loc;
+            InitSettings();
         }
         private void InitSettings()
         {
-            if (Settings == null)
-                Settings = IoC.Get<BlinkStickSettingsViewModel>();
+            if (Settings != null) return;
+
+            Settings = IoC.Get<BlinkStickSettingsViewModel>();
+            Settings.ParentViewModel = this;
+            Settings.PropertyChanged += Settings_PropertyChanged;
         }
 
-        public void Create(MenuItemViewModel menu = null)
+        private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (Settings == null)
-            {
-                Settings = IoC.Get<BlinkStickSettingsViewModel>();
-            }
+            if (e.PropertyName != nameof(DeviceName)) return;
 
-            if (menu != null)
-                Menu = menu;
+            OnDeviceNameChanged();
+            OnPropertyChanged(e);
+        }
+
+        public void Create(MenuItemViewModel menu)
+        {
+            if (Menu != null)
+                return;
+
+            Menu = menu;
+            Menu.CreateChild(Settings, PackIconKind.Cog, true,_loc.GetByKey("Settings"));
         }
 
         public void LoadExistingSettings()

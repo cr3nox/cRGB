@@ -67,7 +67,7 @@ namespace cRGB.WPF.ViewModels.Menu
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Header)));
         }
 
-        public void Create(ViewModelBase viewModel, MenuItemViewModel parent = null, bool isExpanded = false, PackIconKind icon = PackIconKind.None, string displayName = null)
+        public void Create(ViewModelBase viewModel, MenuItemViewModel parent = null, PackIconKind icon = PackIconKind.None, string displayName = null, bool isExpanded = true)
         {
             ViewModel = viewModel;
             ParentMenuItem = parent;
@@ -76,10 +76,10 @@ namespace cRGB.WPF.ViewModels.Menu
             if (!string.IsNullOrEmpty(displayName)) ViewModel.DisplayName = displayName;
         }
 
-        public MenuItemViewModel CreateChild(ViewModelBase viewModel, bool isExpanded = false, PackIconKind icon = PackIconKind.None)
+        public MenuItemViewModel CreateChild(ViewModelBase viewModel, PackIconKind icon = PackIconKind.None, bool isExpanded = true, string displayName = null)
         {
             var child = IoC.Get<MenuItemViewModel>();
-            child.Create(viewModel, this, true, PackIconKind.Abc);
+            child.Create(viewModel, this, icon, displayName, true);
             child.ViewModel = viewModel;
             child.ParentMenuItem = this;
             child.Icon = icon;

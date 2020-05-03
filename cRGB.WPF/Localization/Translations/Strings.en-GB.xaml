@@ -4,7 +4,7 @@
     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
     <sys:String x:Key="ShellViewWindowTitle">cRGB</sys:String>
-    <sys:String x:Key="DeviceName">DeviceName</sys:String>
+    <sys:String x:Key="DeviceDeviceName">DeviceDeviceName</sys:String>
     <sys:String x:Key="Description">Description</sys:String>
     <sys:String x:Key="Devices">Devices</sys:String>
     <sys:String x:Key="DeviceType">Device Type</sys:String>
@@ -35,4 +35,5 @@
     <sys:String x:Key="FieldRequired">Field is required.</sys:String>
     <sys:String x:Key="DeviceInfo">Device Info</sys:String>
     <sys:String x:Key="DeviceSettings">Device Settings</sys:String>
+    <sys:String x:Key="Settings">Settings</sys:String>
 </ResourceDictionary>

@@ -48,7 +48,7 @@
             Name="LedDevices"
             Grid.Row="1"
             Grid.Column="0"
-            DisplayMemberPath="DeviceName"
+            DisplayMemberPath="DeviceDeviceName"
             SelectedItem="{Binding SelectedLedDevice, Mode=TwoWay}" />
 
         <ContentControl

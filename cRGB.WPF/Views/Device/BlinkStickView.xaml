@@ -35,8 +35,6 @@
             ClipToBounds="True">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-
-
                     <!--<Button
                     Name="DeviceSelectionButton"
                     HorizontalAlignment="Center"

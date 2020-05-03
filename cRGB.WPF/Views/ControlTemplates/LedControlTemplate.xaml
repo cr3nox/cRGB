@@ -10,8 +10,8 @@
             <converters:ColorByteArrayToSolidColorBrushConverter x:Key="ColorByteArrayToSolidColorBrushConverter" />
         </ControlTemplate.Resources>
         <Grid
-            Width="22"
-            Height="22"
+            Width="25"
+            Height="25"
             Margin="0,0,2,0">
             <!--<Ellipse Width="22" Height="22">
                 <Ellipse.Style>
@@ -27,8 +27,8 @@
             </Ellipse>-->
             <materialDesign:PackIcon
                 Name="LedIcon"
-                Width="22"
-                Height="22">
+                Width="25"
+                Height="25">
                 <materialDesign:PackIcon.Style>
                     <Style TargetType="materialDesign:PackIcon">
                         <Setter Property="Foreground">
@@ -79,7 +79,7 @@
         <ControlTemplate.Resources>
             <converters:ColorByteArrayToSolidColorBrushConverter x:Key="ColorByteArrayToSolidColorBrushConverter" />
         </ControlTemplate.Resources>
-        <Grid>
+        <Grid cm:Message.Attach="[Event MouseDown] = [Action SwapEnabled()]">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -92,9 +92,8 @@
             <materialDesign:PackIcon
                 Name="LedIcon"
                 Grid.Row="1"
-                Width="22"
-                Height="22"
-                cm:Message.Attach="[Event MouseDown] = [Action SwapEnabled()]">
+                Width="25"
+                Height="25">
                 <materialDesign:PackIcon.Style>
                     <Style TargetType="materialDesign:PackIcon">
                         <Setter Property="Foreground">
@@ -111,9 +110,9 @@
                                         <Storyboard>
                                             <DoubleAnimation
                                                 Storyboard.TargetProperty="Opacity"
-                                                From="0"
-                                                To="1"
-                                                Duration="0:0:0.8" />
+                                                From="1"
+                                                To="0.8"
+                                                Duration="0:0:0.5" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>
@@ -126,9 +125,9 @@
                                         <Storyboard>
                                             <DoubleAnimation
                                                 Storyboard.TargetProperty="Opacity"
-                                                From="0"
+                                                From="0.8"
                                                 To="1"
-                                                Duration="0:0:0.8" />
+                                                Duration="0:0:0.5" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </DataTrigger.EnterActions>

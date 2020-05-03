@@ -4,16 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:cRGB.WPF.Views.Device"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validators="clr-namespace:cRGB.WPF.Validators"
     mc:Ignorable="d">
     <Border
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-            BorderThickness="1"
-            ClipToBounds="True">
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+        BorderThickness="1"
+        ClipToBounds="True">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <GroupBox Margin="16" HorizontalAlignment="Stretch">
@@ -26,11 +26,11 @@
                     </GroupBox.Header>
                     <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                         <TextBox
-                                Name="DeviceName"
-                                Margin="15,0,15,0"
-                                VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            Name="DeviceName"
+                            Margin="15,0,15,0"
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                             <Binding Path="DeviceName" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
@@ -38,28 +38,12 @@
                             </Binding>
                         </TextBox>
                         <TextBox
-                                Margin="0,0,15,0"
-                                VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=SerialNumber}"
-                                IsReadOnly="True"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding Device.Serial, Mode=OneWay}" />
-                        <!--<TextBox
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock1}"
-                    IsReadOnly="True"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding Device.InfoBlock1, Mode=OneWay}" />
-                <TextBox
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock2}"
-                    IsReadOnly="True"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding Device.InfoBlock2, Mode=OneWay}" />-->
+                            Name="SerialNumber"
+                            Margin="0,0,15,0"
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=SerialNumber}"
+                            IsReadOnly="True"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -73,9 +57,9 @@
                     </GroupBox.Header>
 
                     <ItemsControl
-                            Name="RChannelLedColors"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
+                        Name="RChannelLedColors"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -83,7 +67,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
+                                <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -100,9 +84,9 @@
                     </GroupBox.Header>
 
                     <ItemsControl
-                            Name="GChannelLedColors"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
+                        Name="GChannelLedColors"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -110,7 +94,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
+                                <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -127,9 +111,9 @@
                     </GroupBox.Header>
 
                     <ItemsControl
-                            Name="BChannelLedColors"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
+                        Name="BChannelLedColors"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -137,7 +121,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
+                                <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

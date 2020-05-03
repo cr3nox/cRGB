@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Documents;
+using System.Xml.Serialization;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Device;
 
@@ -10,7 +11,7 @@ namespace cRGB.WPF.ViewModels.Device
     {
         IBlinkStickSettings _blinkStickSettings = new BlinkStickSettings();
 
-        public string Name
+        public string DeviceName
         {
             get => _blinkStickSettings.Name;
             set => _blinkStickSettings.Name = value;
@@ -90,7 +91,28 @@ namespace cRGB.WPF.ViewModels.Device
             get => new BindableCollection<int>(_blinkStickSettings.DisabledLeds);
             set => _blinkStickSettings.DisabledLeds = value.ToList();
         }
-    
+
+
+
+
+        [XmlIgnore]
+        public BlinkStickViewModel ParentViewModel { get; set; }
+
+        public BindableCollection<Led> RChannelLedColors
+        {
+            get => ParentViewModel.RChannelLedColors;
+            set => ParentViewModel.RChannelLedColors = value;
+        }
+        public BindableCollection<Led> GChannelLedColors
+        {
+            get => ParentViewModel.GChannelLedColors;
+            set => ParentViewModel.GChannelLedColors = value;
+        }
+        public BindableCollection<Led> BChannelLedColors
+        {
+            get => ParentViewModel.BChannelLedColors;
+            set => ParentViewModel.BChannelLedColors = value;
+        }
 
         public BlinkStickSettingsViewModel()
         {

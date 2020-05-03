@@ -26,7 +26,7 @@ namespace cRGB.Domain.Models.Device
         [DataMember]
         public bool BChannelLedInvert { get; set; } = false;
         [DataMember]
-        public IEnumerable<int> DisabledLeds { get; set; }
+        public IEnumerable<int> DisabledLeds { get; set; } = new List<int>();
 
     }
 }
