@@ -34,4 +34,5 @@
     <sys:String x:Key="SelectADevice">Select a Device</sys:String>
     <sys:String x:Key="FieldRequired">Field is required.</sys:String>
     <sys:String x:Key="DeviceInfo">Device Info</sys:String>
+    <sys:String x:Key="DeviceSettings">Device Settings</sys:String>
 </ResourceDictionary>

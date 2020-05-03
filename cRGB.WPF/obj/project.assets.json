@@ -1355,7 +1355,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "BlinkStickDotNet": "1.0.0"
+          "BlinkStickDotNet": "1.0.0",
+          "PropertyChanged.Fody": "3.2.8"
         },
         "compile": {
           "bin/placeholder/cRGB.Domain.dll": {}

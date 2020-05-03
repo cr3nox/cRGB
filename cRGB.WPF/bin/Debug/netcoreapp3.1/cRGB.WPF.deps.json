@@ -767,7 +767,8 @@
       },
       "cRGB.Domain/1.0.0": {
         "dependencies": {
-          "BlinkStickDotNet": "1.0.0"
+          "BlinkStickDotNet": "1.0.0",
+          "PropertyChanged.Fody": "3.2.8"
         },
         "runtime": {
           "cRGB.Domain.dll": {}

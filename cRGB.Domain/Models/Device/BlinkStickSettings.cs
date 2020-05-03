@@ -1,18 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace cRGB.Domain.Models.Device
 {
-    [Serializable]
-    public class BlinkStickSettings
+    [DataContract]
+    public class BlinkStickSettings : IBlinkStickSettings
     {
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
+        public string Description { get; set; }
+        [DataMember]
         public string SerialNumber { get; set; }
-        public int RChannelLedCount { get; set; } = 0;
-        public int GChannelLedCount { get; set; } = 0;
-        public int BChannelLedCount { get; set; } = 0;
+        [DataMember]
+        public int RChannelLedCount { get; set; } = 64;
+        [DataMember]
+        public int GChannelLedCount { get; set; } = 64;
+        [DataMember]
+        public int BChannelLedCount { get; set; } = 64;
+        [DataMember]
         public bool RChannelLedInvert { get; set; } = false;
+        [DataMember]
         public bool GChannelLedInvert { get; set; } = false;
+        [DataMember]
         public bool BChannelLedInvert { get; set; } = false;
+        [DataMember]
+        public IEnumerable<int> DisabledLeds { get; set; }
 
     }
 }

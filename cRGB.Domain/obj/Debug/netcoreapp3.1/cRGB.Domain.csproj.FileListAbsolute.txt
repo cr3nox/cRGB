@@ -27,6 +27,7 @@ D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.csprojA
 D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.csproj.CoreCompileInputs.cache
 D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.AssemblyInfoInputs.cache
 D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.AssemblyInfo.cs
+D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.csproj.Fody.CopyLocal.cache
 D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.csproj.CopyComplete
 D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.dll
 D:\VS\cr3nox@github\cRGB\cRGB.Domain\obj\Debug\netcoreapp3.1\cRGB.Domain.pdb

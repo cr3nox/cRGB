@@ -11,9 +11,9 @@ namespace cRGB.WPF.ViewModels.Device
         public virtual string Description { get; set; }
         public virtual ELedDeviceType DeviceType { get; set; }
 
-        public BindableCollection<LedViewModel> RChannelLedColors { get; set; } = new BindableCollection<LedViewModel>();
-        public BindableCollection<LedViewModel> GChannelLedColors { get; set; } = new BindableCollection<LedViewModel>();
-        public BindableCollection<LedViewModel> BChannelLedColors { get; set; } = new BindableCollection<LedViewModel>();
+        public BindableCollection<Led> RChannelLedColors { get; set; } = new BindableCollection<Led>();
+        public BindableCollection<Led> GChannelLedColors { get; set; } = new BindableCollection<Led>();
+        public BindableCollection<Led> BChannelLedColors { get; set; } = new BindableCollection<Led>();
         public MenuItemViewModel Menu { get; set; }
 
     }

@@ -48,12 +48,11 @@ namespace cRGB.WPF
             _container.PerRequest<BlinkStickViewModel>();
             _container.PerRequest<DeviceSelectionViewModel>();
             _container.PerRequest<BlinkStickSettingsViewModel>();
-            _container.PerRequest<LedViewModel>();
-            //old
-            _container.Singleton<MenuItemOverviewViewModel>();
-
-            // Controllers
+            
+            // Services
             _container.Singleton<IBlinkStickService, BlinkStickService>();
+            _container.Singleton<IXmlSerializationService, XmlSerializationService>();
+            _container.Singleton<IXmlSerializationService, XmlSerializationService>();
             
         }
 
@@ -81,6 +80,12 @@ namespace cRGB.WPF
         {
             e.Handled = true;
             MessageBox.Show(e.Exception.Message, "An error as occurred", MessageBoxButton.OK);
+        }
+
+        protected override void OnExit(object sender, EventArgs e)
+        {
+
+            base.OnExit(sender, e);
         }
     }
 }

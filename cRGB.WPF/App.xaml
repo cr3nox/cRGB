@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Localization/Translations/Strings.en-GB.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="Views/ControlTemplates/LedControlTemplate.xaml" />
                 <materialDesign:BundledTheme
                     BaseTheme="Dark"
                     PrimaryColor="Orange"

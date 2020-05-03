@@ -54,6 +54,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\" />
+    <Folder Include="Views\Controls\" />
   </ItemGroup>
 
   <ItemGroup>

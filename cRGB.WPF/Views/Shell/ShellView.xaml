@@ -56,7 +56,7 @@
                         Height="40"
                         Source="/Resources/Icons/cRGB Logo.png" />
                     <TextBlock Margin="16,0,0,0" VerticalAlignment="Center">
-                        Material Design In XAML Toolkit
+                        :D *blink*
                     </TextBlock>
                 </StackPanel>
             </DockPanel>

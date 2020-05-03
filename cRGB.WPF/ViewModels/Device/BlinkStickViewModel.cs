@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using BlinkStickDotNet;
@@ -20,17 +22,13 @@ using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Device
 {
-    [Serializable]
+    [DataContract]
     public class BlinkStickViewModel : LedDeviceViewModel, IHandle<DeviceSelectedMessage>
     {
         #region Properties
 
-        [NonSerialized]
         readonly IBlinkStickService _blinkStickService;
-        [NonSerialized]
         readonly IEventAggregator _eventAggregator;
-
-        [NonSerialized]
         BlinkStick _device;
 
         public BlinkStick Device
@@ -60,11 +58,23 @@ namespace cRGB.WPF.ViewModels.Device
             }
         }
 
-        public override string Description { get; set; }
+        public override string Description
+        {
+            get => Settings?.Description;
+            set
+            {
+                InitSettings();
+
+                if (value == null || Settings.Description == value) return;
+
+                Settings.Description = value;
+            }
+        }
 
         public DeviceSelectionViewModel DeviceSelection { get; set; }
         //public DeviceSelectionView DeviceSelectionView => ViewLocator.LocateForModel(DeviceSelection, null, null);
         
+        [DataMember]
         public BlinkStickSettingsViewModel Settings { get; set; }
 
         public bool IsDeviceSelectionOpen { get; set; } = true;
@@ -119,29 +129,25 @@ namespace cRGB.WPF.ViewModels.Device
 
         void InitLeds()
         {
-            RChannelLedColors = new BindableCollection<LedViewModel>();
-            GChannelLedColors = new BindableCollection<LedViewModel>();
-            BChannelLedColors = new BindableCollection<LedViewModel>();
+            RChannelLedColors = new BindableCollection<Led>();
+            GChannelLedColors = new BindableCollection<Led>();
+            BChannelLedColors = new BindableCollection<Led>();
 
             for (var i = 0; i < Settings.RChannelLedCount; i++)
             {
-                var led = IoC.Get<LedViewModel>();
-                led.Index = i;
+                var led = new Led {Index = i};
                 RChannelLedColors.Add(led);
-                led.SetLedColors(255,0,0);
             }            
             
-            for (var i = 0; i < Settings.GChannelLedCount; i++)
+            for (var i = Settings.RChannelLedCount; i < Settings.RChannelLedCount + Settings.GChannelLedCount; i++)
             {
-                var led = IoC.Get<LedViewModel>();
-                led.Index = i;
+                var led = new Led { Index = i };
                 GChannelLedColors.Add(led);
             }            
             
-            for (var i = 0; i < Settings.BChannelLedCount; i++)
+            for (var i = Settings.RChannelLedCount + Settings.GChannelLedCount; i < Settings.RChannelLedCount + Settings.GChannelLedCount + Settings.BChannelLedCount; i++)
             {
-                var led = IoC.Get<LedViewModel>();
-                led.Index = i;
+                var led = new Led { Index = i };
                 BChannelLedColors.Add(led);
             }
         }
@@ -151,7 +157,7 @@ namespace cRGB.WPF.ViewModels.Device
         /// </summary>
         /// <param name="channel">R = 0, G = 1, B = 2</param>
         /// <returns></returns>
-        public IEnumerable<LedViewModel> GetEnabledLedViewModels(EBlinkStickChannel channel)
+        public IEnumerable<Led> GetEnabledLedViewModels(EBlinkStickChannel channel)
         {
             return channel switch
             {
@@ -162,7 +168,7 @@ namespace cRGB.WPF.ViewModels.Device
             }; 
         }
 
-        public (IEnumerable<LedViewModel>, IEnumerable<LedViewModel>, IEnumerable<LedViewModel>) GetEnabledLedViewModels()
+        public (IEnumerable<Led> R, IEnumerable<Led> G, IEnumerable<Led> B) GetEnabledLedViewModels()
         {
             return (RChannelLedColors.Where(o => o.Enabled), GChannelLedColors.Where(o => o.Enabled),
                 BChannelLedColors.Where(o => o.Enabled));
@@ -170,9 +176,12 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void DeviceSelectionButton()
         {
-            DeviceSelection.Devices = new BindableCollection<string>();
-            DeviceSelection.AddBlinkSticks(_blinkStickService.FindAllNotAlreadyConfigured());
-            IsDeviceSelectionOpen = !IsDeviceSelectionOpen;
+            //var ser = (XmlSerializationService)IoC.Get<IXmlSerializationService>();
+            //var o = ser.Serialize(this);
+            //ser.CopyStream(o, Path.Combine(Directory.GetCurrentDirectory(), "BlinkStickSettings.xml").ToString());
+            //DeviceSelection.Devices = new BindableCollection<string>();
+            //DeviceSelection.AddBlinkSticks(_blinkStickService.FindAllNotAlreadyConfigured());
+            //IsDeviceSelectionOpen = !IsDeviceSelectionOpen;
         }
 
         public Task HandleAsync(DeviceSelectedMessage message, CancellationToken cancellationToken)
