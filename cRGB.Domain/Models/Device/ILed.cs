@@ -15,8 +15,6 @@ namespace cRGB.Domain.Models.Device
         [Range(0, 255)]
         public int B { get; set; }
 
-        public Color GetLedAsColor => Color.FromArgb(0, R, G, B);
-
         public byte[] GetLedAsByteArray => new byte[3] {(byte)R, (byte)G, (byte)B};
         
     }

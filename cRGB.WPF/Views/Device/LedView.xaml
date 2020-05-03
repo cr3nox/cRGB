@@ -24,11 +24,13 @@
             Margin="0,0,2,0">
             <Button.Style>
                 <Style BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}" TargetType="{x:Type Button}">
-                    <Style.Triggers>
+                    <!--<Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Colors}" Value="0">
                             <Setter Property="Background" Value="{Binding Path=Colors}" />
                         </DataTrigger>
-                    </Style.Triggers>
+                    </Style.Triggers>-->
+                    <Setter Property="Background" Value="{Binding Path=Colors}" />
+
                 </Style>
             </Button.Style>
 

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 
 namespace cRGB.Domain.Models.Device
 {
@@ -14,10 +13,15 @@ namespace cRGB.Domain.Models.Device
         public int G { get; set; } = 0;
         [Range(0, 255)]
         public int B { get; set; } = 0;
-
-        public Color GetLedAsColor => Color.FromArgb(0, R, G, B);
-
+        
         public byte[] GetLedAsByteArray => new byte[3] {(byte)R, (byte)G, (byte)B};
+
+        public void SetColors(int r, int g, int b)
+        {
+            R = r;
+            G = g;
+            B = b;
+        }
         
     }
 }

@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:menu="clr-namespace:cRGB.WPF.ViewModels.Menu"
     Title="{DynamicResource ResourceKey=ShellViewWindowTitle}"
-    Width="1000"
+    Width="1020"
     Height="600"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"

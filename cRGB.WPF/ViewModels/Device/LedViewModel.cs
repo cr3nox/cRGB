@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
+using System.Windows.Media;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Device;
 using PropertyChanged;
+using Color = System.Windows.Media.Color;
 
 namespace cRGB.WPF.ViewModels.Device
 {
@@ -49,7 +50,8 @@ namespace cRGB.WPF.ViewModels.Device
             set => Led.B = value;
         }
 
-        public Color Colors => Led.GetLedAsColor;
+        //public Color Colors => Led.GetLedAsColor;
+        public SolidColorBrush Colors => new SolidColorBrush(Color.FromArgb(255, (byte)Led.R, (byte)Led.G, (byte)Led.B));
 
         public LedViewModel(IEventAggregator eventAggregator)
         {
@@ -59,14 +61,16 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void SetLedColors(int r, int g, int b)
         {
-            Led.R = r;
-            Led.G = g;
-            Led.B = b;
+            R = r;
+            G = g;
+            B = b;
         }
 
         public void ActivationButton()
         {
             Enabled = !Enabled;
+            //var rnd = new Random();
+            //SetLedColors(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
         }
     }
 }
