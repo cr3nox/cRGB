@@ -6,12 +6,12 @@ namespace cRGB.WPF.ViewModels.Device
 {
     public interface ILedDeviceViewModel
     {
-        public abstract string Name { get; set; }
+        public abstract string DeviceName { get; set; }
         public abstract string Description { get; set; }
         public abstract ELedDeviceType DeviceType { get; set; }
 
-        public BindableCollection<Led> RChannelLedColors { get; set; }
-        public BindableCollection<Led> GChannelLedColors { get; set; }
-        public BindableCollection<Led> BChannelLedColors { get; set; }
+        public BindableCollection<LedViewModel> RChannelLedColors { get; set; }
+        public BindableCollection<LedViewModel> GChannelLedColors { get; set; }
+        public BindableCollection<LedViewModel> BChannelLedColors { get; set; }
     }
 }

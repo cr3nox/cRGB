@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\cRGB.Core\cRGB.Domain.csproj" />
+    <ProjectReference Include="..\cRGB.Domain\cRGB.Domain.csproj" />
   </ItemGroup>
 
 </Project>

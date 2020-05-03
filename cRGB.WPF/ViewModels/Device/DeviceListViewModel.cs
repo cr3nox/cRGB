@@ -34,8 +34,8 @@ namespace cRGB.WPF.ViewModels.Device
         {
             var newDevice = IoC.Get<BlinkStickViewModel>();
             LedDevices.Add(newDevice);
-            var name = _loc.GetByKey("MenuItem_NewDevice");
-            newDevice.Create(name, Menu.CreateChild(newDevice, false, name, PackIconKind.UsbFlashDriveOutline));
+            newDevice.DeviceName = _loc.GetByKey("MenuItem_NewDevice");
+            newDevice.Create(Menu.CreateChild(newDevice, false, PackIconKind.UsbFlashDriveOutline));
         }
 
         public void AddArduino()
@@ -50,6 +50,8 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void RowDoubleClick()
         {
+            if (SelectedLedDevice == null)
+                return;
             SelectedLedDevice.Menu.IsSelected = true;
             _eventAggregator.PublishOnUIThreadAsync(new TreeViewSelectionChangedMessage(SelectedLedDevice.Menu));
         }

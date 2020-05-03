@@ -1,0 +1,124 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj": {}
+  },
+  "projects": {
+    "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\BlinkStickDotNet\\BlinkStickDotNet.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\BlinkStickDotNet\\BlinkStickDotNet.csproj",
+        "projectName": "BlinkStickDotNet",
+        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\BlinkStickDotNet\\BlinkStickDotNet.csproj",
+        "frameworks": {
+          "net40": {
+            "projectReferences": {
+              "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\HidSharp\\HidSharp.csproj": {
+                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\HidSharp\\HidSharp.csproj"
+              },
+              "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\LibWinUsb\\LibUsbDotNet.csproj": {
+                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\LibWinUsb\\LibUsbDotNet.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    },
+    "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\HidSharp\\HidSharp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\HidSharp\\HidSharp.csproj",
+        "projectName": "HidSharp",
+        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\HidSharp\\HidSharp.csproj",
+        "frameworks": {
+          "net40": {
+            "projectReferences": {
+              "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\LibWinUsb\\LibUsbDotNet.csproj": {
+                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\LibWinUsb\\LibUsbDotNet.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    },
+    "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\LibWinUsb\\LibUsbDotNet.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\LibWinUsb\\LibUsbDotNet.csproj",
+        "projectName": "LibUsbDotNet",
+        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\Components\\LibWinUsb\\LibUsbDotNet.csproj"
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    },
+    "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj",
+        "projectName": "cRGB.Domain",
+        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj",
+        "packagesPath": "C:\\Users\\Andi\\.nuget\\packages\\",
+        "outputPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "c:\\program files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Andi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://myget.org/F/crenox/": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\BlinkStickDotNet\\BlinkStickDotNet.csproj": {
+                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\BlinkStickDotNet\\BlinkStickDotNet\\BlinkStickDotNet.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

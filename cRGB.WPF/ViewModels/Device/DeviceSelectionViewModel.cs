@@ -24,7 +24,8 @@ namespace cRGB.WPF.ViewModels.Device
         public void AddBlinkSticks(List<BlinkStick> blinkSticks)
         {
             DeviceObjects = new List<object>(blinkSticks);
-            AddDevices(blinkSticks.Select(o => $"{o.BlinkStickDevice} Serial: {o.Serial} Info1: {o.InfoBlock1} Info2: {o.InfoBlock2}").ToArray());
+            //AddDevices(blinkSticks.Select(o => $"{o.BlinkStickDevice} Serial: {o.Serial} Info1: {o.InfoBlock1} Info2: {o.InfoBlock2}").ToArray());
+            AddDevices(blinkSticks.Select(o => $"{o.BlinkStickDevice} Serial: {o.Serial}").ToArray());
         }
 
         public DeviceSelectionViewModel(IEventAggregator aggregator)
@@ -35,13 +36,11 @@ namespace cRGB.WPF.ViewModels.Device
         public virtual void Cancel()
         {
             _eventAggregator.PublishOnUIThreadAsync(new DeviceSelectedMessage());
-            TryCloseAsync(false);
         }
 
         public virtual void Apply()
         {
             _eventAggregator.PublishOnCurrentThreadAsync(new DeviceSelectedMessage(DeviceObjects == null ? Devices[SelectedDeviceIndex] : DeviceObjects[SelectedDeviceIndex]));
-            TryCloseAsync(true);
         }
     }
 }

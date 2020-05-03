@@ -211,7 +211,7 @@ namespace cRGB.WPF.Annotations
   ///
   ///   string _name;
   /// 
-  ///   public string Name {
+  ///   public string DeviceName {
   ///     get { return _name; }
   ///     set { _name = value; NotifyChanged("LastName"); /* Warning */ }
   ///   }

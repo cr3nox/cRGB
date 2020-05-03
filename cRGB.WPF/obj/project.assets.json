@@ -4942,8 +4942,8 @@
     },
     "cRGB.Domain/1.0.0": {
       "type": "project",
-      "path": "../cRGB.Core/cRGB.Domain.csproj",
-      "msbuildProject": "../cRGB.Core/cRGB.Domain.csproj"
+      "path": "../cRGB.Domain/cRGB.Domain.csproj",
+      "msbuildProject": "../cRGB.Domain/cRGB.Domain.csproj"
     },
     "HidSharp/1.0.0": {
       "type": "project",
@@ -4999,8 +4999,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj": {
-              "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj"
+            "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj": {
+              "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj"
             }
           }
         }

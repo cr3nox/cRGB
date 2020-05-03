@@ -11,7 +11,7 @@ namespace cRGB.WPF.ViewModels
         public string Name { get; set; }
         public string SerialNumber { get; set; }
 
-        private int _rChannelLedCount = 0;
+        private int _rChannelLedCount = 64;
 
         public int RChannelLedCount
         {
@@ -26,7 +26,7 @@ namespace cRGB.WPF.ViewModels
             }
         }
 
-        private int _gChannelLedCount = 0;
+        private int _gChannelLedCount = 64;
         public int GChannelLedCount
         {
             get => _gChannelLedCount;
@@ -39,7 +39,7 @@ namespace cRGB.WPF.ViewModels
                 _gChannelLedCount = value;
             }
         }
-        private int _bChannelLedCount = 0;
+        private int _bChannelLedCount = 64;
         public int BChannelLedCount
         {
             get => _bChannelLedCount;

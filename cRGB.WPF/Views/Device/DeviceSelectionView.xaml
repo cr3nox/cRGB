@@ -7,42 +7,37 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Background="Aquamarine">
+    <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Label
-            Grid.Row="0"
-            Grid.Column="0"
-            Content="{DynamicResource ResourceKey=DeviceSelectionView_FoundDevices}" />
         <ComboBox
             Name="Devices"
             Grid.Row="0"
-            Grid.Column="1"
-            Margin="5"
-            IsEditable="False"
-            SelectedIndex="{Binding SelectedDeviceIndex, Mode=TwoWay}" />
+            MinWidth="256"
+            materialDesign:HintAssist.HelperText="{DynamicResource ResourceKey=SelectADevice}"
+            materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=Devices}"
+            materialDesign:TextFieldAssist.HasClearButton="True"
+            SelectedIndex="{Binding SelectedDeviceIndex, Mode=TwoWay}"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+
         <StackPanel
             Grid.Row="1"
-            Grid.Column="1"
-            HorizontalAlignment="Right"
+            Margin="0,16,0,0"
+            HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
                 x:Name="Apply"
-                Width="50"
-                Height="34"
-                Content="{DynamicResource ResourceKey=Button_Apply}" />
+                Content="{DynamicResource ResourceKey=Button_Accept}"
+                IsDefault="True"
+                Style="{DynamicResource MaterialDesignFlatButton}" />
             <Button
                 x:Name="Cancel"
-                Width="50"
-                Height="34"
-                Margin="5,0,5,0"
-                Content="{DynamicResource ResourceKey=Button_Cancel}" />
+                Margin="8,0,0,0"
+                Content="{DynamicResource ResourceKey=Button_Cancel}"
+                IsCancel="True"
+                Style="{DynamicResource MaterialDesignFlatButton}" />
         </StackPanel>
     </Grid>
 

@@ -33,7 +33,7 @@ namespace cRGB.WPF.ViewModels.Shell
 
             // Adding Menu Items
             var menuItem = IoC.Get<MenuItemViewModel>();
-            menuItem.Create(deviceListViewModel, null, true, loc.GetByKey("MenuItem_DeviceList"), PackIconKind.Chip);
+            menuItem.Create(deviceListViewModel, null, true, PackIconKind.Chip, loc.GetByKey("Devices"));
             deviceListViewModel.Menu = menuItem;
             MenuItems.Add(menuItem);
             ActivateView(menuItem);

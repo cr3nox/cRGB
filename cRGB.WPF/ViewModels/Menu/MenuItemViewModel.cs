@@ -1,15 +1,5 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.ComponentModel;
 using Caliburn.Micro;
-using cRGB.WPF.Annotations;
-using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
 using MaterialDesignThemes.Wpf;
 
@@ -20,8 +10,19 @@ namespace cRGB.WPF.ViewModels.Menu
         #region Properties
 
         readonly IEventAggregator _eventAggregator;
-        readonly ILocalizationHelper _loc;
-        public ViewModelBase ViewModel { get; set; }
+
+        ViewModelBase _viewModel;
+        public ViewModelBase ViewModel
+        {
+            get => _viewModel;
+            set
+            {
+                _viewModel = value;
+                ViewModel.PropertyChanged += ViewModelPropertyChanged;
+            }
+
+        }
+
         public MenuItemViewModel ParentMenuItem { get; set; }
 
         public BindableCollection<MenuItemViewModel> Children { get; set; } =
@@ -42,37 +43,45 @@ namespace cRGB.WPF.ViewModels.Menu
         }
         
         public PackIconKind Icon { get; set; }
-        public string Header { get; set; }
+
+        public string Header
+        {
+            get => ViewModel.DisplayName;
+            set => ViewModel.DisplayName = value;
+        }
 
         #endregion
 
         #region Constructor
 
-        public MenuItemViewModel(IEventAggregator aggregator, ILocalizationHelper loc)
+        public MenuItemViewModel(IEventAggregator aggregator)
         {
             _eventAggregator = aggregator;
-            _loc = loc;
         }
 
         #endregion
 
 
-        public void Create(ViewModelBase viewModel, MenuItemViewModel parent = null, bool isExpanded = false, string header = "Menu Header", PackIconKind icon = PackIconKind.None)
+        void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(Header)));
+        }
+
+        public void Create(ViewModelBase viewModel, MenuItemViewModel parent = null, bool isExpanded = false, PackIconKind icon = PackIconKind.None, string displayName = null)
         {
             ViewModel = viewModel;
             ParentMenuItem = parent;
             IsExpanded = isExpanded;
-            Header = header;
             Icon = icon;
+            if (!string.IsNullOrEmpty(displayName)) ViewModel.DisplayName = displayName;
         }
 
-        public MenuItemViewModel CreateChild(ViewModelBase viewModel, bool isExpanded = false, string header = "Menu Header", PackIconKind icon = PackIconKind.None)
+        public MenuItemViewModel CreateChild(ViewModelBase viewModel, bool isExpanded = false, PackIconKind icon = PackIconKind.None)
         {
             var child = IoC.Get<MenuItemViewModel>();
-            child.Create(viewModel, this, true, _loc.GetByKey("MenuItem_NewDevice"), PackIconKind.Abc);
+            child.Create(viewModel, this, true, PackIconKind.Abc);
             child.ViewModel = viewModel;
             child.ParentMenuItem = this;
-            child.Header = header;
             child.Icon = icon;
             child.IsExpanded = isExpanded;
 

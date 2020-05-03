@@ -58,14 +58,14 @@
         "net40": {}
       }
     },
-    "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj": {
+    "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj",
+        "projectUniqueName": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj",
         "projectName": "cRGB.Domain",
-        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj",
+        "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj",
         "packagesPath": "C:\\Users\\Andi\\.nuget\\packages\\",
-        "outputPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\obj\\",
+        "outputPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -149,8 +149,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj": {
-                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Core\\cRGB.Domain.csproj"
+              "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj": {
+                "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj"
               }
             }
           }

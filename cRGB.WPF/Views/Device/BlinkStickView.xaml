@@ -13,6 +13,7 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <validators:NotEmptyValidationRule x:Key="NotEmptyValidationRule" />
     </UserControl.Resources>
     <materialDesign:DialogHost
         HorizontalAlignment="Stretch"
@@ -30,74 +31,83 @@
             BorderThickness="1"
             ClipToBounds="True">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <StackPanel>
 
-                <!--<ContentControl
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    cm:View.Model="{Binding Path=DeviceSelection}" />-->
-
-                <!--<ContentControl
-                    Name="DeviceSelection"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Visibility="{Binding Device, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=VisibleCollapsed}" />-->
-
-
-
-                <Button
+                <!--<Button
                     Name="DeviceSelectionButton"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     RUN
-                </Button>
-                <Label
-                    Grid.Row="1"
+                </Button>-->
+                <GroupBox Margin="16" HorizontalAlignment="Stretch">
+                    <GroupBox.Header>
+                        <DockPanel HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=DeviceInfo}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </GroupBox.Header>
+                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                        <TextBox
+                            Name="DeviceName"
+                            Margin="15,0,15,0"
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <Binding Path="DeviceName" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                        <TextBox
+                            Margin="0,0,15,0"
+                            VerticalAlignment="Center"
+                            materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=SerialNumber}"
+                            IsReadOnly="True"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding Device.Serial, Mode=OneWay}" />
+                        <!--<TextBox
+                    Grid.Row="3"
                     Grid.Column="0"
-                    Content="{DynamicResource ResourceKey=Name}" />
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock1}"
+                    IsReadOnly="True"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    Text="{Binding Device.InfoBlock1, Mode=OneWay}" />
                 <TextBox
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    HorizontalAlignment="Stretch"
-                    Text="{Binding Settings.Name}" />
-
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Content="{DynamicResource ResourceKey=SerialNumber}" />
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Content="{Binding Device.Serial}" />
-                <Label
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Content="{DynamicResource ResourceKey=InfoBlock1}" />
-                <Label
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Content="{Binding Device.InfoBlock1}" />
-                <Label
                     Grid.Row="4"
                     Grid.Column="0"
-                    Content="{DynamicResource ResourceKey=InfoBlock2}" />
-                <Label
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Content="{Binding Device.InfoBlock2}" />
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock2}"
+                    IsReadOnly="True"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    Text="{Binding Device.InfoBlock2, Mode=OneWay}" />-->
+                    </StackPanel>
+                </GroupBox>
 
-            </Grid>
+                <GroupBox Margin="16" HorizontalAlignment="Stretch">
+                    <GroupBox.Header>
+                        <DockPanel HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=RChannelLeds}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </GroupBox.Header>
+
+                    <ItemsControl
+                        Name="RChannelLedColors"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                </GroupBox>
+            </StackPanel>
         </Border>
     </materialDesign:DialogHost>
 </UserControl>

@@ -4,7 +4,7 @@
     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
     <sys:String x:Key="ShellViewWindowTitle">cRGB</sys:String>
-    <sys:String x:Key="Name">Name</sys:String>
+    <sys:String x:Key="DeviceName">DeviceName</sys:String>
     <sys:String x:Key="Description">Description</sys:String>
     <sys:String x:Key="Devices">Devices</sys:String>
     <sys:String x:Key="DeviceType">Device Type</sys:String>
@@ -27,7 +27,11 @@
     <sys:String x:Key="Button_OK">Ok</sys:String>
     <sys:String x:Key="Button_Cancel">Cancel</sys:String>
     <sys:String x:Key="Button_Apply">Apply</sys:String>
+    <sys:String x:Key="Button_Accept">Accept</sys:String>
     <sys:String x:Key="AddDeviceBlinkStick">BlinkStick</sys:String>
     <sys:String x:Key="AddDeviceArduino">Arduino</sys:String>
     <sys:String x:Key="AddDeviceTestDevice">Test Device</sys:String>
+    <sys:String x:Key="SelectADevice">Select a Device</sys:String>
+    <sys:String x:Key="FieldRequired">Field is required.</sys:String>
+    <sys:String x:Key="DeviceInfo">Device Info</sys:String>
 </ResourceDictionary>

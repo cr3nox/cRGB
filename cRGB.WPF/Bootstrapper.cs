@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using cRGB.Domain;
+using cRGB.Domain.Models.Device;
+using cRGB.Domain.Services;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.ViewModels;
 using cRGB.WPF.ViewModels.Device;
@@ -43,14 +45,15 @@ namespace cRGB.WPF
             // ViewModels
             _container.PerRequest<MenuItemViewModel>();
             _container.PerRequest<DeviceListViewModel>();
-            _container.Singleton<BlinkStickViewModel>();
+            _container.PerRequest<BlinkStickViewModel>();
             _container.PerRequest<DeviceSelectionViewModel>();
             _container.PerRequest<BlinkStickSettingsViewModel>();
+            _container.PerRequest<LedViewModel>();
             //old
             _container.Singleton<MenuItemOverviewViewModel>();
 
             // Controllers
-            _container.Singleton<BlinkStickService>();
+            _container.Singleton<IBlinkStickService, BlinkStickService>();
             
         }
 

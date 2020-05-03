@@ -51,10 +51,7 @@
                 <GroupBox.Header>
                     <DockPanel HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Margin="16,0,0,0"
-                                VerticalAlignment="Center"
-                                Text="{DynamicResource ResourceKey=Devices}" />
+                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=Devices}" />
                         </StackPanel>
                     </DockPanel>
                 </GroupBox.Header>
