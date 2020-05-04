@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace cRGB.WPF.Messages
+﻿namespace cRGB.WPF.Messages
 {
     public class DeviceSelectedMessage
     {

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
 using cRGB.WPF.ViewModels.Device;

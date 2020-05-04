@@ -1365,6 +1365,16 @@
           "bin/placeholder/cRGB.Domain.dll": {}
         }
       },
+      "cRGB.Tools/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/cRGB.Tools.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/cRGB.Tools.dll": {}
+        }
+      },
       "HidSharp/1.0.0": {
         "type": "project",
         "dependencies": {
@@ -4946,6 +4956,11 @@
       "path": "../cRGB.Domain/cRGB.Domain.csproj",
       "msbuildProject": "../cRGB.Domain/cRGB.Domain.csproj"
     },
+    "cRGB.Tools/1.0.0": {
+      "type": "project",
+      "path": "../cRGB.Tools/cRGB.Tools.csproj",
+      "msbuildProject": "../cRGB.Tools/cRGB.Tools.csproj"
+    },
     "HidSharp/1.0.0": {
       "type": "project",
       "path": "../BlinkStickDotNet/Components/HidSharp/HidSharp.csproj",
@@ -4963,7 +4978,8 @@
       "Caliburn.Micro.Core >= 4.0.105-alpha",
       "MaterialDesignThemes >= 3.1.1",
       "PropertyChanged.Fody >= 3.2.8",
-      "cRGB.Domain >= 1.0.0"
+      "cRGB.Domain >= 1.0.0",
+      "cRGB.Tools >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5002,6 +5018,9 @@
           "projectReferences": {
             "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj": {
               "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Domain\\cRGB.Domain.csproj"
+            },
+            "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Tools\\cRGB.Tools.csproj": {
+              "projectPath": "D:\\VS\\cr3nox@github\\cRGB\\cRGB.Tools\\cRGB.Tools.csproj"
             }
           }
         }

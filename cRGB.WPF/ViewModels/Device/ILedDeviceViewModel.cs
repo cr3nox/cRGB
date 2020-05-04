@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using Caliburn.Micro;
 using cRGB.Domain.Enums;
 using cRGB.Domain.Models.Device;
 
@@ -10,8 +11,6 @@ namespace cRGB.WPF.ViewModels.Device
         public abstract string Description { get; set; }
         public abstract ELedDeviceType DeviceType { get; set; }
 
-        public BindableCollection<Led> RChannelLedColors { get; set; }
-        public BindableCollection<Led> GChannelLedColors { get; set; }
-        public BindableCollection<Led> BChannelLedColors { get; set; }
+        public List<LedViewModel> LedStates { get; set; }
     }
 }

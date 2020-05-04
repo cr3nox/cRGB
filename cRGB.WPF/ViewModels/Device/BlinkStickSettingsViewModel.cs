@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Documents;
+﻿using System.Linq;
 using System.Xml.Serialization;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Device;
+using cRGB.Tools.Interfaces.ViewModel;
 
 namespace cRGB.WPF.ViewModels.Device
 {
     public class BlinkStickSettingsViewModel : ViewModelBase
     {
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         IBlinkStickSettings _blinkStickSettings = new BlinkStickSettings();
 
         public string DeviceName
@@ -68,6 +68,8 @@ namespace cRGB.WPF.ViewModels.Device
             }
         }
 
+        public int LedCount => RChannelLedCount + GChannelLedCount + BChannelLedCount;
+
         public bool RChannelLedInvert
         {
             get => _blinkStickSettings.RChannelLedInvert;
@@ -91,28 +93,10 @@ namespace cRGB.WPF.ViewModels.Device
             get => new BindableCollection<int>(_blinkStickSettings.DisabledLeds);
             set => _blinkStickSettings.DisabledLeds = value.ToList();
         }
-
-
-
-
-        [XmlIgnore]
-        public BlinkStickViewModel ParentViewModel { get; set; }
-
-        public BindableCollection<Led> RChannelLedColors
-        {
-            get => ParentViewModel.RChannelLedColors;
-            set => ParentViewModel.RChannelLedColors = value;
-        }
-        public BindableCollection<Led> GChannelLedColors
-        {
-            get => ParentViewModel.GChannelLedColors;
-            set => ParentViewModel.GChannelLedColors = value;
-        }
-        public BindableCollection<Led> BChannelLedColors
-        {
-            get => ParentViewModel.BChannelLedColors;
-            set => ParentViewModel.BChannelLedColors = value;
-        }
+        
+        public BindableCollection<LedViewModel> RChannelLedColors { get; set; }
+        public BindableCollection<LedViewModel> GChannelLedColors { get; set; }
+        public BindableCollection<LedViewModel> BChannelLedColors { get; set; }
 
         public BlinkStickSettingsViewModel()
         {

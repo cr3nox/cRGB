@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Net.Mime;
-using System.Threading;
 using BlinkStickDotNet;
 
 namespace ChannelTest

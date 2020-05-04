@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using cRGB.Domain.Enums;
+﻿using cRGB.Domain.Enums;
 
 namespace cRGB.Domain.Models.Device
 {

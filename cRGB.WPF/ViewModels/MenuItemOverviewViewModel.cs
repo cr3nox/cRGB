@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Caliburn.Micro;
-using System.Linq;
+﻿using Caliburn.Micro;
 using System.Threading.Tasks;
 using System.Threading;
-using cRGB.Domain;
 using cRGB.WPF.Messages;
 using cRGB.WPF.ViewModels.Device;
-using cRGB.WPF.ViewModels.Menu;
 
 namespace cRGB.WPF.ViewModels
 {

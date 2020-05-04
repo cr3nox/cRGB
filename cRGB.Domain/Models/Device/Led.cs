@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 using cRGB.Domain.Annotations;
 using PropertyChanged;
@@ -9,19 +8,16 @@ using PropertyChanged;
 namespace cRGB.Domain.Models.Device
 {
     [Serializable]
-    public class Led : ILed, INotifyPropertyChanged
+    public class Led : ILed
     {
         public bool Enabled { get; set; } = true;
         public int Index { get; set; } = -1;
 
         [Range(0, 255)]
-        [DoNotNotify]
         public int R { get; set; } = 255;
         [Range(0, 255)]
-        [DoNotNotify]
         public int G { get; set; } = 255;
         [Range(0, 255)]
-        [DoNotNotify]
         public int B { get; set; } = 255;
         
         public byte[] GetLedAsByteArray => new byte[3] {(byte)R, (byte)G, (byte)B};
@@ -51,23 +47,6 @@ namespace cRGB.Domain.Models.Device
             R = r;
             G = g;
             B = b;
-            ThrowColorPropertyChanged();
-        }
-
-        private void ThrowColorPropertyChanged()
-        {
-            OnPropertyChanged(nameof(GetLedAsByteArray));
-            OnPropertyChanged(nameof(R));
-            OnPropertyChanged(nameof(G));
-            OnPropertyChanged(nameof(B));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

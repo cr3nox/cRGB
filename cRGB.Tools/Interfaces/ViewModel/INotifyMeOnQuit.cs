@@ -2,7 +2,7 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
-namespace cRGB.WPF.Helpers
+namespace cRGB.Tools.Interfaces.ViewModel
 {
     public interface INotifyMeOnQuit
     {

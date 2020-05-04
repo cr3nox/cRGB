@@ -12,9 +12,9 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\App.xaml
 7-191489171
 6-1458497049
-341196281440
-209911585862
+33-1069029653
+210-277709860
 Views\ControlTemplates\LedControlTemplate.xaml;Views\Device\BlinkStickSettingsView.xaml;Views\Device\BlinkStickView.xaml;Views\Device\DeviceListView.xaml;Views\Device\DeviceSelectionView.xaml;Views\MenuItemOverviewView.xaml;Views\Shell\ShellView.xaml;
 
-True
+False
 

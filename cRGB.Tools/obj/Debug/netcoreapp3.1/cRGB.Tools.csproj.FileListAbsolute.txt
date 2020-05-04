@@ -1,0 +1,9 @@
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\bin\Debug\netcoreapp3.1\cRGB.Tools.deps.json
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\bin\Debug\netcoreapp3.1\cRGB.Tools.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\bin\Debug\netcoreapp3.1\cRGB.Tools.pdb
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\obj\Debug\netcoreapp3.1\cRGB.Tools.csprojAssemblyReference.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\obj\Debug\netcoreapp3.1\cRGB.Tools.csproj.CoreCompileInputs.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\obj\Debug\netcoreapp3.1\cRGB.Tools.AssemblyInfoInputs.cache
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\obj\Debug\netcoreapp3.1\cRGB.Tools.AssemblyInfo.cs
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\obj\Debug\netcoreapp3.1\cRGB.Tools.dll
+D:\VS\cr3nox@github\cRGB\cRGB.Tools\obj\Debug\netcoreapp3.1\cRGB.Tools.pdb

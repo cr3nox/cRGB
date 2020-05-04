@@ -52,3 +52,5 @@ D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.pdb
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\cRGB.WPF.genruntimeconfig.cache
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\BlinkStickSettingsView.g.cs
 D:\VS\cr3nox@github\cRGB\cRGB.WPF\obj\Debug\netcoreapp3.1\Views\Device\BlinkStickSettingsView.baml
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.Tools.dll
+D:\VS\cr3nox@github\cRGB\cRGB.WPF\bin\Debug\netcoreapp3.1\cRGB.Tools.pdb

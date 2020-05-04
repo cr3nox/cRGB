@@ -12,7 +12,8 @@
           "Caliburn.Micro.Core": "4.0.105-alpha",
           "MaterialDesignThemes": "3.1.1",
           "PropertyChanged.Fody": "3.2.8",
-          "cRGB.Domain": "1.0.0"
+          "cRGB.Domain": "1.0.0",
+          "cRGB.Tools": "1.0.0"
         },
         "runtime": {
           "cRGB.WPF.dll": {}
@@ -774,6 +775,11 @@
           "cRGB.Domain.dll": {}
         }
       },
+      "cRGB.Tools/1.0.0": {
+        "runtime": {
+          "cRGB.Tools.dll": {}
+        }
+      },
       "HidSharp/1.0.0": {
         "dependencies": {
           "LibUsbDotNet": "1.0.0"
@@ -1375,6 +1381,11 @@
       "sha512": ""
     },
     "cRGB.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "cRGB.Tools/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

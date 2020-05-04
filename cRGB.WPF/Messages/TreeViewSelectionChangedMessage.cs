@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Controls;
-using cRGB.WPF.ViewModels.Menu;
+﻿using cRGB.WPF.ViewModels.Menu;
 
 namespace cRGB.WPF.Messages
 {

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 
 namespace cRGB.Domain.Models.Device
 {
