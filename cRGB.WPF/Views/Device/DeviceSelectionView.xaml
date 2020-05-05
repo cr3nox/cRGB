@@ -32,12 +32,12 @@
                 Content="{DynamicResource ResourceKey=Button_Accept}"
                 IsDefault="True"
                 Style="{DynamicResource MaterialDesignFlatButton}" />
-            <Button
+            <!--<Button
                 x:Name="Cancel"
                 Margin="8,0,0,0"
                 Content="{DynamicResource ResourceKey=Button_Cancel}"
                 IsCancel="True"
-                Style="{DynamicResource MaterialDesignFlatButton}" />
+                Style="{DynamicResource MaterialDesignFlatButton}" />-->
         </StackPanel>
     </Grid>
 

@@ -52,6 +52,12 @@ namespace cRGB.Domain.Services
             stream.CopyTo(fileStream);
         }
 
+        public void CopyFromFile(Stream stream, string srcPath = "")
+        {
+            using var fileStream = new FileStream(srcPath, FileMode.Open, FileAccess.Read);
+            fileStream.CopyTo(stream);
+        }
+
 
     }
 }

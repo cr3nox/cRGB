@@ -102,5 +102,61 @@ namespace cRGB.WPF.ViewModels.Device
         {
 
         }
+
+        public void EnableAllRChannelLedColors()
+        {
+            foreach (var led in RChannelLedColors)
+            {
+                led.Enabled = true;
+            }
+        }
+
+        public void DisableAllRChannelLedColors()
+        {
+            foreach (var led in RChannelLedColors)
+            {
+                led.Enabled = false;
+            }
+        }
+
+        public void EnableAllGChannelLedColors()
+        {
+            foreach (var led in GChannelLedColors)
+            {
+                led.Enabled = true;
+            }
+        }
+
+        public void DisableAllGChannelLedColors()
+        {
+            foreach (var led in GChannelLedColors)
+            {
+                led.Enabled = false;
+            }
+        }
+
+        public void DisableAllBChannelLedColors()
+        {
+            foreach (var led in BChannelLedColors)
+            {
+                led.Enabled = false;
+            }
+        }
+
+        public void EnableAllBChannelLedColors()
+        {
+            foreach (var led in BChannelLedColors)
+            {
+                led.Enabled = true;
+            }
+        }
+
+        public void RefreshProperties()
+        {
+            foreach (var ledState in RChannelLedColors)
+            {
+                ledState.FirePropertyChanged();
+            }
+        }
     }
 }

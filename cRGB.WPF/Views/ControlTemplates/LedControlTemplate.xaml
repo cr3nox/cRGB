@@ -57,19 +57,14 @@
         <ControlTemplate.Resources>
             <converters:ColorByteArrayToSolidColorBrushConverter x:Key="ColorByteArrayToSolidColorBrushConverter" />
         </ControlTemplate.Resources>
-        <Grid cm:Message.Attach="[Event MouseDown] = [Action ActivationButton()]">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <StackPanel Margin="0,0,2,0" cm:Message.Attach="[Event MouseDown] = [Action ActivationButton()]">
             <Label
                 Name="Index"
-                Grid.Row="0"
                 HorizontalAlignment="Center"
                 Content="{Binding Path=Index}" />
+
             <materialDesign:PackIcon
                 Name="LedIcon"
-                Grid.Row="1"
                 Width="25"
                 Height="25">
                 <materialDesign:PackIcon.Style>
@@ -114,9 +109,10 @@
                     </Style>
                 </materialDesign:PackIcon.Style>
             </materialDesign:PackIcon>
+        </StackPanel>
 
-            <!--  Button Version  -->
-            <!--<Button
+        <!--  Button Version  -->
+        <!--<Button
                 Grid.Row="1"
                 Width="22"
                 Height="22"
@@ -124,13 +120,13 @@
                 cm:Message.Attach="[Event Click] = [Action SwapEnabled()]">
                 <Button.Style>
                     <Style BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}" TargetType="{x:Type Button}">
-            -->
-            <!--<Style.Triggers>
+        -->
+        <!--<Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Colors}" Value="0">
                             <Setter Property="Background" Value="{Binding Path=Colors}" />
                         </DataTrigger>
                     </Style.Triggers>-->
-            <!--
+        <!--
                         <Setter Property="Background">
                             <Setter.Value>
                                 <Binding Converter="{StaticResource ColorByteArrayToSolidColorBrushConverter}" Path="GetLedAsByteArray" />
@@ -182,7 +178,6 @@
                     </materialDesign:PackIcon.Style>
                 </materialDesign:PackIcon>
             </Button>-->
-        </Grid>
     </ControlTemplate>
 
 </ResourceDictionary>

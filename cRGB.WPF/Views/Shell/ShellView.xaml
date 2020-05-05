@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:menu="clr-namespace:cRGB.WPF.ViewModels.Menu"
     Title="{DynamicResource ResourceKey=ShellViewWindowTitle}"
-    Width="1020"
-    Height="600"
+    Width="{Binding Path=ShellViewWidth, Mode=TwoWay}"
+    Height="{Binding Path=ShellViewHeight, Mode=TwoWay}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
@@ -21,13 +21,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="100" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <materialDesign:ColorZone
             Grid.Row="0"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             MinHeight="50"
             Padding="16"
             materialDesign:ShadowAssist.ShadowDepth="Depth5"
@@ -62,43 +63,49 @@
             </DockPanel>
         </materialDesign:ColorZone>
 
-        <Border
+        <TreeView
             Grid.Row="1"
             Grid.Column="0"
-            BorderBrush="{DynamicResource MaterialDesignDivider}"
-            BorderThickness="0,0,1,0">
-            <TreeView Margin="0,5,5,5" ItemsSource="{Binding MenuItems}">
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                        <Setter Property="FontWeight" Value="Normal" />
-                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-                        <Setter Property="FontSize" Value="15" />
+            Margin="0,5,5,5"
+            ItemsSource="{Binding MenuItems}">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                    <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+                    <Setter Property="FontSize" Value="15" />
 
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="FontWeight" Value="Bold" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TreeView.ItemContainerStyle>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.ItemContainerStyle>
 
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Margin="0,2,5,0" Kind="{Binding Icon}" />
-                            <TextBlock Margin="0,0,10,2" Text="{Binding Header}" />
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </Border>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Margin="0,2,5,0" Kind="{Binding Icon}" />
+                        <TextBlock Margin="0,0,10,2" Text="{Binding Header}" />
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+        <GridSplitter
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="3"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Stretch"
+            ResizeBehavior="PreviousAndNext" />
 
         <ContentControl
             Name="ActiveItem"
             Grid.Row="1"
-            Grid.Column="1" />
+            Grid.Column="2" />
 
     </Grid>
 

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using cRGB.Domain.Services;
+using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Menu;
@@ -33,23 +34,24 @@ namespace cRGB.WPF
                 .Singleton<IEventAggregator, EventAggregator>();
 
             _container
-                .PerRequest<ShellViewModel>();
+                .Singleton<ShellViewModel>();
 
             // Helpers
             _container.Singleton<ILocalizationHelper, LocalizationHelper>();
             
             // ViewModels
             _container.PerRequest<MenuItemViewModel>();
-            _container.PerRequest<DeviceListViewModel>();
             _container.PerRequest<BlinkStickViewModel>();
             _container.PerRequest<DeviceSelectionViewModel>();
             _container.PerRequest<BlinkStickSettingsViewModel>();
             _container.PerRequest<LedViewModel>();
-            
+
+            _container.Singleton<DeviceListViewModel>();
+
             // Services
             _container.Singleton<IBlinkStickService, BlinkStickService>();
-            _container.Singleton<IXmlSerializationService, XmlSerializationService>();
-            _container.Singleton<IXmlSerializationService, XmlSerializationService>();
+            _container.Singleton<IJsonSerializationService, JsonSerializationService>();
+            _container.Singleton<ISettingsService, SettingsService>();
             
         }
 
@@ -81,8 +83,25 @@ namespace cRGB.WPF
 
         protected override void OnExit(object sender, EventArgs e)
         {
+            // Execute OnAppExit for every Viewmodel which inherits from INotifyMeOnAppExit
+            var shell = _container.GetInstance<ShellViewModel>();
+            RecursiveViewModelOnExit(shell.MenuItems);
 
+            var settings = _container.GetInstance<ISettingsService>();
+            settings.SaveAll();
             base.OnExit(sender, e);
+        }
+
+        protected void RecursiveViewModelOnExit(BindableCollection<MenuItemViewModel> menus)
+        {
+            foreach (var menu in menus)
+            {
+                if (menu.ViewModel is INotifyMeOnAppExit menuViewModel)
+                {
+                    menuViewModel.OnAppExit();
+                }
+                RecursiveViewModelOnExit(menu.Children);
+            }
         }
     }
 }

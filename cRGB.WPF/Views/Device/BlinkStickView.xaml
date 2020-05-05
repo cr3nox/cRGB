@@ -41,133 +41,142 @@
                     VerticalAlignment="Center">
                     RUN
                 </Button>-->
-                    <GroupBox Margin="16" HorizontalAlignment="Stretch">
-                        <GroupBox.Header>
-                            <DockPanel HorizontalAlignment="Stretch">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=DeviceInfo}" />
-                                </StackPanel>
-                            </DockPanel>
-                        </GroupBox.Header>
-                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                            <TextBox
-                                Name="DeviceName"
-                                Margin="15,0,15,0"
-                                VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                                <Binding Path="DeviceName" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox>
-                            <TextBox
-                                Margin="0,0,15,0"
-                                VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=SerialNumber}"
-                                IsReadOnly="True"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding Device.Serial, Mode=OneWay}" />
-                            <!--<TextBox
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock1}"
-                    IsReadOnly="True"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding Device.InfoBlock1, Mode=OneWay}" />
-                <TextBox
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock2}"
-                    IsReadOnly="True"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding Device.InfoBlock2, Mode=OneWay}" />-->
-                        </StackPanel>
-                    </GroupBox>
-
-                    <GroupBox Margin="16" HorizontalAlignment="Stretch">
-                        <GroupBox.Header>
-                            <DockPanel HorizontalAlignment="Stretch">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=RChannelLeds}" />
-                                </StackPanel>
-                            </DockPanel>
-                        </GroupBox.Header>
-
-                        <ItemsControl
-                            Name="RChannelLedColors"
+                    <materialDesign:Card Margin="16" Background="{DynamicResource MaterialDesignBackground}">
+                        <Expander
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            Header="{DynamicResource ResourceKey=DeviceInfo}"
+                            IsExpanded="True">
+                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                <TextBox
+                                    Name="DeviceName"
+                                    Margin="15,0,15,15"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                    <Binding Path="DeviceName">
+                                        <Binding.ValidationRules>
+                                            <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox>
+                                <TextBox
+                                    Name="SerialNumber"
+                                    Margin="0,0,15,15"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=SerialNumber}"
+                                    IsReadOnly="True"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Path=Device.Serial, Mode=OneWay}" />
+                                <TextBox
+                                    Name="InfoBlock1"
+                                    Margin="0,0,15,15"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock1}"
+                                    IsReadOnly="True"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Path=Device.InfoBlock1, Mode=OneWay}" />
+                                <TextBox
+                                    Name="InfoBlock2"
+                                    Margin="0,0,15,15"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock2}"
+                                    IsReadOnly="True"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Path=Device.InfoBlock2, Mode=OneWay}" />
+                            </StackPanel>
+                        </Expander>
+                    </materialDesign:Card>
 
-                    </GroupBox>
 
-                    <GroupBox Margin="16" HorizontalAlignment="Stretch">
-                        <GroupBox.Header>
-                            <DockPanel HorizontalAlignment="Stretch">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=GChannelLeds}" />
-                                </StackPanel>
-                            </DockPanel>
-                        </GroupBox.Header>
-
-                        <ItemsControl
-                            Name="GChannelLedColors"
+                    <materialDesign:Card Margin="16" Background="{DynamicResource MaterialDesignBackground}">
+                        <Expander
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            Header="{DynamicResource ResourceKey=DeviceLeds}"
+                            IsExpanded="True">
+                            <StackPanel HorizontalAlignment="Stretch" Orientation="Vertical">
+                                <GroupBox HorizontalAlignment="Stretch">
+                                    <GroupBox.Header>
+                                        <DockPanel HorizontalAlignment="Stretch">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=RChannelLeds}" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </GroupBox.Header>
 
-                    </GroupBox>
+                                    <ItemsControl
+                                        Name="RChannelLedColors"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
 
-                    <GroupBox Margin="16" HorizontalAlignment="Stretch">
-                        <GroupBox.Header>
-                            <DockPanel HorizontalAlignment="Stretch">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=BChannelLeds}" />
-                                </StackPanel>
-                            </DockPanel>
-                        </GroupBox.Header>
+                                </GroupBox>
 
-                        <ItemsControl
-                            Name="BChannelLedColors"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                                <GroupBox Margin="0,16,0,0" HorizontalAlignment="Stretch">
+                                    <GroupBox.Header>
+                                        <DockPanel HorizontalAlignment="Stretch">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=GChannelLeds}" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </GroupBox.Header>
 
-                    </GroupBox>
+                                    <ItemsControl
+                                        Name="GChannelLedColors"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </GroupBox>
+
+                                <GroupBox Margin="0,16,0,0" HorizontalAlignment="Stretch">
+                                    <GroupBox.Header>
+                                        <DockPanel HorizontalAlignment="Stretch">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=BChannelLeds}" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </GroupBox.Header>
+
+                                    <ItemsControl
+                                        Name="BChannelLedColors"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ContentControl Template="{DynamicResource ResourceKey=LedControlTemplate}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </GroupBox>
+                            </StackPanel>
+                        </Expander>
+                    </materialDesign:Card>
                 </StackPanel>
             </ScrollViewer>
         </Border>

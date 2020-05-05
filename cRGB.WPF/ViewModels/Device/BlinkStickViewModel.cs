@@ -20,7 +20,7 @@ using MaterialDesignThemes.Wpf;
 namespace cRGB.WPF.ViewModels.Device
 {
     [DataContract]
-    public class BlinkStickViewModel : LedDeviceViewModel, IHandle<DeviceSelectedMessage>, IRefresh
+    public class BlinkStickViewModel : LedDeviceViewModel, IHandle<DeviceSelectedMessage>, IRefresh, INotifyMeOnAppExit
     {
         #region Properties
 
@@ -68,6 +68,17 @@ namespace cRGB.WPF.ViewModels.Device
                 if (value == null || Settings.Description == value) return;
 
                 Settings.Description = value;
+            }
+        }
+
+        public string SerialNumber
+        {
+            get => Settings.SerialNumber;
+            set
+            {
+                if (value == null || Settings.SerialNumber == value) return;
+
+                Settings.SerialNumber = value;
             }
         }
 
@@ -191,10 +202,10 @@ namespace cRGB.WPF.ViewModels.Device
         {
             if (!(message.SelectedDevice is BlinkStick))
             {
-                CloseDialog();
                 return Task.CompletedTask;
             }
             Device = (BlinkStick)message.SelectedDevice;
+            SerialNumber = Device.Serial;
             CloseDialog();
             return Task.CompletedTask;
         }
@@ -206,15 +217,26 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void RefreshProperties()
         {
-            OnPropertyChanged(new PropertyChangedEventArgs("GetLedAsByteArray"));
-            //OnPropertyChanged(new PropertyChangedEventArgs(nameof(RChannelLedColors)));
-            //OnPropertyChanged(new PropertyChangedEventArgs(nameof(GChannelLedColors)));
-            //OnPropertyChanged(new PropertyChangedEventArgs(nameof(BChannelLedColors)));
+            foreach (var ledState in LedStates)
+            {
+                ledState.FirePropertyChanged();
+            }
         }
 
         public void SaveSettings()
         {
             Settings.DisabledLeds = new BindableCollection<int>();
+        }
+
+        /// <summary>
+        /// Has to be called before the App Exits.
+        /// Saves the current Disabled LED's to Settings
+        /// </summary>
+        public void OnAppExit()
+        {
+            if (Settings == null)
+                return;
+            Settings.DisabledLeds = new BindableCollection<int>(LedStates.Where(o => !o.Enabled).Select(o => o.Index));
         }
     }
 }

@@ -4,8 +4,8 @@
 
 namespace cRGB.Tools.Interfaces.ViewModel
 {
-    public interface INotifyMeOnQuit
+    public interface INotifyMeOnAppExit
     {
-        public void OnQuit();
+        public void OnAppExit();
     }
 }

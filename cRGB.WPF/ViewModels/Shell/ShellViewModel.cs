@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using cRGB.Domain.Services;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
@@ -14,6 +15,7 @@ namespace cRGB.WPF.ViewModels.Shell
     public class ShellViewModel : Conductor<Screen>.Collection.OneActive, IHandle<TreeViewSelectionChangedMessage>
     {
         readonly IEventAggregator _eventAggregator;
+        readonly ISettingsService _settingsService;
 
         #region Properties
 
@@ -24,13 +26,26 @@ namespace cRGB.WPF.ViewModels.Shell
 
         public MenuItemViewModel SelectedMenuItem { get; set; }
 
+        public int ShellViewHeight
+        {
+            get => _settingsService.AppSettings.ShellViewHeight;
+            set => _settingsService.AppSettings.ShellViewHeight = value;
+        }
+
+        public int ShellViewWidth
+        {
+            get => _settingsService.AppSettings.ShellViewWidth;
+            set => _settingsService.AppSettings.ShellViewWidth = value;
+        }
+
 
         #endregion Properties
 
-        public ShellViewModel(IEventAggregator aggregator, ILocalizationHelper loc, DeviceListViewModel deviceListViewModel)
+        public ShellViewModel(IEventAggregator aggregator, ILocalizationHelper loc, DeviceListViewModel deviceListViewModel, ISettingsService settingsService)
         {
             _eventAggregator = aggregator;
             _eventAggregator.SubscribeOnUIThread(this);
+            _settingsService = settingsService;
 
             // Adding Menu Items
             var menuItem = IoC.Get<MenuItemViewModel>();

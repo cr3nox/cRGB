@@ -55,9 +55,10 @@ namespace cRGB.WPF.ViewModels.Device
             R = r;
             G = g;
             B = b;
+            //OnPropertyChanged(new PropertyChangedEventArgs(nameof(GetLedAsByteArray)));
         }
 
-        public void RefreshProperties()
+        public void FirePropertyChanged()
         {
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(GetLedAsByteArray)));
         }

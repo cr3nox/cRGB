@@ -4,13 +4,14 @@
     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
     <sys:String x:Key="ShellViewWindowTitle">cRGB</sys:String>
-    <sys:String x:Key="DeviceDeviceName">DeviceDeviceName</sys:String>
+    <sys:String x:Key="DeviceName">Device Name</sys:String>
     <sys:String x:Key="Description">Description</sys:String>
     <sys:String x:Key="Devices">Devices</sys:String>
     <sys:String x:Key="DeviceType">Device Type</sys:String>
     <sys:String x:Key="SerialNumber">Serial Number</sys:String>
     <sys:String x:Key="InfoBlock1">Info Block 1</sys:String>
     <sys:String x:Key="InfoBlock2">Info Block 2</sys:String>
+    <sys:String x:Key="DeviceLeds">Device LEDs</sys:String>
     <sys:String x:Key="RChannelLeds">R Channel LEDs</sys:String>
     <sys:String x:Key="GChannelLeds">G Channel LEDs</sys:String>
     <sys:String x:Key="BChannelLeds">B Channel LEDs</sys:String>
@@ -36,4 +37,6 @@
     <sys:String x:Key="DeviceInfo">Device Info</sys:String>
     <sys:String x:Key="DeviceSettings">Device Settings</sys:String>
     <sys:String x:Key="Settings">Settings</sys:String>
+    <sys:String x:Key="Enable">Enable</sys:String>
+    <sys:String x:Key="Disable">Disable</sys:String>
 </ResourceDictionary>
