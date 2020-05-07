@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using cRGB.Domain.Models.App;
 using cRGB.Domain.Models.Device;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters;
 
 namespace cRGB.Domain.Services
@@ -15,13 +16,14 @@ namespace cRGB.Domain.Services
         #region Fields
 
         readonly IJsonSerializationService _jsonSerializationService;
-        string AppSettingsFileName { get; } = "AppConfig.json";
+        string AppSettingsPath { get; }
+        string BlinkStickSettingsPath { get; }
         private string CurrentDirectory { get; }
 
         #endregion
 
         #region Properties
-        public IEnumerable<IBlinkStickSettings> BlinkStickSettings { get; set; } = new List<IBlinkStickSettings>();
+        public IList<IBlinkStickSettings> BlinkStickSettings { get; set; }
         public IAppSettings AppSettings { get; set; }
 
         #endregion
@@ -30,6 +32,8 @@ namespace cRGB.Domain.Services
         public SettingsService(IJsonSerializationService jsonSerializationService)
         {
             CurrentDirectory = Directory.GetCurrentDirectory();
+            AppSettingsPath = Path.Combine(CurrentDirectory, "AppConfig.json");
+            BlinkStickSettingsPath = Path.Combine(CurrentDirectory, "BlinkStickDevices.json");
             _jsonSerializationService = jsonSerializationService;
             LoadAppSettingsFromFile();
         }
@@ -37,31 +41,72 @@ namespace cRGB.Domain.Services
         #endregion
 
         #region Methods
-
-        public void LoadAppSettingsFromFile()
+        public void LoadAll()
         {
-            EnsureAppSettingsExist();
-            AppSettings = _jsonSerializationService.DeserializeFromFile<AppSettings>(Path.Combine(CurrentDirectory, AppSettingsFileName));
-        }
-
-        public void SaveAppSettingsToFile()
-        {
-            _jsonSerializationService.SerializeToFile(AppSettings, Path.Combine(CurrentDirectory, AppSettingsFileName));
-        }
-
-        public void EnsureAppSettingsExist()
-        {
-            var path = Path.Combine(CurrentDirectory, AppSettingsFileName);
-            if (File.Exists(path))
-                return;
-
-            AppSettings = new AppSettings();
-            _jsonSerializationService.SerializeToFile(AppSettings, path);
+            LoadAppSettingsFromFile();
+            LoadBlinkStickSettingsFromFile();
         }
 
         public void SaveAll()
         {
             SaveAppSettingsToFile();
+            SaveBlinkStickSettingsToFile();
+        }
+
+
+        public IBlinkStickSettings RegisterBlinkStickSettings(string serial)
+        {
+            if (string.IsNullOrEmpty(serial))
+                return null;
+
+            var stick = GetBlinkStickSettings(serial);
+            if(stick != null)
+                return stick;
+
+            stick = new BlinkStickSettings(serial);
+            BlinkStickSettings.Add(stick);
+            return stick;
+        }
+
+        public IBlinkStickSettings GetBlinkStickSettings(string serial)
+        {
+            return BlinkStickSettings.SingleOrDefault(o => o.SerialNumber == serial);
+        }
+
+        public void LoadAppSettingsFromFile()
+        {
+            EnsureAppSettingsExist();
+            AppSettings = _jsonSerializationService.DeserializeFromFile<AppSettings>(AppSettingsPath);
+        }
+
+        void LoadBlinkStickSettingsFromFile()
+        {
+            if (!File.Exists(BlinkStickSettingsPath))
+            {
+                BlinkStickSettings = new List<IBlinkStickSettings>();
+                return;
+            }
+            BlinkStickSettings = _jsonSerializationService.DeserializeFromFile<List<BlinkStickSettings>>(BlinkStickSettingsPath).ToList<IBlinkStickSettings>();
+        }
+
+        void SaveBlinkStickSettingsToFile()
+        {
+            _jsonSerializationService.SerializeToFile(BlinkStickSettings, BlinkStickSettingsPath);
+        }
+
+
+        public void SaveAppSettingsToFile()
+        {
+            _jsonSerializationService.SerializeToFile(AppSettings, AppSettingsPath);
+        }
+
+        public void EnsureAppSettingsExist()
+        {
+            if (File.Exists(AppSettingsPath))
+                return;
+
+            AppSettings = new AppSettings();
+            _jsonSerializationService.SerializeToFile(AppSettings, AppSettingsPath);
         }
 
         #endregion

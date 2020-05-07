@@ -27,5 +27,18 @@ namespace cRGB.Domain.Models.Device
         [DataMember]
         public IEnumerable<int> DisabledLeds { get; set; } = new List<int>();
 
+        public int Brightness { get; set; } = 100;
+
+        public BlinkStickSettings()
+        {
+
+        }
+        public BlinkStickSettings(string serial)
+        {
+            if (string.IsNullOrEmpty(serial))
+                return;
+            SerialNumber = serial;
+        }
+
     }
 }

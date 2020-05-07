@@ -10,9 +10,13 @@ namespace cRGB.Domain.Services
 {
     public interface ISettingsService
     {
-        public IEnumerable<IBlinkStickSettings> BlinkStickSettings { get; set; }
+        public IList<IBlinkStickSettings> BlinkStickSettings { get; set; }
         public IAppSettings AppSettings { get; set; }
 
+        public IBlinkStickSettings RegisterBlinkStickSettings(string serial);
+
         public void SaveAll();
+
+        public void LoadAll();
     }
 }
