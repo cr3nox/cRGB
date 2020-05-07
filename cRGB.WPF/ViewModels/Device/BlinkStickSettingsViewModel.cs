@@ -9,62 +9,62 @@ namespace cRGB.WPF.ViewModels.Device
     public class BlinkStickSettingsViewModel : ViewModelBase
     {
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        IBlinkStickSettings _blinkStickSettings = new BlinkStickSettings();
+        public IBlinkStickSettings BlinkStickSettings;
 
         public string DeviceName
         {
-            get => _blinkStickSettings.Name;
-            set => _blinkStickSettings.Name = value;
+            get => BlinkStickSettings.Name;
+            set => BlinkStickSettings.Name = value;
         }
 
         public string SerialNumber
         {
-            get => _blinkStickSettings.SerialNumber;
-            set => _blinkStickSettings.SerialNumber = value;
+            get => BlinkStickSettings.SerialNumber;
+            set => BlinkStickSettings.SerialNumber = value;
         }
 
         public string Description
         {
-            get => _blinkStickSettings.Description;
-            set => _blinkStickSettings.Description = value;
+            get => BlinkStickSettings.Description;
+            set => BlinkStickSettings.Description = value;
         }
 
         public int RChannelLedCount
         {
-            get => _blinkStickSettings.RChannelLedCount;
+            get => BlinkStickSettings.RChannelLedCount;
             set
             {
                 if (value < 0)
-                    _blinkStickSettings.RChannelLedCount = 0;
+                    BlinkStickSettings.RChannelLedCount = 0;
                 else if (value > 64)
-                    _blinkStickSettings.RChannelLedCount = 64;
-                _blinkStickSettings.RChannelLedCount = value;
+                    BlinkStickSettings.RChannelLedCount = 64;
+                BlinkStickSettings.RChannelLedCount = value;
             }
         }
 
         public int GChannelLedCount
         {
-            get => _blinkStickSettings.GChannelLedCount;
+            get => BlinkStickSettings.GChannelLedCount;
             set
             {
                 if (value < 0)
-                    _blinkStickSettings.GChannelLedCount = 0;
+                    BlinkStickSettings.GChannelLedCount = 0;
                 else if (value > 64)
-                    _blinkStickSettings.GChannelLedCount = 64;
-                _blinkStickSettings.GChannelLedCount = value;
+                    BlinkStickSettings.GChannelLedCount = 64;
+                BlinkStickSettings.GChannelLedCount = value;
             }
         }
 
         public int BChannelLedCount
         {
-            get => _blinkStickSettings.BChannelLedCount;
+            get => BlinkStickSettings.BChannelLedCount;
             set
             {
                 if (value < 0)
-                    _blinkStickSettings.BChannelLedCount = 0;
+                    BlinkStickSettings.BChannelLedCount = 0;
                 else if (value > 64)
-                    _blinkStickSettings.BChannelLedCount = 64;
-                _blinkStickSettings.BChannelLedCount = value;
+                    BlinkStickSettings.BChannelLedCount = 64;
+                BlinkStickSettings.BChannelLedCount = value;
             }
         }
 
@@ -72,35 +72,41 @@ namespace cRGB.WPF.ViewModels.Device
 
         public bool RChannelLedInvert
         {
-            get => _blinkStickSettings.RChannelLedInvert;
-            set => _blinkStickSettings.RChannelLedInvert = value;
+            get => BlinkStickSettings.RChannelLedInvert;
+            set => BlinkStickSettings.RChannelLedInvert = value;
         }
 
         public bool GChannelLedInvert
         {
-            get => _blinkStickSettings.GChannelLedInvert;
-            set => _blinkStickSettings.GChannelLedInvert = value;
+            get => BlinkStickSettings.GChannelLedInvert;
+            set => BlinkStickSettings.GChannelLedInvert = value;
         }
 
         public bool BChannelLedInvert
         {
-            get => _blinkStickSettings.GChannelLedInvert;
-            set => _blinkStickSettings.GChannelLedInvert = value;
+            get => BlinkStickSettings.BChannelLedInvert;
+            set => BlinkStickSettings.BChannelLedInvert = value;
         }
 
         public BindableCollection<int> DisabledLeds
         {
-            get => new BindableCollection<int>(_blinkStickSettings.DisabledLeds);
-            set => _blinkStickSettings.DisabledLeds = value.ToList();
+            get => new BindableCollection<int>(BlinkStickSettings.DisabledLeds);
+            set => BlinkStickSettings.DisabledLeds = value.ToList();
+        }
+
+        public int Brightness
+        {
+            get => BlinkStickSettings.Brightness;
+            set => BlinkStickSettings.Brightness = value;
         }
         
         public BindableCollection<LedViewModel> RChannelLedColors { get; set; }
         public BindableCollection<LedViewModel> GChannelLedColors { get; set; }
         public BindableCollection<LedViewModel> BChannelLedColors { get; set; }
 
-        public BlinkStickSettingsViewModel()
+        public BlinkStickSettingsViewModel(IBlinkStickSettings settings)
         {
-
+            BlinkStickSettings = settings;
         }
 
         public void EnableAllRChannelLedColors()

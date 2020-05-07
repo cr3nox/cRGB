@@ -15,14 +15,17 @@
     <UserControl.Resources>
         <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter" />
         <validators:NotEmptyValidationRule x:Key="NotEmptyValidationRule" />
+        <converters:CountToVisibilityConverter
+            x:Key="CountToVisibilityConverter"
+            FalseValue="Collapsed"
+            TrueValue="Visible" />
     </UserControl.Resources>
-
 
     <materialDesign:DialogHost
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         CloseOnClickAway="True"
-        IsOpen="{Binding IsDeviceSelectionOpen}"
+        IsOpen="{Binding Path=IsDeviceSelectionOpen}"
         OverlayBackground="{DynamicResource PrimaryHueDarkBrush}">
         <materialDesign:DialogHost.DialogContent>
             <ContentControl Name="DeviceSelection" cm:View.Model="{Binding Path=DeviceSelection}" />
@@ -49,11 +52,12 @@
                             <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                                 <TextBox
                                     Name="DeviceName"
+                                    MinWidth="100"
                                     Margin="15,0,15,15"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                                    <Binding Path="DeviceName">
+                                    <Binding Path="DeviceName" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
                                             <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
                                         </Binding.ValidationRules>
@@ -61,6 +65,7 @@
                                 </TextBox>
                                 <TextBox
                                     Name="SerialNumber"
+                                    MinWidth="100"
                                     Margin="0,0,15,15"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=SerialNumber}"
@@ -69,6 +74,7 @@
                                     Text="{Binding Path=Device.Serial, Mode=OneWay}" />
                                 <TextBox
                                     Name="InfoBlock1"
+                                    MinWidth="100"
                                     Margin="0,0,15,15"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock1}"
@@ -77,6 +83,7 @@
                                     Text="{Binding Path=Device.InfoBlock1, Mode=OneWay}" />
                                 <TextBox
                                     Name="InfoBlock2"
+                                    MinWidth="100"
                                     Margin="0,0,15,15"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=InfoBlock2}"
@@ -89,12 +96,15 @@
 
 
                     <materialDesign:Card Margin="16" Background="{DynamicResource MaterialDesignBackground}">
-                        <Expander
-                            HorizontalAlignment="Stretch"
-                            Header="{DynamicResource ResourceKey=DeviceLeds}"
-                            IsExpanded="True">
+                        <Expander HorizontalAlignment="Stretch" IsExpanded="True">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Margin="0,3,5,0" Kind="LedStripVariant" />
+                                    <Label Content="{DynamicResource ResourceKey=DeviceLeds}" />
+                                </StackPanel>
+                            </Expander.Header>
                             <StackPanel HorizontalAlignment="Stretch" Orientation="Vertical">
-                                <GroupBox HorizontalAlignment="Stretch">
+                                <GroupBox HorizontalAlignment="Stretch" Visibility="{Binding RChannelLedColors.Count, Converter={StaticResource CountToVisibilityConverter}}">
                                     <GroupBox.Header>
                                         <DockPanel HorizontalAlignment="Stretch">
                                             <StackPanel Orientation="Horizontal">
@@ -121,7 +131,10 @@
 
                                 </GroupBox>
 
-                                <GroupBox Margin="0,16,0,0" HorizontalAlignment="Stretch">
+                                <GroupBox
+                                    Margin="0,16,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    Visibility="{Binding GChannelLedColors.Count, Converter={StaticResource CountToVisibilityConverter}}">
                                     <GroupBox.Header>
                                         <DockPanel HorizontalAlignment="Stretch">
                                             <StackPanel Orientation="Horizontal">
@@ -148,7 +161,10 @@
 
                                 </GroupBox>
 
-                                <GroupBox Margin="0,16,0,0" HorizontalAlignment="Stretch">
+                                <GroupBox
+                                    Margin="0,16,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    Visibility="{Binding BChannelLedColors.Count, Converter={StaticResource CountToVisibilityConverter}}">
                                     <GroupBox.Header>
                                         <DockPanel HorizontalAlignment="Stretch">
                                             <StackPanel Orientation="Horizontal">

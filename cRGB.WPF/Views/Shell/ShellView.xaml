@@ -52,10 +52,10 @@
                         Name="MenuToggled"
                         IsChecked="True"
                         Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
-                    <Image
+                    <!--<Image
                         Width="40"
                         Height="40"
-                        Source="/Resources/Icons/cRGB Logo.png" />
+                        Source="/Resources/Icons/cRGB Logo.png" />-->
                     <TextBlock Margin="16,0,0,0" VerticalAlignment="Center">
                         :D *blink*
                     </TextBlock>

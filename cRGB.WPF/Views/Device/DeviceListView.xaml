@@ -5,147 +5,170 @@
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:cm="http://caliburnmicro.com"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:device="clr-namespace:cRGB.Domain.Models.Device;assembly=cRGB.Domain"
+    xmlns:enums="clr-namespace:cRGB.Domain.Enums;assembly=cRGB.Domain"
     xmlns:local="clr-namespace:cRGB.WPF.Views"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <materialDesign:DialogHost
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        CloseOnClickAway="False"
+        IsOpen="False"
+        OverlayBackground="{DynamicResource PrimaryHueDarkBrush}">
+        <materialDesign:DialogHost.DialogContentTemplate>
+            <DataTemplate>
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{DynamicResource ResourceKey=DeleteDialogText}" />
+                    <StackPanel
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="{x:Static enums:DialogAnswer.Yes}"
+                            Content="{DynamicResource ResourceKey=Delete}"
+                            IsDefault="True"
+                            Style="{DynamicResource MaterialDesignFlatButton}" />
+                        <Button
+                            Margin="8,0,0,0"
+                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="{x:Static enums:DialogAnswer.No}"
+                            Content="{DynamicResource ResourceKey=Button_Cancel}"
+                            IsCancel="true"
+                            Style="{DynamicResource MaterialDesignFlatButton}" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </materialDesign:DialogHost.DialogContentTemplate>
 
-
-
-        <!--<StackPanel
-            Grid.Row="0"
-            Grid.Column="0"
-            Orientation="Horizontal">
-            <Label Content="{DynamicResource ResourceKey=MenuItemOverview_AddDevices}" />
-            <Button
-                Name="AddBlinkStick"
-                Width="25"
-                Height="25">
-                <Image Source="/Resources/Icons/BlinkStick_Logo.png" />
-            </Button>
-            <Button
-                Name="AddArduino"
-                Width="{Binding Path=ActualWidth, ElementName=AddBlinkStick}"
-                Height="{Binding Path=ActualHeight, ElementName=AddBlinkStick}">
-                <Image Source="/Resources/Icons/arduino.png" />
-            </Button>
-            <Button
-                Name="AddTestDevice"
-                Width="{Binding Path=ActualWidth, ElementName=AddBlinkStick}"
-                Height="{Binding Path=ActualHeight, ElementName=AddBlinkStick}">
-                <Image Source="/Resources/Icons/AddConnection_16x.png" />
-            </Button>
-        </StackPanel>-->
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <GroupBox Margin="16">
-                <GroupBox.Header>
-                    <DockPanel HorizontalAlignment="Stretch">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=Devices}" />
-                        </StackPanel>
-                    </DockPanel>
-                </GroupBox.Header>
-                <StackPanel>
-
-                    <ListView
-                        Name="LedDevices"
-                        cm:Message.Attach="[Event MouseDoubleClick] = [Action RowDoubleClick()]"
-                        SelectedItem="SelectedLedDevice">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="{DynamicResource ResourceKey=Name}" />
-                                <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="{DynamicResource ResourceKey=Description}" />
-                                <GridViewColumn DisplayMemberBinding="{Binding DeviceType}" Header="{DynamicResource ResourceKey=DeviceType}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-
-                    <materialDesign:PopupBox
-                        Width="40"
-                        Height="40"
-                        Margin="0,5,0,0"
-                        HorizontalAlignment="Right"
-                        PlacementMode="BottomAndAlignRightEdges"
-                        PopupMode="Click"
-                        Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
-                        ToolTip="{DynamicResource ResourceKey=AddDevices}"
-                        ToolTipService.Placement="Right">
-                        <materialDesign:PopupBox.ToggleContent>
-                            <materialDesign:PackIcon Kind="Plus" />
-                        </materialDesign:PopupBox.ToggleContent>
-                        <materialDesign:PopupBox.ToggleCheckedContent>
-                            <materialDesign:PackIcon Kind="Close" />
-                        </materialDesign:PopupBox.ToggleCheckedContent>
-
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <GroupBox Margin="16">
+                        <GroupBox.Header>
+                            <DockPanel HorizontalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=Devices}" />
+                                </StackPanel>
+                            </DockPanel>
+                        </GroupBox.Header>
                         <StackPanel>
-                            <Button
-                                Name="AddTestDevice"
-                                cm:Message.Attach="[Event Click] = [Action AddTestDevice()]"
-                                Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon
-                                        Width="20"
-                                        Height="20"
-                                        Kind="TestTubeEmpty" />
-                                    <TextBlock Margin="5,0,0,0" Text="{DynamicResource ResourceKey=AddDeviceTestDevice}" />
-                                </StackPanel>
-                            </Button>
-                            <Button
-                                Name="AddBlinkStick"
-                                MinWidth="{Binding ElementName=AddTestDevice, Path=ActualWidth}"
+
+                            <ListView
+                                Name="LedDevices"
+                                cm:Message.Attach="[Event MouseDoubleClick] = [Action RowDoubleClick()]"
+                                SelectedItem="SelectedLedDevice">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding DeviceName}"
+                                            Header="{DynamicResource ResourceKey=DeviceName}" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding Description}"
+                                            Header="{DynamicResource ResourceKey=Description}" />
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding DeviceType}"
+                                            Header="{DynamicResource ResourceKey=DeviceType}" />
+                                        <GridViewColumn Header="{DynamicResource ResourceKey=Delete}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        x:Name="DeleteDevice"
+                                                        HorizontalAlignment="Right"
+                                                        cm:Message.Attach="DeleteDevice($dataContext)"
+                                                        Content="{materialDesign:PackIcon Delete}"
+                                                        Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <materialDesign:PopupBox
+                                Width="40"
+                                Height="40"
                                 Margin="0,5,0,0"
-                                cm:Message.Attach="[Event Click] = [Action AddBlinkStick()]"
-                                Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image
-                                        Width="20"
-                                        Height="20"
-                                        Source="/Resources/Icons/BlinkStick_Logo.png" />
-                                    <TextBlock Margin="5,0,0,0" Text="{DynamicResource ResourceKey=AddDeviceBlinkStick}" />
+                                HorizontalAlignment="Right"
+                                PlacementMode="BottomAndAlignRightEdges"
+                                PopupMode="Click"
+                                Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
+                                ToolTip="{DynamicResource ResourceKey=AddDevices}"
+                                ToolTipService.Placement="Right">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <materialDesign:PackIcon Kind="Plus" />
+                                </materialDesign:PopupBox.ToggleContent>
+                                <materialDesign:PopupBox.ToggleCheckedContent>
+                                    <materialDesign:PackIcon Kind="Close" />
+                                </materialDesign:PopupBox.ToggleCheckedContent>
+
+                                <StackPanel>
+                                    <Button
+                                        Name="AddTestDevice"
+                                        cm:Message.Attach="[Event Click] = [Action AddTestDevice()]"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+                                                Width="20"
+                                                Height="20"
+                                                Kind="TestTubeEmpty" />
+                                            <TextBlock Margin="5,0,0,0" Text="{DynamicResource ResourceKey=AddDeviceTestDevice}" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Name="AddNewBlinkStick"
+                                        MinWidth="{Binding ElementName=AddTestDevice, Path=ActualWidth}"
+                                        Margin="0,5,0,0"
+                                        cm:Message.Attach="[Event Click] = [Action AddNewBlinkStick()]"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
+                                                Width="20"
+                                                Height="20"
+                                                Source="/Resources/Icons/BlinkStick_Logo.png" />
+                                            <TextBlock Margin="5,0,0,0" Text="{DynamicResource ResourceKey=AddDeviceBlinkStick}" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button
+                                        Name="AddArduino"
+                                        MinWidth="{Binding ElementName=AddTestDevice, Path=ActualWidth}"
+                                        Margin="0,5,0,0"
+                                        cm:Message.Attach="[Event Click] = [Action AddArduino()]"
+                                        Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
+                                                Width="20"
+                                                Height="20"
+                                                Source="/Resources/Icons/arduino_logo.png" />
+                                            <TextBlock Margin="5,0,0,0" Text="{DynamicResource ResourceKey=AddDeviceArduino}" />
+                                        </StackPanel>
+                                    </Button>
                                 </StackPanel>
-                            </Button>
-                            <Button
-                                Name="AddArduino"
-                                MinWidth="{Binding ElementName=AddTestDevice, Path=ActualWidth}"
-                                Margin="0,5,0,0"
-                                cm:Message.Attach="[Event Click] = [Action AddArduino()]"
-                                Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image
-                                        Width="20"
-                                        Height="20"
-                                        Source="/Resources/Icons/arduino_logo.png" />
-                                    <TextBlock Margin="5,0,0,0" Text="{DynamicResource ResourceKey=AddDeviceArduino}" />
-                                </StackPanel>
-                            </Button>
+
+                            </materialDesign:PopupBox>
                         </StackPanel>
+                    </GroupBox>
 
-                    </materialDesign:PopupBox>
                 </StackPanel>
-            </GroupBox>
-
-        </StackPanel>
-        <!--<ListBox
-            Name="LedDevices"
-            Grid.Row="1"
-            Grid.Column="0"
-            DisplayMemberPath="Name"
-            SelectedItem="{Binding SelectedLedDevice, Mode=TwoWay}" />-->
-
-        <!--<ContentControl
-            Name="SelectedLedDevice"
-            Grid.Row="1"
-            Grid.Column="1" />-->
-
-    </Grid>
+            </Grid>
+        </ScrollViewer>
+    </materialDesign:DialogHost>
 </UserControl>

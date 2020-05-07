@@ -27,6 +27,7 @@ namespace cRGB.WPF.ViewModels.Device
         readonly IBlinkStickService _blinkStickService;
         readonly IEventAggregator _eventAggregator;
         readonly ILocalizationHelper _loc;
+        readonly ISettingsService _settingsService;
         BlinkStick _device;
 
         public BlinkStick Device
@@ -35,7 +36,7 @@ namespace cRGB.WPF.ViewModels.Device
             set
             {
                 _device = value ?? throw new ArgumentNullException(nameof(value));
-                Settings.SerialNumber = _device.Serial;
+                InitSettings(_device.Serial);
                 _blinkStickService.AddBlinkStick(Device);
                 InitDevice();
             }
@@ -43,26 +44,19 @@ namespace cRGB.WPF.ViewModels.Device
 
         public override string DeviceName
         {
-            get => Settings.DeviceName;
+            get => Settings?.DeviceName;
             set
             {
                 if (value == null || Settings.DeviceName == value) return;
 
                 Settings.DeviceName = value;
+                DisplayName = DeviceName;
             }
-        }
-
-        /// <summary>
-        /// Gets called when DeviceName throws PropertyChanged
-        /// </summary>
-        public void OnDeviceNameChanged()
-        {
-            DisplayName = DeviceName;
         }
 
         public override string Description
         {
-            get => Settings.Description;
+            get => Settings?.Description;
             set
             {
                 if (value == null || Settings.Description == value) return;
@@ -73,7 +67,7 @@ namespace cRGB.WPF.ViewModels.Device
 
         public string SerialNumber
         {
-            get => Settings.SerialNumber;
+            get => Settings?.SerialNumber;
             set
             {
                 if (value == null || Settings.SerialNumber == value) return;
@@ -97,7 +91,7 @@ namespace cRGB.WPF.ViewModels.Device
         #endregion Properties
 
 
-        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc)
+        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService)
         {
             _blinkStickService = blinkStickService;
             DeviceSelection = IoC.Get<DeviceSelectionViewModel>();
@@ -105,21 +99,39 @@ namespace cRGB.WPF.ViewModels.Device
             _eventAggregator = aggregator;
             _eventAggregator.SubscribeOnUIThread(this);
             _loc = loc;
-            InitSettings();
+            _settingsService = settingsService;
         }
-        private void InitSettings()
+
+        public void InitSettings(string serial)
         {
             if (Settings != null) return;
 
-            Settings = IoC.Get<BlinkStickSettingsViewModel>();
+            Settings = new BlinkStickSettingsViewModel(_settingsService.RegisterBlinkStickSettings(serial));
+            IoC.BuildUp(Settings);
             Settings.PropertyChanged += Settings_PropertyChanged;
+
+            Device ??= _blinkStickService.Find(Settings.SerialNumber);
+
+            Menu.CreateChild(Settings, PackIconKind.Cog, true, _loc.GetByKey("Settings"));
+        }
+
+        public void InitSettings(IBlinkStickSettings settings)
+        {
+            if (Settings != null) return;
+
+            Settings = new BlinkStickSettingsViewModel(settings);
+            IoC.BuildUp(Settings);
+            Settings.PropertyChanged += Settings_PropertyChanged;
+
+            Device ??= _blinkStickService.Find(Settings.SerialNumber);
+
+            Menu.CreateChild(Settings, PackIconKind.Cog, true, _loc.GetByKey("Settings"));
         }
 
         private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName != nameof(DeviceName)) return;
-
-            OnDeviceNameChanged();
+            if(e.PropertyName == nameof(DeviceName))
+                DisplayName = Settings.DeviceName;
             OnPropertyChanged(e);
         }
 
@@ -129,7 +141,6 @@ namespace cRGB.WPF.ViewModels.Device
                 return;
 
             Menu = menu;
-            Menu.CreateChild(Settings, PackIconKind.Cog, true,_loc.GetByKey("Settings"));
         }
 
         public void LoadExistingSettings()
@@ -139,14 +150,7 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void InitDevice()
         {
-            if (Device == null)
-                if (!string.IsNullOrEmpty(Settings?.SerialNumber))
-                {
-                    Device = _blinkStickService.Find(Settings.SerialNumber);
-                }
-                else
-                    return;
-                
+            IsDeviceSelectionOpen = false;
             Device.Mode = 2;
             Device.OpenDevice();
             InitLeds();
@@ -158,6 +162,7 @@ namespace cRGB.WPF.ViewModels.Device
             {
                 var led = IoC.Get<LedViewModel>();
                 led.Index = i;
+                led.Enabled = !Settings.DisabledLeds.Contains(i);
                 LedStates.Add(led);
             }
 
@@ -166,37 +171,11 @@ namespace cRGB.WPF.ViewModels.Device
             Settings.BChannelLedColors = BChannelLedColors = new BindableCollection<LedViewModel>(LedStates.Skip(Settings.RChannelLedCount + Settings.GChannelLedCount).Take(Settings.BChannelLedCount));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="channel">R = 0, G = 1, B = 2</param>
-        /// <returns></returns>
-        //public IEnumerable<Led> GetEnabledLedViewModels(EBlinkStickChannel channel)
-        //{
-        //    return channel switch
-        //    {
-        //        EBlinkStickChannel.R => RChannelLedColors.Where(o => o.Enabled),
-        //        EBlinkStickChannel.G => GChannelLedColors.Where(o => o.Enabled),
-        //        EBlinkStickChannel.B => BChannelLedColors.Where(o => o.Enabled),
-        //        _ => throw new ArgumentOutOfRangeException(nameof(channel), channel, null)
-        //    };
-        //}
-
-        //public (IEnumerable<Led> R, IEnumerable<Led> G, IEnumerable<Led> B) GetEnabledLedViewModels()
-        //{
-        //    return (RChannelLedColors.Where(o => o.Enabled), GChannelLedColors.Where(o => o.Enabled),
-        //        BChannelLedColors.Where(o => o.Enabled));
-        //}
-
-        public void DeviceSelectionButton()
+        public List<LedViewModel> GetEnabledLedViewModels()
         {
-            //var ser = (XmlSerializationService)IoC.Get<IXmlSerializationService>();
-            //var o = ser.Serialize(this);
-            //ser.CopyStream(o, Path.Combine(Directory.GetCurrentDirectory(), "BlinkStickSettings.xml").ToString());
-            //DeviceSelection.Devices = new BindableCollection<string>();
-            //DeviceSelection.AddBlinkSticks(_blinkStickService.FindAllNotAlreadyConfigured());
-            //IsDeviceSelectionOpen = !IsDeviceSelectionOpen;
+            return LedStates.Where(o => o.Enabled).ToList();
         }
+
 
         public Task HandleAsync(DeviceSelectedMessage message, CancellationToken cancellationToken)
         {
@@ -221,11 +200,6 @@ namespace cRGB.WPF.ViewModels.Device
             {
                 ledState.FirePropertyChanged();
             }
-        }
-
-        public void SaveSettings()
-        {
-            Settings.DisabledLeds = new BindableCollection<int>();
         }
 
         /// <summary>

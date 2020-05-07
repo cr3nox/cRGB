@@ -9,6 +9,8 @@ using cRGB.WPF.Helpers;
 using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Menu;
 using cRGB.WPF.ViewModels.Shell;
+using Serilog;
+using Serilog.Events;
 
 namespace cRGB.WPF
 {
@@ -55,8 +57,26 @@ namespace cRGB.WPF
             
         }
 
+        static void SetLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+#if DEBUG
+                .MinimumLevel.Debug()
+                .WriteTo.Debug()
+#endif
+                .WriteTo.File("cRGB_.log", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            Log.Information("Application Start");
+        }
+
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
+            SetLogger();
+
+            Log.Debug("Loading Settings");
+            var settings = _container.GetInstance<ISettingsService>();
+            settings.LoadAll();
+            Log.Debug("Display ShellView");
             DisplayRootViewFor<ShellViewModel>();
         }
 
@@ -77,6 +97,7 @@ namespace cRGB.WPF
 
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            Log.Fatal(e.Exception, $"OnUnhandledException, Sender: {sender}");
             e.Handled = true;
             MessageBox.Show(e.Exception.Message, "An error as occurred", MessageBoxButton.OK);
         }

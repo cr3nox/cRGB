@@ -3,12 +3,19 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cm="http://caliburnmicro.com"
+    xmlns:converters="clr-namespace:cRGB.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:cRGB.WPF.Views.Device"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validators="clr-namespace:cRGB.WPF.Validators"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:CountToVisibilityConverter
+            x:Key="CountToVisibilityConverter"
+            FalseValue="Collapsed"
+            TrueValue="Visible" />
+    </UserControl.Resources>
     <Border
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
@@ -22,152 +29,300 @@
                         HorizontalAlignment="Stretch"
                         Header="{DynamicResource ResourceKey=DeviceSettings}"
                         IsExpanded="True">
-                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                            <TextBox
-                                Name="DeviceName"
+                        <StackPanel>
+                            <WrapPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                <TextBox
+                                    Name="DeviceName"
+                                    MinWidth="100"
+                                    Margin="15,0,15,15"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                                    <Binding Path="DeviceName" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox>
+                                <TextBox
+                                    Name="Description"
+                                    MinWidth="100"
+                                    Margin="15,0,15,15"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=Description}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                            </WrapPanel>
+                            <Border
+                                Margin="0,0,0,0"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="0,1,0,0" />
+                            <Label Margin="15,15,15,0" Content="{DynamicResource ResourceKey=ChannelConfiguration}" />
+                            <Grid Margin="15,0,15,15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Margin="0,0,15,0"
+                                    Content="{DynamicResource ResourceKey=RChannel}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="0,0,15,0"
+                                    Content="{DynamicResource ResourceKey=GChannel}" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Margin="0,0,15,0"
+                                    Content="{DynamicResource ResourceKey=BChannel}" />
+                                <TextBox
+                                    Name="RChannelLedCount"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    MinWidth="30"
+                                    Margin="0,0,15,0"
+                                    TextAlignment="Right">
+                                    <TextBox.Text>
+                                        <Binding Path="RChannelLedCount" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validators:IntegerMinMaxValidationRule Max="64" Min="0" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBox
+                                    Name="GChannelLedCount"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    MinWidth="30"
+                                    Margin="0,0,15,0"
+                                    TextAlignment="Right">
+                                    <TextBox.Text>
+                                        <Binding Path="GChannelLedCount" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validators:IntegerMinMaxValidationRule Max="64" Min="0" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBox
+                                    Name="BChannelLedCount"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    MinWidth="30"
+                                    Margin="0,0,15,0"
+                                    TextAlignment="Right">
+                                    <TextBox.Text>
+                                        <Binding Path="BChannelLedCount" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validators:IntegerMinMaxValidationRule Max="64" Min="0" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Right"
+                                    Content="{DynamicResource ResourceKey=Invert}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Right"
+                                    Content="{DynamicResource ResourceKey=Invert}" />
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Right"
+                                    Content="{DynamicResource ResourceKey=Invert}" />
+                                <ToggleButton
+                                    Name="RChannelLedInvert"
+                                    Grid.Row="0"
+                                    Grid.Column="3"
+                                    Margin="15,0,0,0"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}" />
+                                <ToggleButton
+                                    Name="GChannelLedInvert"
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Margin="15,0,0,0"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}" />
+                                <ToggleButton
+                                    Name="BChannelLedInvert"
+                                    Grid.Row="2"
+                                    Grid.Column="3"
+                                    Margin="15,0,0,0"
+                                    Style="{StaticResource MaterialDesignSwitchToggleButton}" />
+                            </Grid>
+                            <Border
+                                Margin="0,0,0,0"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="0,1,0,0" />
+                            <Label Margin="15,15,15,0" Content="{DynamicResource ResourceKey=Brightness}" />
+                            <Slider
+                                Name="Brightness"
                                 Margin="15,0,15,15"
-                                VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                                <Binding Path="DeviceName" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox>
-                            <TextBox
-                                Name="SerialNumber"
-                                Margin="0,0,15,15"
-                                VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=SerialNumber}"
-                                IsReadOnly="True"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                IsSelectionRangeEnabled="True"
+                                Maximum="100"
+                                Minimum="0"
+                                Orientation="Horizontal"
+                                Style="{StaticResource MaterialDesignDiscreteSlider}"
+                                TickFrequency="1"
+                                TickPlacement="BottomRight" />
                         </StackPanel>
                     </Expander>
                 </materialDesign:Card>
 
-                <GroupBox Margin="16" HorizontalAlignment="Stretch">
-                    <GroupBox.Header>
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=RChannelLeds}" />
-                            <StackPanel
-                                HorizontalAlignment="Right"
-                                DockPanel.Dock="Right"
-                                Orientation="Horizontal">
-                                <Button
-                                    x:Name="EnableAllRChannelLedColors"
-                                    Margin="0,0,15,0"
-                                    HorizontalAlignment="Right"
-                                    Content="{materialDesign:PackIcon LedOn}"
-                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
-                                <Button
-                                    x:Name="DisableAllRChannelLedColors"
-                                    HorizontalAlignment="Right"
-                                    Content="{materialDesign:PackIcon LedVariantOff}"
-                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
-                            </StackPanel>
-                        </DockPanel>
-                    </GroupBox.Header>
-
-                    <ItemsControl
-                        Name="RChannelLedColors"
+                <materialDesign:Card Margin="16" Background="{DynamicResource MaterialDesignBackground}">
+                    <Expander
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        Header="{DynamicResource ResourceKey=LedConfiguration}"
+                        IsExpanded="True">
+                        <StackPanel>
+                            <GroupBox
+                                Margin="16"
+                                HorizontalAlignment="Stretch"
+                                Visibility="{Binding RChannelLedCount, Converter={StaticResource CountToVisibilityConverter}}">
+                                <GroupBox.Header>
+                                    <DockPanel HorizontalAlignment="Stretch">
+                                        <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=RChannelLeds}" />
+                                        <StackPanel
+                                            HorizontalAlignment="Right"
+                                            DockPanel.Dock="Right"
+                                            Orientation="Horizontal">
+                                            <Button
+                                                x:Name="EnableAllRChannelLedColors"
+                                                Margin="0,0,15,0"
+                                                HorizontalAlignment="Right"
+                                                Content="{materialDesign:PackIcon LedOn}"
+                                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                            <Button
+                                                x:Name="DisableAllRChannelLedColors"
+                                                HorizontalAlignment="Right"
+                                                Content="{materialDesign:PackIcon LedVariantOff}"
+                                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </GroupBox.Header>
 
-                </GroupBox>
+                                <ItemsControl
+                                    Name="RChannelLedColors"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
 
-                <GroupBox Margin="16" HorizontalAlignment="Stretch">
-                    <GroupBox.Header>
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=GChannelLeds}" />
-                            <StackPanel
-                                HorizontalAlignment="Right"
-                                DockPanel.Dock="Right"
-                                Orientation="Horizontal">
-                                <Button
-                                    x:Name="EnableAllGChannelLedColors"
-                                    Margin="0,0,15,0"
-                                    HorizontalAlignment="Right"
-                                    Content="{materialDesign:PackIcon LedOn}"
-                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
-                                <Button
-                                    x:Name="DisableAllGChannelLedColors"
-                                    HorizontalAlignment="Right"
-                                    Content="{materialDesign:PackIcon LedVariantOff}"
-                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
-                            </StackPanel>
-                        </DockPanel>
-                    </GroupBox.Header>
+                            </GroupBox>
 
-                    <ItemsControl
-                        Name="GChannelLedColors"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                            <GroupBox
+                                Margin="16"
+                                HorizontalAlignment="Stretch"
+                                Visibility="{Binding GChannelLedCount, Converter={StaticResource CountToVisibilityConverter}}">
+                                <GroupBox.Header>
+                                    <DockPanel HorizontalAlignment="Stretch">
+                                        <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=GChannelLeds}" />
+                                        <StackPanel
+                                            HorizontalAlignment="Right"
+                                            DockPanel.Dock="Right"
+                                            Orientation="Horizontal">
+                                            <Button
+                                                x:Name="EnableAllGChannelLedColors"
+                                                Margin="0,0,15,0"
+                                                HorizontalAlignment="Right"
+                                                Content="{materialDesign:PackIcon LedOn}"
+                                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                            <Button
+                                                x:Name="DisableAllGChannelLedColors"
+                                                HorizontalAlignment="Right"
+                                                Content="{materialDesign:PackIcon LedVariantOff}"
+                                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </GroupBox.Header>
 
-                </GroupBox>
+                                <ItemsControl
+                                    Name="GChannelLedColors"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
 
-                <GroupBox Margin="16" HorizontalAlignment="Stretch">
-                    <GroupBox.Header>
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=BChannelLeds}" />
-                            <StackPanel
-                                HorizontalAlignment="Right"
-                                DockPanel.Dock="Right"
-                                Orientation="Horizontal">
-                                <Button
-                                    x:Name="EnableAllBChannelLedColors"
-                                    Margin="0,0,15,0"
-                                    HorizontalAlignment="Right"
-                                    Content="{materialDesign:PackIcon LedOn}"
-                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
-                                <Button
-                                    x:Name="DisableAllBChannelLedColors"
-                                    HorizontalAlignment="Right"
-                                    Content="{materialDesign:PackIcon LedVariantOff}"
-                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
-                            </StackPanel>
-                        </DockPanel>
-                    </GroupBox.Header>
+                            </GroupBox>
 
-                    <ItemsControl
-                        Name="BChannelLedColors"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                            <GroupBox
+                                Margin="16"
+                                HorizontalAlignment="Stretch"
+                                Visibility="{Binding BChannelLedCount, Converter={StaticResource CountToVisibilityConverter}}">
+                                <GroupBox.Header>
+                                    <DockPanel HorizontalAlignment="Stretch">
+                                        <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=BChannelLeds}" />
+                                        <StackPanel
+                                            HorizontalAlignment="Right"
+                                            DockPanel.Dock="Right"
+                                            Orientation="Horizontal">
+                                            <Button
+                                                x:Name="EnableAllBChannelLedColors"
+                                                Margin="0,0,15,0"
+                                                HorizontalAlignment="Right"
+                                                Content="{materialDesign:PackIcon LedOn}"
+                                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                            <Button
+                                                x:Name="DisableAllBChannelLedColors"
+                                                HorizontalAlignment="Right"
+                                                Content="{materialDesign:PackIcon LedVariantOff}"
+                                                Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                </GroupBox.Header>
 
-                </GroupBox>
+                                <ItemsControl
+                                    Name="BChannelLedColors"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Template="{DynamicResource ResourceKey=LedSettingsControlTemplate}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                            </GroupBox>
+                        </StackPanel>
+                    </Expander>
+                </materialDesign:Card>
             </StackPanel>
         </ScrollViewer>
     </Border>

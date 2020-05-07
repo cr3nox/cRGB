@@ -53,6 +53,7 @@ namespace cRGB.WPF.ViewModels.Shell
             deviceListViewModel.Menu = menuItem;
             MenuItems.Add(menuItem);
             ActivateView(menuItem);
+            deviceListViewModel.Init();
         }
 
         public Task HandleAsync(TreeViewSelectionChangedMessage message, CancellationToken cancellationToken)

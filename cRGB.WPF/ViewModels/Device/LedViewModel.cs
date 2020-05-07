@@ -66,8 +66,9 @@ namespace cRGB.WPF.ViewModels.Device
         public void ActivationButton()
         {
             Enabled = !Enabled;
-            var rnd = new Random();
-            SetLedColors(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+            // Testing Stuff
+            //var rnd = new Random();
+            //SetLedColors(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
         }
     }
 }

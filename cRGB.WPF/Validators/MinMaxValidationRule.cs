@@ -29,7 +29,7 @@ namespace cRGB.WPF.Validators
                 return new ValidationResult(false, new ArgumentException("Value is not an Integer"));
 
             if (val < Min || val > Max)
-                return new ValidationResult(false, $"Value {val} is not in Range of {Min} to {Max}!");
+                return new ValidationResult(false, $"Value {val} must be between {Min} and {Max}!");
 
             return new ValidationResult(true, null);
         }

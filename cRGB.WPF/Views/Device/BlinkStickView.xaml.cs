@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using cRGB.Tools.Interfaces.View;
 using cRGB.Tools.Interfaces.ViewModel;
+using cRGB.WPF.ViewModels.Device;
 
 namespace cRGB.WPF.Views.Device
 {
@@ -19,6 +20,9 @@ namespace cRGB.WPF.Views.Device
 
         public void OnRendering(object sender, EventArgs e)
         {
+            // Hacky Solution :(
+            if (!(DataContext is BlinkStickViewModel dc) || !dc.IsActive) return;
+
             if (DataContext is IRefresh refresh)
                 refresh.RefreshProperties();
         }
