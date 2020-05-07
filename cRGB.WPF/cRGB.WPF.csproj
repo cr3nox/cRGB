@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>cRGB Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\cRGB Logo.png" />
+    <None Remove="Resources\Icons\AddConnection_16x.png" />
+    <None Remove="Resources\Icons\arduino.png" />
+    <None Remove="Resources\Icons\arduino_logo.png" />
+    <None Remove="Resources\Icons\BlinkStick_Logo.png" />
+    <None Remove="Resources\Icons\cRGB Logo.ico" />
+    <None Remove="Resources\Icons\cRGB Logo.png" />
+    <None Remove="Resources\Icons\Raspberry_logo.png" />
+    <None Remove="Resources\Icons\Raspberry_Pi_Logo.png" />
+    <None Remove="ViewModels\Device\DeviceListViewModel.cs~RF878ea3.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Localization\Translations\Strings.en-GB.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Localization\Translations\Strings.en-GB.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Resources\Icons\arduino_logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\BlinkStick_Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\cRGB Logo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\cRGB Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Raspberry_Pi_Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.105-alpha" />
+    <PackageReference Include="Caliburn.Micro.Core" Version="4.0.105-alpha" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
+    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="serilog.sinks.Debug" Version="1.0.1" />
+    <PackageReference Include="serilog.sinks.File" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Views\Controls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\cRGB.Domain\cRGB.Domain.csproj" />
+    <ProjectReference Include="..\cRGB.Tools\cRGB.Tools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
