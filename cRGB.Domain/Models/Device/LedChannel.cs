@@ -9,7 +9,5 @@ namespace cRGB.Domain.Models.Device
     public class LedChannel : ILedChannel
     {
         public IEnumerable<ILed> Leds { get; set; }
-
-
     }
 }
