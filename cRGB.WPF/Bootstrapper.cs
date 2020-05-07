@@ -57,26 +57,23 @@ namespace cRGB.WPF
             
         }
 
-        static void SetLogger()
+        static void StartLogger()
         {
             Log.Logger = new LoggerConfiguration()
 #if DEBUG
                 .MinimumLevel.Debug()
                 .WriteTo.Debug()
 #endif
-                .WriteTo.File("cRGB_.log", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("cRGB_.log", rollingInterval: RollingInterval.Day, shared: true)
                 .CreateLogger();
             Log.Information("Application Start");
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            SetLogger();
-
-            Log.Debug("Loading Settings");
+            StartLogger();
             var settings = _container.GetInstance<ISettingsService>();
             settings.LoadAll();
-            Log.Debug("Display ShellView");
             DisplayRootViewFor<ShellViewModel>();
         }
 
