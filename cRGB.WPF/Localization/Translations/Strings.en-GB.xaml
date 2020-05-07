@@ -46,4 +46,6 @@
     <sys:String x:Key="Disable">Disable</sys:String>
     <sys:String x:Key="Delete">Delete</sys:String>
     <sys:String x:Key="DeleteDialogText">Are you sure you want to delete this item?</sys:String>
+    <sys:String x:Key="CombineChannels">Combine all Channels</sys:String>
+    <sys:String x:Key="CombineChannelsHelp">All Channels of the Device act as one LED Strip.</sys:String>
 </ResourceDictionary>

@@ -28,6 +28,7 @@ namespace cRGB.Domain.Models.Device
         public IEnumerable<int> DisabledLeds { get; set; } = new List<int>();
 
         public int Brightness { get; set; } = 100;
+        public bool CombineChannels { get; set; } = true;
 
         public BlinkStickSettings()
         {

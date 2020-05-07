@@ -88,6 +88,12 @@ namespace cRGB.WPF.ViewModels.Device
             set => BlinkStickSettings.BChannelLedInvert = value;
         }
 
+        public bool CombineChannels
+        {
+            get => BlinkStickSettings.CombineChannels;
+            set => BlinkStickSettings.CombineChannels = value;
+        }
+
         public BindableCollection<int> DisabledLeds
         {
             get => new BindableCollection<int>(BlinkStickSettings.DisabledLeds);

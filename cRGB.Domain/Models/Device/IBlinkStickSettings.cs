@@ -15,6 +15,7 @@ namespace cRGB.Domain.Models.Device
         public bool BChannelLedInvert { get; set; }
         public IEnumerable<int> DisabledLeds { get; set; }
         public int Brightness { get; set; }
+        public bool CombineChannels { get; set; }
 
     }
 }

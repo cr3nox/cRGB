@@ -72,6 +72,7 @@ namespace cRGB.WPF
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             StartLogger();
+            // TODO: Swap back to XML Serialization to Deserialize more complexer Objects
             var settings = _container.GetInstance<ISettingsService>();
             settings.LoadAll();
             DisplayRootViewFor<ShellViewModel>();
