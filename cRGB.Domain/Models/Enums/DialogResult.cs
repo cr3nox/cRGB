@@ -2,7 +2,7 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
-namespace cRGB.Domain.Enums
+namespace cRGB.Domain.Models.Enums
 {
     public enum DialogAnswer
     {

@@ -5,10 +5,9 @@
 using System;
 using System.IO;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace cRGB.Domain.Services
+namespace cRGB.Domain.Services.System
 {
     public class JsonSerializationService : IJsonSerializationService
     {

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using BlinkStickDotNet;
 
-namespace cRGB.Domain.Services
+namespace cRGB.Domain.Services.Device
 {
     public interface IBlinkStickService
     {

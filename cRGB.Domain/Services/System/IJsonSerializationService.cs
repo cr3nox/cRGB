@@ -4,7 +4,7 @@
 
 using System.Threading.Tasks;
 
-namespace cRGB.Domain.Services
+namespace cRGB.Domain.Services.System
 {
     public interface IJsonSerializationService
     {

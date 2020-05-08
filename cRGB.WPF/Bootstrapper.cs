@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using cRGB.Domain.Services;
+using cRGB.Domain.Services.Device;
+using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.ViewModels.Device;
@@ -54,18 +56,13 @@ namespace cRGB.WPF
             _container.Singleton<IBlinkStickService, BlinkStickService>();
             _container.Singleton<IJsonSerializationService, JsonSerializationService>();
             _container.Singleton<ISettingsService, SettingsService>();
+            _container.Singleton<ILogService, LogService>();
             
         }
 
-        static void StartLogger()
+        private void StartLogger()
         {
-            Log.Logger = new LoggerConfiguration()
-#if DEBUG
-                .MinimumLevel.Debug()
-                .WriteTo.Debug()
-#endif
-                .WriteTo.File("cRGB_.log", rollingInterval: RollingInterval.Day, shared: true)
-                .CreateLogger();
+            Log.Logger = _container.GetInstance<ILogService>().InitLogger();
             Log.Information("Application Start");
         }
 

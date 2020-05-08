@@ -2,7 +2,7 @@
 
 namespace cRGB.Domain.Models.Device
 {
-    public interface IBlinkStickSettings
+    public interface IBlinkStickSettings : IDeviceSettings
     {
         public string Name { get; set; }
         public string Description { get; set; }

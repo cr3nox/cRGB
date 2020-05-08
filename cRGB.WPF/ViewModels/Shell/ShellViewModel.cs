@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using cRGB.Domain.Services;
+using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
@@ -28,14 +29,14 @@ namespace cRGB.WPF.ViewModels.Shell
 
         public int ShellViewHeight
         {
-            get => _settingsService.AppSettings.ShellViewHeight;
-            set => _settingsService.AppSettings.ShellViewHeight = value;
+            get => _settingsService.Settings.AppSettings.ShellViewHeight;
+            set => _settingsService.Settings.AppSettings.ShellViewHeight = value;
         }
 
         public int ShellViewWidth
         {
-            get => _settingsService.AppSettings.ShellViewWidth;
-            set => _settingsService.AppSettings.ShellViewWidth = value;
+            get => _settingsService.Settings.AppSettings.ShellViewWidth;
+            set => _settingsService.Settings.AppSettings.ShellViewWidth = value;
         }
 
 

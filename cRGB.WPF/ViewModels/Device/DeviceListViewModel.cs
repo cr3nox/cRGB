@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using Caliburn.Micro;
-using cRGB.Domain.Enums;
 using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.Enums;
 using cRGB.Domain.Services;
+using cRGB.Domain.Services.System;
 using cRGB.WPF.Extensions;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
@@ -51,7 +52,7 @@ namespace cRGB.WPF.ViewModels.Device
 
         void DeleteBlinkStick(BlinkStickViewModel vm)
         {
-            _settingsService.BlinkStickSettings.Remove(vm.Settings?.BlinkStickSettings);
+            _settingsService.Settings.ConfiguredDevices.Remove(vm.Settings?.BlinkStickSettings);
             if (SelectedLedDevice == vm)
                 SelectedLedDevice = null;
             LedDevices.Remove(vm);
@@ -62,8 +63,8 @@ namespace cRGB.WPF.ViewModels.Device
         void LoadSavedDevices()
         {
             // saved BlinkSticks
-            var blinkStickSettings = _settingsService.BlinkStickSettings;
-            foreach (var blinkStickSetting in blinkStickSettings)
+            var blinkStickSettings = _settingsService.Settings.ConfiguredDevices;
+            foreach (var blinkStickSetting in blinkStickSettings.OfType<IBlinkStickSettings>())
             {
                 AddBlinkStick(blinkStickSetting);
             }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using cRGB.Domain.Enums;
 using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.Enums;
 
 namespace cRGB.WPF.ViewModels.Device
 {

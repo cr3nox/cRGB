@@ -1,4 +1,4 @@
-﻿using cRGB.Domain.Enums;
+﻿using cRGB.Domain.Models.Enums;
 
 namespace cRGB.Domain.Models.Device
 {

@@ -2,7 +2,7 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
-namespace cRGB.Domain.Models.App
+namespace cRGB.Domain.Models.System
 {
     public interface IAppSettings
     {

@@ -10,6 +10,7 @@ namespace cRGB.WPF.ViewModels.Effect
     public class ChangeColorEffectViewModel : EffectViewModel
     {
 
-        public IEnumerable<ILed> Tick(ILedChannel leds, object parameter);
+        // Todo 
+        //public IEnumerable<ILed> Tick(ILedChannel leds, object parameter);
     }
 }

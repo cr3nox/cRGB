@@ -6,6 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
+    <PackageReference Include="SeriLog" Version="2.9.0" />
+    <PackageReference Include="SeriLog.sinks.debug" Version="1.0.1" />
+    <PackageReference Include="SeriLog.sinks.EventLog" Version="3.1.0" />
+    <PackageReference Include="SeriLog.sinks.File" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>

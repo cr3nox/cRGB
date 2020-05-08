@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace cRGB.Domain.Models.Device
 {
     [DataContract]
-    public class BlinkStickSettings : IBlinkStickSettings
+    public class BlinkStickSettings : DeviceSettings, IBlinkStickSettings
     {
         [DataMember]
         public string Name { get; set; }

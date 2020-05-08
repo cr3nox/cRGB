@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using BlinkStickDotNet;
 
-namespace cRGB.Domain.Services
+namespace cRGB.Domain.Services.Device
 {
     public class BlinkStickService : IBlinkStickService
     {

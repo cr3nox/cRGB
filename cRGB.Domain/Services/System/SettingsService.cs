@@ -3,28 +3,25 @@
 #endregion
 
 using System.Collections.Generic;
-using cRGB.Domain.Models.App;
-using cRGB.Domain.Models.Device;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
+using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.System;
 
-namespace cRGB.Domain.Services
+namespace cRGB.Domain.Services.System
 {
     public class SettingsService : ISettingsService
     {
         #region Fields
 
         readonly IJsonSerializationService _jsonSerializationService;
-        string AppSettingsPath { get; }
-        string BlinkStickSettingsPath { get; }
+        string SettingsPath { get; }
         private string CurrentDirectory { get; }
 
         #endregion
 
         #region Properties
-        public IList<IBlinkStickSettings> BlinkStickSettings { get; set; }
-        public IAppSettings AppSettings { get; set; }
+        public ISettings Settings { get; set; }
 
         #endregion
         
@@ -32,8 +29,7 @@ namespace cRGB.Domain.Services
         public SettingsService(IJsonSerializationService jsonSerializationService)
         {
             CurrentDirectory = Directory.GetCurrentDirectory();
-            AppSettingsPath = Path.Combine(CurrentDirectory, "AppConfig.json");
-            BlinkStickSettingsPath = Path.Combine(CurrentDirectory, "BlinkStickDevices.json");
+            SettingsPath = Path.Combine(CurrentDirectory, "AppConfig.json");
             _jsonSerializationService = jsonSerializationService;
             LoadAppSettingsFromFile();
         }
@@ -43,14 +39,18 @@ namespace cRGB.Domain.Services
         #region Methods
         public void LoadAll()
         {
-            LoadAppSettingsFromFile();
-            LoadBlinkStickSettingsFromFile();
+            //LoadAppSettingsFromFile();
+            //LoadBlinkStickSettingsFromFile();
+            EnsureAppSettingsExist();
+            var x = _jsonSerializationService.DeserializeFromFile<Settings>(SettingsPath);
+
         }
 
         public void SaveAll()
         {
-            SaveAppSettingsToFile();
-            SaveBlinkStickSettingsToFile();
+            //SaveAppSettingsToFile();
+            //SaveBlinkStickSettingsToFile();
+            _jsonSerializationService.SerializeToFile(Settings, SettingsPath);
         }
 
 
@@ -64,49 +64,49 @@ namespace cRGB.Domain.Services
                 return stick;
 
             stick = new BlinkStickSettings(serial);
-            BlinkStickSettings.Add(stick);
+            Settings.ConfiguredDevices.Add((stick));
             return stick;
         }
 
         public IBlinkStickSettings GetBlinkStickSettings(string serial)
         {
-            return BlinkStickSettings.SingleOrDefault(o => o.SerialNumber == serial);
+            return Settings.ConfiguredDevices.OfType<IBlinkStickSettings>().FirstOrDefault(bSet => bSet.SerialNumber == serial);
         }
 
         public void LoadAppSettingsFromFile()
         {
-            EnsureAppSettingsExist();
-            AppSettings = _jsonSerializationService.DeserializeFromFile<AppSettings>(AppSettingsPath);
+            //EnsureAppSettingsExist();
+            //AppSettings = _jsonSerializationService.DeserializeFromFile<AppSettings>(AppSettingsPath);
         }
 
         void LoadBlinkStickSettingsFromFile()
         {
-            if (!File.Exists(BlinkStickSettingsPath))
-            {
-                BlinkStickSettings = new List<IBlinkStickSettings>();
-                return;
-            }
-            BlinkStickSettings = _jsonSerializationService.DeserializeFromFile<List<BlinkStickSettings>>(BlinkStickSettingsPath).ToList<IBlinkStickSettings>();
+            //if (!File.Exists(BlinkStickSettingsPath))
+            //{
+            //    BlinkStickSettings = new List<IBlinkStickSettings>();
+            //    return;
+            //}
+            //BlinkStickSettings = _jsonSerializationService.DeserializeFromFile<List<BlinkStickSettings>>(BlinkStickSettingsPath).ToList<IBlinkStickSettings>();
         }
 
         void SaveBlinkStickSettingsToFile()
         {
-            _jsonSerializationService.SerializeToFile(BlinkStickSettings, BlinkStickSettingsPath);
+            //_jsonSerializationService.SerializeToFile(BlinkStickSettings, BlinkStickSettingsPath);
         }
 
 
         public void SaveAppSettingsToFile()
         {
-            _jsonSerializationService.SerializeToFile(AppSettings, AppSettingsPath);
+            //_jsonSerializationService.SerializeToFile(AppSettings, AppSettingsPath);
         }
 
         public void EnsureAppSettingsExist()
         {
-            if (File.Exists(AppSettingsPath))
+            if (File.Exists(SettingsPath))
                 return;
 
-            AppSettings = new AppSettings();
-            _jsonSerializationService.SerializeToFile(AppSettings, AppSettingsPath);
+            Settings = new Settings();
+            _jsonSerializationService.SerializeToFile(Settings, SettingsPath);
         }
 
         #endregion

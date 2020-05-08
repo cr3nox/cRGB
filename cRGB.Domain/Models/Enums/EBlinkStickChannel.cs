@@ -1,4 +1,4 @@
-﻿namespace cRGB.Domain.Enums
+﻿namespace cRGB.Domain.Models.Enums
 {
     public enum EBlinkStickChannel
     {
