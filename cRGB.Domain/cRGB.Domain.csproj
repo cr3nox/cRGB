@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExtendedXmlSerializer" Version="3.1.4" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
     <PackageReference Include="SeriLog" Version="2.9.0" />
     <PackageReference Include="SeriLog.sinks.debug" Version="1.0.1" />

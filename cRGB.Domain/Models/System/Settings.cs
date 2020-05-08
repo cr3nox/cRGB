@@ -3,6 +3,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Linq;
 using cRGB.Domain.Models.Device;
 
 namespace cRGB.Domain.Models.System
@@ -15,7 +16,7 @@ namespace cRGB.Domain.Models.System
         public Settings()
         {
             AppSettings = new AppSettings();
-            ConfiguredDevices = new List<DeviceSettings>();
+            ConfiguredDevices = new List<IDeviceSettings>();
         }
     }
 }

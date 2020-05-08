@@ -54,7 +54,9 @@ namespace cRGB.WPF
 
             // Services
             _container.Singleton<IBlinkStickService, BlinkStickService>();
-            _container.Singleton<IJsonSerializationService, JsonSerializationService>();
+            //_container.Singleton<IJsonSerializationService, JsonSerializationService>();
+            _container.Singleton<IXmlSerializationService, XmlSerializationService>();
+            
             _container.Singleton<ISettingsService, SettingsService>();
             _container.Singleton<ILogService, LogService>();
             
@@ -69,7 +71,6 @@ namespace cRGB.WPF
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             StartLogger();
-            // TODO: Swap back to XML Serialization to Deserialize more complexer Objects
             var settings = _container.GetInstance<ISettingsService>();
             settings.LoadAll();
             DisplayRootViewFor<ShellViewModel>();
@@ -94,7 +95,7 @@ namespace cRGB.WPF
         {
             Log.Fatal(e.Exception, $"OnUnhandledException, Sender: {sender}");
             e.Handled = true;
-            MessageBox.Show(e.Exception.Message, "An error as occurred", MessageBoxButton.OK);
+            MessageBox.Show(e.Exception.Message, "An fatal error as occurred", MessageBoxButton.OK);
         }
 
         protected override void OnExit(object sender, EventArgs e)

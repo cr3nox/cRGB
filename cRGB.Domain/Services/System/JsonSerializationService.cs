@@ -42,5 +42,10 @@ namespace cRGB.Domain.Services.System
             var file = File.ReadAllText(srcPath);
             return Deserialize<T>(file);
         }
+
+        //private string CorrectFileExtension(string path)
+        //{
+        //    return Path.GetExtension(path).EndsWith("json") ? path : Path.ChangeExtension(path, "json");
+        //}
     }
 }

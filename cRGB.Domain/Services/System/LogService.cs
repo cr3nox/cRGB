@@ -11,6 +11,7 @@ namespace cRGB.Domain.Services.System
         public ILogger InitLogger()
         {
             Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
 #if DEBUG
                 .MinimumLevel.Debug()
                 .WriteTo.Debug()

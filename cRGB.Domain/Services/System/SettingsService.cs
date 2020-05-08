@@ -2,11 +2,16 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using cRGB.Domain.Models.Device;
 using cRGB.Domain.Models.System;
+using Microsoft.VisualBasic;
+using Serilog;
+using Serilog.Context;
 
 namespace cRGB.Domain.Services.System
 {
@@ -15,6 +20,7 @@ namespace cRGB.Domain.Services.System
         #region Fields
 
         readonly IJsonSerializationService _jsonSerializationService;
+        readonly IXmlSerializationService _xmlSerializationService;
         string SettingsPath { get; }
         private string CurrentDirectory { get; }
 
@@ -26,12 +32,12 @@ namespace cRGB.Domain.Services.System
         #endregion
         
         #region ctor
-        public SettingsService(IJsonSerializationService jsonSerializationService)
+        public SettingsService(IJsonSerializationService jsonSerializationService, IXmlSerializationService xmlSerializationService)
         {
             CurrentDirectory = Directory.GetCurrentDirectory();
-            SettingsPath = Path.Combine(CurrentDirectory, "AppConfig.json");
+            SettingsPath = Path.Combine(CurrentDirectory, "cRGB_Config.xml");
             _jsonSerializationService = jsonSerializationService;
-            LoadAppSettingsFromFile();
+            _xmlSerializationService = xmlSerializationService;
         }
 
         #endregion
@@ -39,18 +45,12 @@ namespace cRGB.Domain.Services.System
         #region Methods
         public void LoadAll()
         {
-            //LoadAppSettingsFromFile();
-            //LoadBlinkStickSettingsFromFile();
-            EnsureAppSettingsExist();
-            var x = _jsonSerializationService.DeserializeFromFile<Settings>(SettingsPath);
-
+            LoadAppSettings();
         }
 
         public void SaveAll()
         {
-            //SaveAppSettingsToFile();
-            //SaveBlinkStickSettingsToFile();
-            _jsonSerializationService.SerializeToFile(Settings, SettingsPath);
+            _xmlSerializationService.SerializeToFile(Settings, SettingsPath);
         }
 
 
@@ -73,40 +73,49 @@ namespace cRGB.Domain.Services.System
             return Settings.ConfiguredDevices.OfType<IBlinkStickSettings>().FirstOrDefault(bSet => bSet.SerialNumber == serial);
         }
 
-        public void LoadAppSettingsFromFile()
+        public void LoadAppSettings()
         {
-            //EnsureAppSettingsExist();
-            //AppSettings = _jsonSerializationService.DeserializeFromFile<AppSettings>(AppSettingsPath);
+            if (!File.Exists(SettingsPath))
+            {
+                Log.Information($"No Configuration File found, creating new one.");
+                CreateNewSettingsFile();
+            }
+            else
+            {
+                // LogContext Serilog useful when switching to structured logging
+                using (LogContext.PushProperty("Settings Path", SettingsPath))
+                {
+                    // Test if the XML Config File is valid otherwise create new one;
+                    try
+                    {
+                        Settings = _xmlSerializationService.DeserializeFromFile<Settings>(SettingsPath);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e, $"Configuration file could not be read. It's either not valid XML or corrupted. Backing up old file and create fresh config File.");
+                        BackupOldSettingsFile();
+                        CreateNewSettingsFile();
+                    }
+                }
+            }
         }
 
-        void LoadBlinkStickSettingsFromFile()
+        private void BackupOldSettingsFile()
         {
-            //if (!File.Exists(BlinkStickSettingsPath))
-            //{
-            //    BlinkStickSettings = new List<IBlinkStickSettings>();
-            //    return;
-            //}
-            //BlinkStickSettings = _jsonSerializationService.DeserializeFromFile<List<BlinkStickSettings>>(BlinkStickSettingsPath).ToList<IBlinkStickSettings>();
+            try
+            {
+                File.Move(SettingsPath, $"cRGB_Config_backup_{DateTime.Now:yyyyMMdd-HH-mm-ss}.xml");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, $"Backup Failed");
+            }
         }
 
-        void SaveBlinkStickSettingsToFile()
+        private void CreateNewSettingsFile()
         {
-            //_jsonSerializationService.SerializeToFile(BlinkStickSettings, BlinkStickSettingsPath);
-        }
-
-
-        public void SaveAppSettingsToFile()
-        {
-            //_jsonSerializationService.SerializeToFile(AppSettings, AppSettingsPath);
-        }
-
-        public void EnsureAppSettingsExist()
-        {
-            if (File.Exists(SettingsPath))
-                return;
-
             Settings = new Settings();
-            _jsonSerializationService.SerializeToFile(Settings, SettingsPath);
+            _xmlSerializationService.SerializeToFile(Settings, SettingsPath);
         }
 
         #endregion

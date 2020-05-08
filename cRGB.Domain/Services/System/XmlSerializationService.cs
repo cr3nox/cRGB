@@ -4,35 +4,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using cRGB.Domain.Models.System;
+using ExtendedXmlSerializer;
+using ExtendedXmlSerializer.Configuration;
 
 namespace cRGB.Domain.Services.System
 {
     public class XmlSerializationService : IXmlSerializationService
     {
-        //public T Deserialize<T>(string xml)
-        //{
-        //    var serializer = new XmlSerializer(typeof(string));
-        //    return null;
-        //}
-
-        public Task SerializeToFileAsync<T>(T content, string destPath)
+        #region Serializing
+        public string Serialize<T>(T content)
         {
-            throw new NotImplementedException();
+            return GetSerializer<T>().Serialize(content);
         }
 
         public void SerializeToFile<T>(T content, string destPath)
         {
-            throw new NotImplementedException();
+            File.WriteAllText(destPath, Serialize(content));
+        }
+
+        #endregion
+
+        #region Deserialize
+        public T Deserialize<T>(string xml)
+        {
+            return GetSerializer<T>().Deserialize<T>(new XmlReaderSettings { IgnoreWhitespace = false }, xml);
         }
 
         public T DeserializeFromFile<T>(string srcPath)
         {
-            throw new NotImplementedException();
+            return Deserialize<T>(File.ReadAllText(srcPath));
         }
 
-        string IXmlSerializationService.Serialize<T>(T content)
+        #endregion
+
+        private static IExtendedXmlSerializer GetSerializer<T>()
         {
-            throw new NotImplementedException();
+            return new ConfigurationContainer()
+                .Type<T>()
+                .Create();
         }
     }
 }

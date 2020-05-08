@@ -7,9 +7,7 @@ namespace cRGB.Domain.Services.System
     {
         public string Serialize<T>(T content);
 
-        //public T Deserialize<T>(string xml);
-
-        public Task SerializeToFileAsync<T>(T content, string destPath);
+        public T Deserialize<T>(string xml);
 
         public void SerializeToFile<T>(T content, string destPath);
 
