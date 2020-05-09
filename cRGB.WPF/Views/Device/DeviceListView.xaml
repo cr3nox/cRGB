@@ -6,10 +6,9 @@
     xmlns:cm="http://caliburnmicro.com"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:device="clr-namespace:cRGB.Domain.Models.Device;assembly=cRGB.Domain"
-    xmlns:local="clr-namespace:cRGB.WPF.Views"
+    xmlns:enums="clr-namespace:cRGB.Domain.Models.Enums;assembly=cRGB.Domain"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:enums="clr-namespace:cRGB.Domain.Models.Enums;assembly=cRGB.Domain"
     mc:Ignorable="d">
 
     <materialDesign:DialogHost

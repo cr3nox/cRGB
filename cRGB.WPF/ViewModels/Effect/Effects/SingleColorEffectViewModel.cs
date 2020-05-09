@@ -2,12 +2,9 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
-using System.Collections.Generic;
-using cRGB.Domain.Models.Device;
-
-namespace cRGB.WPF.ViewModels.Effect
+namespace cRGB.WPF.ViewModels.Effect.Effects
 {
-    public class ChangeColorEffectViewModel : EffectViewModel
+    public class SingleColorEffectViewModel : EffectViewModel
     {
 
         // Todo 

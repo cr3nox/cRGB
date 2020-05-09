@@ -1,0 +1,112 @@
+﻿<UserControl
+    x:Class="cRGB.WPF.Views.Event.EventListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cm="http://caliburnmicro.com"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="clr-namespace:cRGB.Domain.Models.Enums;assembly=cRGB.Domain"
+    xmlns:local="clr-namespace:cRGB.WPF.Views.Event"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <materialDesign:DialogHost
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        CloseOnClickAway="False"
+        IsOpen="False"
+        OverlayBackground="{DynamicResource PrimaryHueDarkBrush}">
+        <materialDesign:DialogHost.DialogContentTemplate>
+            <DataTemplate>
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{DynamicResource ResourceKey=DeleteDialogText}" />
+                    <StackPanel
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="{x:Static enums:DialogAnswer.Yes}"
+                            Content="{DynamicResource ResourceKey=Delete}"
+                            IsDefault="True"
+                            Style="{DynamicResource MaterialDesignFlatButton}" />
+                        <Button
+                            Margin="8,0,0,0"
+                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="{x:Static enums:DialogAnswer.No}"
+                            Content="{DynamicResource ResourceKey=Button_Cancel}"
+                            IsCancel="true"
+                            Style="{DynamicResource MaterialDesignFlatButton}" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </materialDesign:DialogHost.DialogContentTemplate>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <GroupBox
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="16">
+                    <GroupBox.Header>
+                        <DockPanel HorizontalAlignment="Stretch">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=Devices}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </GroupBox.Header>
+                    <StackPanel>
+                        <ListView
+                            Name="Events"
+                            cm:Message.Attach="[Event MouseDoubleClick] = [Action RowDoubleClick()]"
+                            SelectedItem="SelectedEvent">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding}"
+                                        Header="{DynamicResource ResourceKey=Enabled}" />
+                                    <GridViewColumn
+                                        Width="Auto"
+                                        DisplayMemberBinding="{Binding}"
+                                        Header="{DynamicResource ResourceKey=EventName}" />
+                                    <GridViewColumn Header="{DynamicResource ResourceKey=Delete}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button
+                                                    x:Name="DeleteEvent"
+                                                    HorizontalAlignment="Right"
+                                                    cm:Message.Attach="DeleteDevice($dataContext)"
+                                                    Content="{materialDesign:PackIcon Delete}"
+                                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button
+                            Name="AddEvent"
+                            Width="40"
+                            Height="40"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Right"
+                            Content="{materialDesign:PackIcon Kind=Plus}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </ScrollViewer>
+    </materialDesign:DialogHost>
+</UserControl>

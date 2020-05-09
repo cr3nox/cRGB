@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
@@ -7,8 +9,11 @@ using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
+using cRGB.WPF.Extensions;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.ViewModels.Device;
+using cRGB.WPF.ViewModels.Event;
+using cRGB.WPF.ViewModels.Event.Events;
 using cRGB.WPF.ViewModels.Menu;
 using cRGB.WPF.ViewModels.Shell;
 using Serilog;
@@ -32,6 +37,7 @@ namespace cRGB.WPF
             _container = new SimpleContainer();
 
             _container.Instance(_container);
+            _container.EnablePropertyInjection = true;
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
@@ -49,8 +55,16 @@ namespace cRGB.WPF
             _container.PerRequest<DeviceSelectionViewModel>();
             _container.PerRequest<BlinkStickSettingsViewModel>();
             _container.PerRequest<LedViewModel>();
-
             _container.Singleton<DeviceListViewModel>();
+            _container.PerRequest<IEventListViewModel, EventListViewModel>();
+            _container.PerRequest<EventSelectionViewModel>();
+
+            // EventViewModels
+            //_container.PerRequest<IEventViewModel, StaticEventViewModel>(key: nameof(StaticEventViewModel));
+            //_container.PerRequest<IEventViewModel, TimerEventViewModel>(key: nameof(TimerEventViewModel));
+            //_container.PerRequest<IEventViewModel, SpotifyEventViewModel>(key: nameof(SpotifyEventViewModel));
+            _container.AllTypesOfPerRequest<IEventViewModel>(Assembly.GetExecutingAssembly());
+            var test = _container.GetAllInstances<IEventViewModel>();
 
             // Services
             _container.Singleton<IBlinkStickService, BlinkStickService>();

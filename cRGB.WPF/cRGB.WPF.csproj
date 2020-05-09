@@ -53,6 +53,7 @@
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.105-alpha" />
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.105-alpha" />
+    <PackageReference Include="Castle.Windsor" Version="5.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="3.1.1" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
     <PackageReference Include="Serilog" Version="2.9.0" />
@@ -62,6 +63,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\" />
+    <Folder Include="ViewModels\Testing\" />
     <Folder Include="Views\Controls\" />
   </ItemGroup>
 

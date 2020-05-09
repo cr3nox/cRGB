@@ -15,21 +15,26 @@ using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
+using cRGB.WPF.ViewModels.Event;
 using cRGB.WPF.ViewModels.Menu;
 using MaterialDesignThemes.Wpf;
 
 namespace cRGB.WPF.ViewModels.Device
 {
-    [DataContract]
     public class BlinkStickViewModel : LedDeviceViewModel, IHandle<DeviceSelectedMessage>, IRefresh, INotifyMeOnAppExit
     {
-        #region Properties
+        #region Fields
 
         readonly IBlinkStickService _blinkStickService;
         readonly IEventAggregator _eventAggregator;
         readonly ILocalizationHelper _loc;
         readonly ISettingsService _settingsService;
         BlinkStick _device;
+        readonly IEventListViewModel _eventListViewModel;
+
+        #endregion
+
+        #region Properties
 
         public BlinkStick Device
         {
@@ -80,7 +85,6 @@ namespace cRGB.WPF.ViewModels.Device
         public DeviceSelectionViewModel DeviceSelection { get; set; }
         //public DeviceSelectionView DeviceSelectionView => ViewLocator.LocateForModel(DeviceSelection, null, null);
         
-        [DataMember]
         public BlinkStickSettingsViewModel Settings { get; set; }
 
         public bool IsDeviceSelectionOpen { get; set; } = true;
@@ -92,7 +96,7 @@ namespace cRGB.WPF.ViewModels.Device
         #endregion Properties
 
 
-        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService)
+        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService, IEventListViewModel eventListViewModel)
         {
             _blinkStickService = blinkStickService;
             DeviceSelection = IoC.Get<DeviceSelectionViewModel>();
@@ -101,6 +105,7 @@ namespace cRGB.WPF.ViewModels.Device
             _eventAggregator.SubscribeOnUIThread(this);
             _loc = loc;
             _settingsService = settingsService;
+            _eventListViewModel = eventListViewModel;
         }
 
         public void InitSettings(string serial)
@@ -212,6 +217,16 @@ namespace cRGB.WPF.ViewModels.Device
             if (Settings == null)
                 return;
             Settings.DisabledLeds = new BindableCollection<int>(LedStates.Where(o => !o.Enabled).Select(o => o.Index));
+        }
+
+        public void Init()
+        {
+            InitEventVm();
+        }
+
+        void InitEventVm()
+        {
+            Menu.CreateChild((EventListViewModel)_eventListViewModel, PackIconKind.LightningBolt, true, _loc.GetByKey("Events"));
         }
     }
 }

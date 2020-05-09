@@ -64,9 +64,11 @@ namespace cRGB.WPF.ViewModels.Device
         {
             // saved BlinkSticks
             var blinkStickSettings = _settingsService.Settings.ConfiguredDevices;
-            foreach (var blinkStickSetting in blinkStickSettings.OfType<IBlinkStickSettings>())
+            foreach (var blinkStickSetting in blinkStickSettings)
             {
-                AddBlinkStick(blinkStickSetting);
+                if(blinkStickSetting is IBlinkStickSettings)
+                    AddBlinkStick((BlinkStickSettings)blinkStickSetting);
+                // TODO: do other Devices after they have been implemented
             }
         }
 
@@ -81,6 +83,7 @@ namespace cRGB.WPF.ViewModels.Device
 
             if (settings != null)
                 newDevice.InitSettings(settings);
+            newDevice.Init();
         }
 
         public void AddNewBlinkStick()

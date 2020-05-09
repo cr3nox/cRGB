@@ -4,7 +4,7 @@
 
 namespace cRGB.WPF.ViewModels.Event
 {
-    public class StaticEventViewModel : EventViewModel
+    public interface IEventListViewModel
     {
         
     }
