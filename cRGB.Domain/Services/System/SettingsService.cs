@@ -19,7 +19,6 @@ namespace cRGB.Domain.Services.System
     {
         #region Fields
 
-        readonly IJsonSerializationService _jsonSerializationService;
         readonly IXmlSerializationService _xmlSerializationService;
         string SettingsPath { get; }
         private string CurrentDirectory { get; }
@@ -32,11 +31,10 @@ namespace cRGB.Domain.Services.System
         #endregion
         
         #region ctor
-        public SettingsService(IJsonSerializationService jsonSerializationService, IXmlSerializationService xmlSerializationService)
+        public SettingsService(IXmlSerializationService xmlSerializationService)
         {
             CurrentDirectory = Directory.GetCurrentDirectory();
             SettingsPath = Path.Combine(CurrentDirectory, "cRGB_Config.xml");
-            _jsonSerializationService = jsonSerializationService;
             _xmlSerializationService = xmlSerializationService;
         }
 

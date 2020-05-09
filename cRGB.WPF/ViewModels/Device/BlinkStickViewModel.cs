@@ -143,9 +143,6 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void Create(MenuItemViewModel menu)
         {
-            if (Menu != null)
-                return;
-
             Menu = menu;
         }
 

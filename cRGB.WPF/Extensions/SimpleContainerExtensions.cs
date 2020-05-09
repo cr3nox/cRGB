@@ -13,7 +13,6 @@ namespace cRGB.WPF.Extensions
 {
     public static class SimpleContainerExtensions
     {
-
         /// <summary>
         /// Stolen from Caliburn.Micro SimpleContainer, It's now able to Register Per Request
         /// Key = nameof(Class)
@@ -25,6 +24,7 @@ namespace cRGB.WPF.Extensions
         /// <param name="assembly">The assembly.</param>
         /// <param name="filter">The type filter.</param>
         /// <returns>The container.</returns>
+        [Obsolete("Won't get used anymore when / if this project uses Castle Windsor in the future")]
         public static SimpleContainer AllTypesOfPerRequest<TService>(this SimpleContainer container, Assembly assembly,
             Func<Type, bool> filter = null)
         {
@@ -47,38 +47,6 @@ namespace cRGB.WPF.Extensions
             }
 
             return container;
-        }
-
-        /// <summary>
-        /// Get a Instance for each Implementation
-        /// </summary>
-        /// <typeparam name="TService"></typeparam>
-        /// <param name="container"></param>
-        /// <param name="assembly"></param>
-        /// <param name="filter"></param>
-        /// <returns></returns>
-        public static IEnumerable<object> GetInstanceForEachImplementation<TService>(this SimpleContainer container, Type service, Assembly assembly, Func<Type, bool> filter = null)
-        {
-            if (filter == null)
-            {
-                filter = type => true;
-            }
-
-            var serviceType = typeof(TService);
-            var types = from type in assembly.DefinedTypes
-                where serviceType.GetTypeInfo().IsAssignableFrom(type)
-                      && !type.IsAbstract
-                      && !type.IsInterface
-                      && filter(type.AsType())
-                select type;
-
-            var retList = new List<object>();
-            foreach (var type in types)
-            {
-                retList.Add(container.GetInstance(typeof(TService), type.Name));
-            }
-
-            return retList;
         }
     }
 }

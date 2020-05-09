@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
@@ -23,7 +25,8 @@ namespace cRGB.WPF
 {
     public class Bootstrapper : BootstrapperBase
     {
-        private SimpleContainer _container;
+        //private SimpleContainer _container;
+        private WindsorContainer _container;
 
         public Bootstrapper()
         {
@@ -34,75 +37,79 @@ namespace cRGB.WPF
         {
             LogManager.GetLog = type => new DebugLog(type);
 
-            _container = new SimpleContainer();
-
-            _container.Instance(_container);
-            _container.EnablePropertyInjection = true;
-
-            _container
-                .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
-
-            _container
-                .Singleton<ShellViewModel>();
+            _container = new WindsorContainer();
+            
+            _container.Register(Component.For<IWindowManager>().ImplementedBy<WindowManager>().LifestyleSingleton());
+            _container.Register(Component.For<IEventAggregator>().ImplementedBy<EventAggregator>().LifestyleSingleton());
+            _container.Register(Component.For<ShellViewModel>().ImplementedBy<ShellViewModel>().LifestyleSingleton());
 
             // Helpers
-            _container.Singleton<ILocalizationHelper, LocalizationHelper>();
-            
-            // ViewModels
-            _container.PerRequest<MenuItemViewModel>();
-            _container.PerRequest<BlinkStickViewModel>();
-            _container.PerRequest<DeviceSelectionViewModel>();
-            _container.PerRequest<BlinkStickSettingsViewModel>();
-            _container.PerRequest<LedViewModel>();
-            _container.Singleton<DeviceListViewModel>();
-            _container.PerRequest<IEventListViewModel, EventListViewModel>();
-            _container.PerRequest<EventSelectionViewModel>();
-
-            // EventViewModels
-            //_container.PerRequest<IEventViewModel, StaticEventViewModel>(key: nameof(StaticEventViewModel));
-            //_container.PerRequest<IEventViewModel, TimerEventViewModel>(key: nameof(TimerEventViewModel));
-            //_container.PerRequest<IEventViewModel, SpotifyEventViewModel>(key: nameof(SpotifyEventViewModel));
-            _container.AllTypesOfPerRequest<IEventViewModel>(Assembly.GetExecutingAssembly());
-            var test = _container.GetAllInstances<IEventViewModel>();
+            _container.Register(Component.For<ILocalizationHelper>().ImplementedBy<LocalizationHelper>().LifestyleSingleton());
 
             // Services
-            _container.Singleton<IBlinkStickService, BlinkStickService>();
-            //_container.Singleton<IJsonSerializationService, JsonSerializationService>();
-            _container.Singleton<IXmlSerializationService, XmlSerializationService>();
-            
-            _container.Singleton<ISettingsService, SettingsService>();
-            _container.Singleton<ILogService, LogService>();
-            
+            _container.Register(Component.For<ILogService>().ImplementedBy<LogService>().LifestyleSingleton());
+            _container.Register(Component.For<IXmlSerializationService>().ImplementedBy<XmlSerializationService>().LifestyleSingleton());
+            _container.Register(Component.For<IBlinkStickService>().ImplementedBy<BlinkStickService>().LifestyleSingleton());
+            _container.Register(Component.For<ISettingsService>().ImplementedBy<SettingsService>().LifestyleSingleton());
+
+            // ViewModels Transient
+            _container.Register(Component.For<MenuItemViewModel>().ImplementedBy<MenuItemViewModel>().LifestyleTransient());
+            _container.Register(Component.For<BlinkStickViewModel>().ImplementedBy<BlinkStickViewModel>().LifestyleTransient());
+            _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
+            _container.Register(Component.For<BlinkStickSettingsViewModel>().ImplementedBy<BlinkStickSettingsViewModel>().LifestyleTransient());
+            _container.Register(Component.For<LedViewModel>().ImplementedBy<LedViewModel>().LifestyleTransient());
+            _container.Register(Component.For<EventSelectionViewModel>().ImplementedBy<EventSelectionViewModel>().LifestyleTransient());
+            // ViewModels Singleton
+            _container.Register(Component.For<DeviceListViewModel>().ImplementedBy<DeviceListViewModel>().LifestyleSingleton());
+            _container.Register(Component.For<IEventListViewModel>().ImplementedBy<EventListViewModel>().LifestyleSingleton());
+
+            // EventViewModels
+            // Register All Classes that are IEventViewModel
+            _container.Register(
+                Classes.FromAssembly(Assembly.GetExecutingAssembly())
+                    .BasedOn(typeof(IEventViewModel))
+                    .WithService.Base()
+                    .LifestyleTransient());
         }
 
         private void StartLogger()
         {
-            Log.Logger = _container.GetInstance<ILogService>().InitLogger();
+            Log.Logger = _container.Resolve<ILogService>().InitLogger();
             Log.Information("Application Start");
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             StartLogger();
-            var settings = _container.GetInstance<ISettingsService>();
+            var settings = _container.Resolve<ISettingsService>();
             settings.LoadAll();
             DisplayRootViewFor<ShellViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)
         {
-            return _container.GetInstance(service, key);
+            return string.IsNullOrWhiteSpace(key)
+                ? _container.Kernel.HasComponent(service)
+                    ? _container.Resolve(service)
+                    : base.GetInstance(service, key)
+                : _container.Kernel.HasComponent(key)
+                    ? _container.Resolve(key, service)
+                    : base.GetInstance(service, key);
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            return _container.GetAllInstances(service);
+            // Does not work properly so just do direct cast, even resharper considers it suspicious
+            //return _container.ResolveAll(service).OfType<Array>().ToList();
+            return _container.ResolveAll(service) as IEnumerable<object>;
         }
 
         protected override void BuildUp(object instance)
         {
-            _container.BuildUp(instance);
+            instance.GetType().GetProperties()
+                .Where(property => property.CanWrite && property.PropertyType.IsPublic)
+                .Where(property => _container.Kernel.HasComponent(property.PropertyType))
+                .ForEach(property => property.SetValue(instance, _container.Resolve(property.PropertyType), null));
         }
 
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -115,10 +122,10 @@ namespace cRGB.WPF
         protected override void OnExit(object sender, EventArgs e)
         {
             // Execute OnAppExit for every Viewmodel which inherits from INotifyMeOnAppExit
-            var shell = _container.GetInstance<ShellViewModel>();
+            var shell = _container.Resolve<ShellViewModel>();
             RecursiveViewModelOnExit(shell.MenuItems);
 
-            var settings = _container.GetInstance<ISettingsService>();
+            var settings = _container.Resolve<ISettingsService>();
             settings.SaveAll();
             base.OnExit(sender, e);
         }
