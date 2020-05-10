@@ -12,40 +12,13 @@
     <materialDesign:DialogHost
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
-        CloseOnClickAway="False"
-        IsOpen="False"
+        CloseOnClickAway="True"
+        IsOpen="{Binding IsEventSelectionOpen}"
         OverlayBackground="{DynamicResource PrimaryHueDarkBrush}">
-        <materialDesign:DialogHost.DialogContentTemplate>
-            <DataTemplate>
-                <Grid Margin="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="{DynamicResource ResourceKey=DeleteDialogText}" />
-                    <StackPanel
-                        Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <Button
-                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="{x:Static enums:DialogAnswer.Yes}"
-                            Content="{DynamicResource ResourceKey=Delete}"
-                            IsDefault="True"
-                            Style="{DynamicResource MaterialDesignFlatButton}" />
-                        <Button
-                            Margin="8,0,0,0"
-                            Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="{x:Static enums:DialogAnswer.No}"
-                            Content="{DynamicResource ResourceKey=Button_Cancel}"
-                            IsCancel="true"
-                            Style="{DynamicResource MaterialDesignFlatButton}" />
-                    </StackPanel>
-                </Grid>
-            </DataTemplate>
-        </materialDesign:DialogHost.DialogContentTemplate>
+        <materialDesign:DialogHost.DialogContent>
+            <ContentControl Name="DeviceSelection" cm:View.Model="{Binding Path=SelectionViewModel}" />
+        </materialDesign:DialogHost.DialogContent>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-
             <Grid Margin="15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -62,21 +35,21 @@
                     <GroupBox.Header>
                         <DockPanel HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=Devices}" />
+                                <TextBlock VerticalAlignment="Center" Text="{DynamicResource ResourceKey=Events}" />
                             </StackPanel>
                         </DockPanel>
                     </GroupBox.Header>
                     <StackPanel>
-                        <ListView
-                            Name="Events"
-                            cm:Message.Attach="[Event MouseDoubleClick] = [Action RowDoubleClick()]"
-                            SelectedItem="SelectedEvent">
+                        <ListView Name="Events" SelectedItem="SelectedEvent">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn
-                                        Width="Auto"
-                                        DisplayMemberBinding="{Binding}"
-                                        Header="{DynamicResource ResourceKey=Enabled}" />
+                                    <GridViewColumn Width="Auto" Header="{DynamicResource ResourceKey=Enabled}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}" Style="{StaticResource MaterialDesignAccentCheckBox}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn
                                         Width="Auto"
                                         DisplayMemberBinding="{Binding}"

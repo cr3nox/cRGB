@@ -96,10 +96,11 @@ namespace cRGB.WPF.ViewModels.Device
         #endregion Properties
 
 
-        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService, IEventListViewModel eventListViewModel)
+        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService, 
+            IEventListViewModel eventListViewModel, DeviceSelectionViewModel deviceSelectionViewModel)
         {
             _blinkStickService = blinkStickService;
-            DeviceSelection = IoC.Get<DeviceSelectionViewModel>();
+            DeviceSelection = deviceSelectionViewModel;
             DeviceSelection.AddBlinkSticks(_blinkStickService.FindAllNotAlreadyConfigured());
             _eventAggregator = aggregator;
             _eventAggregator.SubscribeOnUIThread(this);

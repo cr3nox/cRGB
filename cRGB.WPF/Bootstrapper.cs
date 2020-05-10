@@ -13,6 +13,7 @@ using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Extensions;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Event;
 using cRGB.WPF.ViewModels.Event.Events;
@@ -54,11 +55,11 @@ namespace cRGB.WPF
 
             // ViewModels Transient
             _container.Register(Component.For<MenuItemViewModel>().ImplementedBy<MenuItemViewModel>().LifestyleTransient());
+            _container.Register(Component.For<DialogComboBoxSelectionViewModel>().ImplementedBy<DialogComboBoxSelectionViewModel>().LifestyleTransient());
             _container.Register(Component.For<BlinkStickViewModel>().ImplementedBy<BlinkStickViewModel>().LifestyleTransient());
             _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
             _container.Register(Component.For<BlinkStickSettingsViewModel>().ImplementedBy<BlinkStickSettingsViewModel>().LifestyleTransient());
             _container.Register(Component.For<LedViewModel>().ImplementedBy<LedViewModel>().LifestyleTransient());
-            _container.Register(Component.For<EventSelectionViewModel>().ImplementedBy<EventSelectionViewModel>().LifestyleTransient());
             // ViewModels Singleton
             _container.Register(Component.For<DeviceListViewModel>().ImplementedBy<DeviceListViewModel>().LifestyleSingleton());
             _container.Register(Component.For<IEventListViewModel>().ImplementedBy<EventListViewModel>().LifestyleSingleton());

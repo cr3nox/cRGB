@@ -2,7 +2,7 @@
 
 namespace cRGB.WPF.ViewModels
 {
-    public abstract class ViewModelBase : Screen
+    public abstract class ViewModelBase : Screen, IViewModelBase
     {
 
     }

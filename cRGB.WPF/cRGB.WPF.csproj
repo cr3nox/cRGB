@@ -63,8 +63,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Images\" />
-    <Folder Include="ViewModels\Testing\" />
-    <Folder Include="Views\Controls\" />
   </ItemGroup>
 
   <ItemGroup>
