@@ -67,6 +67,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\cRGB.Domain\cRGB.Domain.csproj" />
+    <ProjectReference Include="..\cRGB.Modules.Audio\cRGB.Modules.Audio.csproj" />
     <ProjectReference Include="..\cRGB.Tools\cRGB.Tools.csproj" />
   </ItemGroup>
 

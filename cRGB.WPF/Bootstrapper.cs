@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
@@ -10,6 +11,7 @@ using Castle.Windsor;
 using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
+using cRGB.Modules.Audio;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Extensions;
 using cRGB.WPF.Helpers;
@@ -72,6 +74,12 @@ namespace cRGB.WPF
                     .BasedOn(typeof(IEventViewModel))
                     .WithService.Base()
                     .LifestyleTransient());
+
+            // cRGB.Modules.Audio Module uses cscore which only runs on .NET Framework. Can only run on Windows
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                _container.Install(new AudioInstaller());
+            }
         }
 
         private void StartLogger()
