@@ -16,7 +16,7 @@
         IsOpen="{Binding IsEventSelectionOpen}"
         OverlayBackground="{DynamicResource PrimaryHueDarkBrush}">
         <materialDesign:DialogHost.DialogContent>
-            <ContentControl Name="DeviceSelection" cm:View.Model="{Binding Path=SelectionViewModel}" />
+            <ContentControl Name="DeviceSelection" cm:View.Model="{Binding Path=DialogComboBoxSelectionViewModel}" />
         </materialDesign:DialogHost.DialogContent>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid Margin="15">
@@ -46,13 +46,16 @@
                                     <GridViewColumn Width="Auto" Header="{DynamicResource ResourceKey=Enabled}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}" Style="{StaticResource MaterialDesignAccentCheckBox}" />
+                                                <CheckBox
+                                                    HorizontalAlignment="Center"
+                                                    IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                    Style="{StaticResource MaterialDesignAccentCheckBox}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn
                                         Width="Auto"
-                                        DisplayMemberBinding="{Binding}"
+                                        DisplayMemberBinding="{Binding DisplayName}"
                                         Header="{DynamicResource ResourceKey=EventName}" />
                                     <GridViewColumn Header="{DynamicResource ResourceKey=Delete}">
                                         <GridViewColumn.CellTemplate>

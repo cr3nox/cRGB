@@ -2,6 +2,8 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
@@ -32,10 +34,16 @@ namespace cRGB.WPF.ViewModels.Event
         #endregion
 
         #region Constructor
-        public EventListViewModel(IEventAggregator aggregator, DialogComboBoxSelectionViewModel eventDialogComboBoxSelectionViewModel)
+        public EventListViewModel(IEventAggregator aggregator, DialogComboBoxSelectionViewModel dialogViewModel)
         {
             _eventAggregator = aggregator;
-            DialogComboBoxSelectionViewModel = eventDialogComboBoxSelectionViewModel;
+            _eventAggregator.SubscribeOnUIThread(this);
+
+            // Gets one Instance of each IEventViewModel
+            dialogViewModel.Init(IoC.GetAllInstances(typeof(IEventViewModel)).OfType<IEventViewModel>()
+                .ToList(), true, "SelectAnEvent", headerResourceKey: "Events");
+
+            DialogComboBoxSelectionViewModel = dialogViewModel;
         }
 
         #endregion
@@ -49,7 +57,15 @@ namespace cRGB.WPF.ViewModels.Event
 
         public Task HandleAsync(DialogSelectedMessage message, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            if (message.SelectedViewModel != null)
+            {
+                var eventViewModel = (IEventViewModel) message.SelectedViewModel;
+                Events.Add(eventViewModel);
+                SelectedEvent = eventViewModel;
+            }
+            
+            IsEventSelectionOpen = false;
+            return Task.CompletedTask;
         }
 
         #endregion

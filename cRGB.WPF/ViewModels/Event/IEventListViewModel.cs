@@ -4,7 +4,7 @@
 
 namespace cRGB.WPF.ViewModels.Event
 {
-    public interface IEventListViewModel
+    public interface IEventListViewModel : IViewModelBase
     {
         
     }

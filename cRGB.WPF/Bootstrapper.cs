@@ -55,7 +55,6 @@ namespace cRGB.WPF
 
             // ViewModels Transient
             _container.Register(Component.For<MenuItemViewModel>().ImplementedBy<MenuItemViewModel>().LifestyleTransient());
-            _container.Register(Component.For<DialogComboBoxSelectionViewModel>().ImplementedBy<DialogComboBoxSelectionViewModel>().LifestyleTransient());
             _container.Register(Component.For<BlinkStickViewModel>().ImplementedBy<BlinkStickViewModel>().LifestyleTransient());
             _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
             _container.Register(Component.For<BlinkStickSettingsViewModel>().ImplementedBy<BlinkStickSettingsViewModel>().LifestyleTransient());
@@ -63,6 +62,8 @@ namespace cRGB.WPF
             // ViewModels Singleton
             _container.Register(Component.For<DeviceListViewModel>().ImplementedBy<DeviceListViewModel>().LifestyleSingleton());
             _container.Register(Component.For<IEventListViewModel>().ImplementedBy<EventListViewModel>().LifestyleSingleton());
+            // ViewModel Controls
+            _container.Register(Component.For<DialogComboBoxSelectionViewModel>().ImplementedBy<DialogComboBoxSelectionViewModel>().LifestyleTransient());
 
             // EventViewModels
             // Register All Classes that are IEventViewModel

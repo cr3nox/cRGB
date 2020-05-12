@@ -4,7 +4,7 @@
 
 namespace cRGB.WPF.ViewModels.Event
 {
-    public interface IEventViewModel
+    public interface IEventViewModel : IViewModelBase
     {
         public bool CanActivate { get; }
         public bool IsEnabled { get; set; }

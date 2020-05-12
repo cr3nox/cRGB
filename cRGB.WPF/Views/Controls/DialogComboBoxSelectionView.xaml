@@ -23,12 +23,12 @@
         </Grid.RowDefinitions>
         <Label HorizontalAlignment="Center" Content="{Binding Header}" />
         <ComboBox
-            Name="Items"
+            Name="ItemDisplayNames"
             Grid.Row="1"
             MinWidth="256"
             materialDesign:HintAssist.HelperText="{Binding HelperText}"
             materialDesign:HintAssist.Hint="{Binding Hint}"
-            materialDesign:TextFieldAssist.HasClearButton="True"
+            materialDesign:TextFieldAssist.HasClearButton="False"
             SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
@@ -45,6 +45,7 @@
             <Button
                 x:Name="Cancel"
                 Content="{DynamicResource ResourceKey=Button_Cancel}"
+                IsCancel="True"
                 IsDefault="False"
                 Style="{DynamicResource MaterialDesignFlatButton}"
                 Visibility="{Binding CanCancel, Converter={StaticResource BoolToHiddenConverter}}" />

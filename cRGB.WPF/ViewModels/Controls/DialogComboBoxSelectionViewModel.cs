@@ -12,7 +12,7 @@ using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Controls
 {
-    public class DialogComboBoxSelectionViewModel
+    public class DialogComboBoxSelectionViewModel : ViewModelBase
     {
         #region Fields
 
@@ -26,17 +26,21 @@ namespace cRGB.WPF.ViewModels.Controls
 
         #region Properties
 
+        [AlsoNotifyFor(nameof(ItemDisplayNames), nameof(CanAccept))]
         public BindableCollection<IViewModelBase> Items { get; set; }
 
-        [AlsoNotifyFor("CanAccept")] public int SelectedIndex { get; set; } = -1;
+        [AlsoNotifyFor(nameof(Items), nameof(CanAccept))]
+        public BindableCollection<string> ItemDisplayNames => new BindableCollection<string>(Items.Select(o => o.DisplayName).ToList());
 
         public bool CanAccept => SelectedIndex > -1;
+
+        public int SelectedIndex { get; set; } = -1;
 
         public bool CanCancel { get; set; }
 
         public string HelperText => _localizationHelper.GetByKey(_helperTextResourceKey);
 
-        public string Hint => _localizationHelper.GetByKey(_helperTextResourceKey);
+        public string Hint => _localizationHelper.GetByKey(_hintResourceKey);
 
         public string Header => string.IsNullOrEmpty(_headerResourceKey) ? "" : _localizationHelper.GetByKey(_headerResourceKey);
 
@@ -73,7 +77,8 @@ namespace cRGB.WPF.ViewModels.Controls
 
         public virtual void Accept()
         {
-            _eventAggregator.PublishOnCurrentThreadAsync(new DialogSelectedMessage(Items[SelectedIndex]));
+            if(CanAccept)
+                _eventAggregator.PublishOnCurrentThreadAsync(new DialogSelectedMessage(Items[SelectedIndex]){Tag = "ForEventListView"});
         }
         
         #endregion
