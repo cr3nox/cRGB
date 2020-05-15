@@ -3,6 +3,8 @@
 #endregion
 
 using Caliburn.Micro;
+using cRGB.Domain.Models.Effect;
+using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
 
 namespace cRGB.WPF.ViewModels.Event.Events
@@ -27,6 +29,12 @@ namespace cRGB.WPF.ViewModels.Event.Events
         {
             _eventAggregator = aggregator;
             DisplayName = loc.GetByKey("TimerEvent");
+            Model ??= new TimerEvent();
+        }
+
+        public TimerEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, TimerEvent timerEvent) : this(aggregator, loc)
+        {
+            Model = timerEvent;
         }
 
         #endregion

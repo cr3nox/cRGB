@@ -7,8 +7,8 @@
     <ProjectGuid>{919834E9-FE01-4862-A060-C2E52EF8EFBE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>cRGB.Modules.Audio</RootNamespace>
-    <AssemblyName>cRGB.Modules.Audio</AssemblyName>
+    <RootNamespace>cRGB.Modules.Audio.Windows</RootNamespace>
+    <AssemblyName>cRGB.Modules.Audio.Windows</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

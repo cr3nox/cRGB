@@ -6,15 +6,18 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
+using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
 using cRGB.Modules.Audio;
+using cRGB.Tools.Helpers;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Extensions;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Event;
@@ -46,6 +49,10 @@ namespace cRGB.WPF
             _container.Register(Component.For<IEventAggregator>().ImplementedBy<EventAggregator>().LifestyleSingleton());
             _container.Register(Component.For<ShellViewModel>().ImplementedBy<ShellViewModel>().LifestyleSingleton());
 
+            // Factories and Facilities
+            // used for creating instances without Service Locator
+            _container.AddFacility<TypedFactoryFacility>();
+
             // Helpers
             _container.Register(Component.For<ILocalizationHelper>().ImplementedBy<LocalizationHelper>().LifestyleSingleton());
 
@@ -57,7 +64,7 @@ namespace cRGB.WPF
 
             // ViewModels Transient
             _container.Register(Component.For<MenuItemViewModel>().ImplementedBy<MenuItemViewModel>().LifestyleTransient());
-            _container.Register(Component.For<BlinkStickViewModel>().ImplementedBy<BlinkStickViewModel>().LifestyleTransient());
+            _container.Register(Component.For<BlinkStickViewModel>().ImplementedBy<BlinkStickViewModel>().LifestyleTransient(), Component.For<IBlinkStickViewModelFactory>().AsFactory());
             _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
             _container.Register(Component.For<BlinkStickSettingsViewModel>().ImplementedBy<BlinkStickSettingsViewModel>().LifestyleTransient());
             _container.Register(Component.For<LedViewModel>().ImplementedBy<LedViewModel>().LifestyleTransient());
@@ -75,9 +82,10 @@ namespace cRGB.WPF
                     .WithService.Base()
                     .LifestyleTransient());
 
-            // cRGB.Modules.Audio Module uses cscore which only runs on .NET Framework. Can only run on Windows
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            // Windows Only Modules
+            if (OS.IsWindows())
             {
+                // cRGB.Modules.Audio Module uses cscore which only runs on .NET Framework. Can only run on Windows
                 _container.Install(new AudioInstaller());
             }
         }
@@ -109,9 +117,9 @@ namespace cRGB.WPF
 
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            // Does not work properly so just do direct cast, even resharper considers it suspicious
+            // Does not work properly so just do direct cast even resharper considers it suspicious
             //return _container.ResolveAll(service).OfType<Array>().ToList();
-            return _container.ResolveAll(service) as IEnumerable<object>;
+            return (IEnumerable<object>) _container.ResolveAll(service);
         }
 
         protected override void BuildUp(object instance)

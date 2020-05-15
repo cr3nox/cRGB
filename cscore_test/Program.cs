@@ -11,9 +11,9 @@ namespace cscore_test
 {
     class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            cscore();
+            Cscore();
             //Console.ReadKey();
         }
 
@@ -159,7 +159,7 @@ namespace cscore_test
         //    return volumeControl;
         //}
 
-        private static void cscore()
+        private static void Cscore()
         {
             while (true)
             {
@@ -175,7 +175,6 @@ namespace cscore_test
                             {
                                 // works
 
-                                int i = 0;
                             }
                             Console.WriteLine("Process: {0}; Peak: {1}%",
                                 session2.Process == null ? String.Empty : session2.Process.MainWindowTitle,

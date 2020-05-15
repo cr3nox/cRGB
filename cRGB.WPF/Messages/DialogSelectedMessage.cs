@@ -1,4 +1,5 @@
-﻿using cRGB.WPF.ViewModels;
+﻿using cRGB.Modules.Common.ViewModelBase;
+using cRGB.WPF.ViewModels;
 using cRGB.WPF.ViewModels.Event;
 
 namespace cRGB.WPF.Messages

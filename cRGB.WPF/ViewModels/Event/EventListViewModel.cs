@@ -3,10 +3,13 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using cRGB.Domain.Models.Event;
+using cRGB.Modules.Common.ViewModelBase;
 using cRGB.WPF.Messages;
 using cRGB.WPF.ViewModels.Controls;
 
@@ -16,7 +19,7 @@ namespace cRGB.WPF.ViewModels.Event
     {
         #region Fields
 
-        IEventAggregator _eventAggregator;
+        readonly IEventAggregator _eventAggregator;
 
 
         #endregion
@@ -31,6 +34,8 @@ namespace cRGB.WPF.ViewModels.Event
 
         public bool IsEventSelectionOpen { get; set; }
 
+        public List<ILedEvent> EventSettings { get; internal set; } = new List<ILedEvent>();
+
         #endregion
 
         #region Constructor
@@ -39,11 +44,10 @@ namespace cRGB.WPF.ViewModels.Event
             _eventAggregator = aggregator;
             _eventAggregator.SubscribeOnUIThread(this);
 
-            // Gets one Instance of each IEventViewModel
-            dialogViewModel.Init(IoC.GetAllInstances(typeof(IEventViewModel)).OfType<IEventViewModel>()
-                .ToList(), true, "SelectAnEvent", headerResourceKey: "Events");
-
             DialogComboBoxSelectionViewModel = dialogViewModel;
+            // Gets one Instance of each IEventViewModel
+            DialogComboBoxSelectionViewModel.Init(IoC.GetAllInstances(typeof(IEventViewModel)).OfType<IEventViewModel>().ToList(), 
+                true, "SelectAnEvent", headerResourceKey: "Events");
         }
 
         #endregion
@@ -52,7 +56,29 @@ namespace cRGB.WPF.ViewModels.Event
 
         public void AddEvent()
         {
+            // Gets one Instance of each IEventViewModel
+            DialogComboBoxSelectionViewModel.Init(IoC.GetAllInstances(typeof(IEventViewModel)).OfType<IEventViewModel>()
+                .ToList(), true, "SelectAnEvent", headerResourceKey: "Events");
             IsEventSelectionOpen = true;
+        }
+
+        public void InitSettings(IList<ILedEvent> settings)
+        {
+            if (settings == null)
+                return;
+
+            EventSettings = (List<ILedEvent>)settings;
+
+            // Create ViewModel for each saved config
+            foreach (var eventSetting in EventSettings)
+            {
+                var vm = IoC.GetInstance(eventSetting.EventType, null);
+                if (vm is IEventViewModel eventViewModel)
+                {
+                    eventViewModel.Model = eventSetting;
+                    Events.Add(eventViewModel);
+                }
+            }
         }
 
         public Task HandleAsync(DialogSelectedMessage message, CancellationToken cancellationToken)
@@ -62,6 +88,7 @@ namespace cRGB.WPF.ViewModels.Event
                 var eventViewModel = (IEventViewModel) message.SelectedViewModel;
                 Events.Add(eventViewModel);
                 SelectedEvent = eventViewModel;
+                EventSettings.Add(eventViewModel.Model);
             }
             
             IsEventSelectionOpen = false;

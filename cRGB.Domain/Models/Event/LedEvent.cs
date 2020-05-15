@@ -6,7 +6,7 @@ using System;
 
 namespace cRGB.Domain.Models.Event
 {
-    public interface ILedEvent
+    public class LedEvent : ILedEvent
     {
         public Type EventType { get; set; }
     }

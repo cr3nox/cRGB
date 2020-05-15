@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChannelTest", "ChannelTest\ChannelTest.csproj", "{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cRGB.WPF", "cRGB.WPF\cRGB.WPF.csproj", "{3695BDB3-AF77-4799-9740-1CE753E802FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlinkStickDotNet", "BlinkStickDotNet\BlinkStickDotNet\BlinkStickDotNet.csproj", "{7AAEBEBE-E38D-47B1-A04C-A055DCEB0757}"
@@ -34,7 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{8D33
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cscore_test", "cscore_test\cscore_test.csproj", "{8726AEAE-B1FE-4962-9665-5B848C864B42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cRGB.Modules.Audio", "cRGB.Modules.Audio\cRGB.Modules.Audio.csproj", "{919834E9-FE01-4862-A060-C2E52EF8EFBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cRGB.Modules.Audio.Windows", "cRGB.Modules\cRGB.Modules.Audio.Windows\cRGB.Modules.Audio.Windows.csproj", "{919834E9-FE01-4862-A060-C2E52EF8EFBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cRGB.Modules.Common", "cRGB.Modules\cRGB.Modules.Common\cRGB.Modules.Common.csproj", "{90886C51-4C3C-46C2-A56F-DE41A01D45C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,14 +44,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Debug|x86.Build.0 = Debug|Any CPU
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Release|x86.ActiveCfg = Release|Any CPU
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD}.Release|x86.Build.0 = Release|Any CPU
 		{3695BDB3-AF77-4799-9740-1CE753E802FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3695BDB3-AF77-4799-9740-1CE753E802FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3695BDB3-AF77-4799-9740-1CE753E802FE}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -116,12 +108,19 @@ Global
 		{919834E9-FE01-4862-A060-C2E52EF8EFBE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{919834E9-FE01-4862-A060-C2E52EF8EFBE}.Release|x86.ActiveCfg = Release|Any CPU
 		{919834E9-FE01-4862-A060-C2E52EF8EFBE}.Release|x86.Build.0 = Release|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{87BE6F3A-05BE-41B8-B3AB-D510645D7DCD} = {1EAE6A21-3B96-4490-B3BB-DB02F15414F7}
 		{3695BDB3-AF77-4799-9740-1CE753E802FE} = {1E121F55-001D-4A3D-9ED2-9D5541F3DC87}
 		{7AAEBEBE-E38D-47B1-A04C-A055DCEB0757} = {05790576-9FF2-4849-87C9-7BA2550591B3}
 		{0DB86674-2A7B-4BDC-93C1-3F7DC771426C} = {05790576-9FF2-4849-87C9-7BA2550591B3}
@@ -130,6 +129,7 @@ Global
 		{8D284206-FBED-4431-9953-A9CF6845D394} = {3B0F584D-3516-4FA3-B526-02E8844087E4}
 		{8726AEAE-B1FE-4962-9665-5B848C864B42} = {1EAE6A21-3B96-4490-B3BB-DB02F15414F7}
 		{919834E9-FE01-4862-A060-C2E52EF8EFBE} = {8D336BA7-286E-4797-96E1-329E7E20C96F}
+		{90886C51-4C3C-46C2-A56F-DE41A01D45C7} = {8D336BA7-286E-4797-96E1-329E7E20C96F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82ACBFB9-8772-40B4-A41E-CA87F9FD3281}

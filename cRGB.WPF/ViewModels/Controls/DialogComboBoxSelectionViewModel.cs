@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.VisualStyles;
 using Caliburn.Micro;
+using cRGB.Modules.Common.ViewModelBase;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
 using PropertyChanged;
@@ -59,8 +60,7 @@ namespace cRGB.WPF.ViewModels.Controls
 
         public void Init(IEnumerable<IViewModelBase> items, bool canCancel = true, string helperTextResourceKey = "SelectAnItem", string hintResourceKey = "Item", string headerResourceKey = "")
         {
-            Items = new BindableCollection<IViewModelBase>();
-            Items.AddRange(items.ToList());
+            Items = new BindableCollection<IViewModelBase>(items.ToList());
             CanCancel = canCancel;
 
             _helperTextResourceKey = helperTextResourceKey;

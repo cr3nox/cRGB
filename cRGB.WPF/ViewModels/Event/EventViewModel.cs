@@ -4,6 +4,8 @@
 
 using System.Collections.Generic;
 using Caliburn.Micro;
+using cRGB.Domain.Models.Event;
+using cRGB.Modules.Common.ViewModelBase;
 using cRGB.WPF.ViewModels.Effect.Effects;
 
 namespace cRGB.WPF.ViewModels.Event
@@ -12,7 +14,9 @@ namespace cRGB.WPF.ViewModels.Event
     {
         public abstract bool CanActivate { get; }
         public bool IsEnabled { get; set; }
+        public ILedEvent Model { get; set; }
 
         public BindableCollection<EffectViewModel> Effects { get; set; } = new BindableCollection<EffectViewModel>();
+
     }
 }

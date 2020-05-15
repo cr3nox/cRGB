@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.Event;
+using cRGB.Modules.Common.ViewModelBase;
 using cRGB.Tools.Interfaces.ViewModel;
 
 namespace cRGB.WPF.ViewModels.Device
@@ -109,6 +112,8 @@ namespace cRGB.WPF.ViewModels.Device
         public BindableCollection<LedViewModel> RChannelLedColors { get; set; }
         public BindableCollection<LedViewModel> GChannelLedColors { get; set; }
         public BindableCollection<LedViewModel> BChannelLedColors { get; set; }
+
+        public IList<ILedEvent> EventSettings => BlinkStickSettings.Events;
 
         public BlinkStickSettingsViewModel(IBlinkStickSettings settings)
         {

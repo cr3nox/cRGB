@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Caliburn.Micro;
+using cRGB.Modules.Common.ViewModelBase;
 using cRGB.WPF.Messages;
 using MaterialDesignThemes.Wpf;
 

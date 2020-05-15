@@ -2,6 +2,7 @@
 using System.Linq;
 using BlinkStickDotNet;
 using Caliburn.Micro;
+using cRGB.Modules.Common.ViewModelBase;
 using cRGB.WPF.Messages;
 using PropertyChanged;
 

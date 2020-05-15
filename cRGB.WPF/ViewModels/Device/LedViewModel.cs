@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using cRGB.Domain.Models.Device;
+using cRGB.Modules.Common.ViewModelBase;
 using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Device

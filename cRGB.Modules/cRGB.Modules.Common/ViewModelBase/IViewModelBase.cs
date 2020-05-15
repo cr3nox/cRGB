@@ -4,7 +4,7 @@
 
 using Caliburn.Micro;
 
-namespace cRGB.WPF.ViewModels
+namespace cRGB.Modules.Common.ViewModelBase
 {
     public interface IViewModelBase : IScreen
     {

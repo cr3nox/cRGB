@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 
-namespace cRGB.WPF.ViewModels
+namespace cRGB.Modules.Common.ViewModelBase
 {
     public abstract class ViewModelBase : Screen, IViewModelBase
     {

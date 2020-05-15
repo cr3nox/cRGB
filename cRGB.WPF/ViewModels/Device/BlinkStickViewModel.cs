@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BlinkStickDotNet;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.Event;
 using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
@@ -26,11 +27,7 @@ namespace cRGB.WPF.ViewModels.Device
         #region Fields
 
         readonly IBlinkStickService _blinkStickService;
-        readonly IEventAggregator _eventAggregator;
-        readonly ILocalizationHelper _loc;
-        readonly ISettingsService _settingsService;
         BlinkStick _device;
-        readonly IEventListViewModel _eventListViewModel;
 
         #endregion
 
@@ -96,30 +93,23 @@ namespace cRGB.WPF.ViewModels.Device
         #endregion Properties
 
 
-        public BlinkStickViewModel(IBlinkStickService blinkStickService, IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService, 
-            IEventListViewModel eventListViewModel, DeviceSelectionViewModel deviceSelectionViewModel)
+        public BlinkStickViewModel (
+            IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService,
+            IBlinkStickService blinkStickService, IEventListViewModel eventListViewModel, DeviceSelectionViewModel deviceSelectionViewModel
+            ) 
+            : base(aggregator, loc, settingsService, eventListViewModel)
         {
             _blinkStickService = blinkStickService;
             DeviceSelection = deviceSelectionViewModel;
             DeviceSelection.AddBlinkSticks(_blinkStickService.FindAllNotAlreadyConfigured());
-            _eventAggregator = aggregator;
             _eventAggregator.SubscribeOnUIThread(this);
-            _loc = loc;
-            _settingsService = settingsService;
-            _eventListViewModel = eventListViewModel;
         }
 
         public void InitSettings(string serial)
         {
             if (Settings != null) return;
 
-            Settings = new BlinkStickSettingsViewModel(_settingsService.RegisterBlinkStickSettings(serial));
-            IoC.BuildUp(Settings);
-            Settings.PropertyChanged += Settings_PropertyChanged;
-
-            Device ??= _blinkStickService.Find(Settings.SerialNumber);
-
-            Menu.CreateChild(Settings, PackIconKind.Cog, true, _loc.GetByKey("Settings"));
+            InitSettings(_settingsService.RegisterBlinkStickSettings(serial));
         }
 
         public void InitSettings(IBlinkStickSettings settings)
@@ -131,8 +121,12 @@ namespace cRGB.WPF.ViewModels.Device
             Settings.PropertyChanged += Settings_PropertyChanged;
 
             Device ??= _blinkStickService.Find(Settings.SerialNumber);
+            _eventListViewModel.InitSettings(Settings.EventSettings);
 
+            // Device settings
             Menu.CreateChild(Settings, PackIconKind.Cog, true, _loc.GetByKey("Settings"));
+            // Event
+            Menu.CreateChild((EventListViewModel)_eventListViewModel, PackIconKind.LightningBolt, true, _loc.GetByKey("Events"));
         }
 
         private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -215,16 +209,6 @@ namespace cRGB.WPF.ViewModels.Device
             if (Settings == null)
                 return;
             Settings.DisabledLeds = new BindableCollection<int>(LedStates.Where(o => !o.Enabled).Select(o => o.Index));
-        }
-
-        public void Init()
-        {
-            InitEventVm();
-        }
-
-        void InitEventVm()
-        {
-            Menu.CreateChild((EventListViewModel)_eventListViewModel, PackIconKind.LightningBolt, true, _loc.GetByKey("Events"));
         }
     }
 }

@@ -4,21 +4,25 @@ using cRGB.Domain.Models.Device;
 using cRGB.Domain.Models.Enums;
 using cRGB.Domain.Services;
 using cRGB.Domain.Services.System;
+using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Extensions;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
+using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Menu;
 using MaterialDesignThemes.Wpf;
 
 namespace cRGB.WPF.ViewModels.Device
 {
-    public class DeviceListViewModel : ViewModelBase
+    public class DeviceListViewModel : ViewModelBase, INotifyMeOnAppExit
     {
         #region Properties
 
         readonly ILocalizationHelper _loc;
         readonly IEventAggregator _eventAggregator;
         readonly ISettingsService _settingsService;
+        readonly IBlinkStickViewModelFactory _blinkStickViewModelFactory;
 
         public MenuItemViewModel Menu { get; set; }
 
@@ -28,12 +32,14 @@ namespace cRGB.WPF.ViewModels.Device
 
         #endregion
 
-        public DeviceListViewModel(IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService)
+        public DeviceListViewModel(IEventAggregator aggregator, ILocalizationHelper loc, ISettingsService settingsService, IBlinkStickViewModelFactory blinkStickViewModelFactory)
         {
             _eventAggregator = aggregator;
-            _eventAggregator.SubscribeOnUIThread(this);
             _loc = loc;
             _settingsService = settingsService;
+            _blinkStickViewModelFactory = blinkStickViewModelFactory;
+
+            _eventAggregator.SubscribeOnUIThread(this);
         }
 
         public async void DeleteDevice(LedDeviceViewModel deviceViewModel)
@@ -74,7 +80,7 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void AddBlinkStick(IBlinkStickSettings settings = null)
         {
-            var newDevice = IoC.Get<BlinkStickViewModel>();
+            var newDevice = _blinkStickViewModelFactory.Create();
             LedDevices.Add(newDevice);
 
             var str = settings == null ? _loc.GetByKey("MenuItem_NewDevice") : settings.Name;
@@ -83,7 +89,6 @@ namespace cRGB.WPF.ViewModels.Device
 
             if (settings != null)
                 newDevice.InitSettings(settings);
-            newDevice.Init();
         }
 
         public void AddNewBlinkStick()
@@ -114,6 +119,11 @@ namespace cRGB.WPF.ViewModels.Device
         public void Init()
         {
             LoadSavedDevices();
+        }
+
+        public void OnAppExit()
+        {
+            
         }
     }
 }
