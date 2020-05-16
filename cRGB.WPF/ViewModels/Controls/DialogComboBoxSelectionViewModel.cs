@@ -6,9 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.VisualStyles;
 using Caliburn.Micro;
-using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Modules.Common.Base;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
+using cRGB.WPF.ServiceLocation.Factories;
 using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Controls
@@ -19,6 +20,7 @@ namespace cRGB.WPF.ViewModels.Controls
 
         readonly IEventAggregator _eventAggregator;
         readonly ILocalizationHelper _localizationHelper;
+        readonly IMessageFactory _messageFactory;
         string _helperTextResourceKey;
         string _hintResourceKey;
         string _headerResourceKey;
@@ -48,10 +50,11 @@ namespace cRGB.WPF.ViewModels.Controls
         #endregion
 
         #region ctor
-        public DialogComboBoxSelectionViewModel(IEventAggregator aggregator, ILocalizationHelper loc)
+        public DialogComboBoxSelectionViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IMessageFactory messageFactory)
         {
             _eventAggregator = aggregator;
             _localizationHelper = loc;
+            _messageFactory = messageFactory;
         }
 
         #endregion
@@ -70,15 +73,19 @@ namespace cRGB.WPF.ViewModels.Controls
 
         public virtual void Cancel()
         {
-            if (!CanCancel)
-                return;
-            _eventAggregator.PublishOnUIThreadAsync(new DialogSelectedMessage());
+            if (!CanCancel) return;
+
+            _eventAggregator.PublishOnUIThreadAsync(_messageFactory.Create(typeof(DialogSelectedMessage)));
         }
 
         public virtual void Accept()
         {
-            if(CanAccept)
-                _eventAggregator.PublishOnCurrentThreadAsync(new DialogSelectedMessage(Items[SelectedIndex]){Tag = "ForEventListView"});
+            if (!CanAccept) return;
+
+            var message = (DialogSelectedMessage)_messageFactory.Create(typeof(DialogSelectedMessage));
+            //message.Tag = "ForEventListView";
+            message.SelectedViewModel = Items[SelectedIndex];
+            _eventAggregator.PublishOnCurrentThreadAsync(message);
         }
         
         #endregion

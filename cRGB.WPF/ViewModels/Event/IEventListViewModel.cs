@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 using cRGB.Domain.Models.Event;
-using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Modules.Common.Base;
 
 namespace cRGB.WPF.ViewModels.Event
 {

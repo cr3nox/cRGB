@@ -1,23 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Xml.Serialization;
 using Caliburn.Micro;
+using Castle.Facilities.TypedFactory;
 using cRGB.Domain.Models.Device;
 using cRGB.Domain.Models.Event;
-using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Modules.Common.Base;
 using cRGB.Tools.Interfaces.ViewModel;
+using cRGB.WPF.ServiceLocation.Factories;
 
 namespace cRGB.WPF.ViewModels.Device
 {
-    public class BlinkStickSettingsViewModel : ViewModelBase
+    public class BlinkStickSettingsViewModel : ValidationViewModelBase
     {
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        public IBlinkStickSettings BlinkStickSettings;
+        #region Fields
 
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        public IBlinkStickSettings BlinkStickSettings; 
+        
+        #endregion
+
+        #region Properties
+
+        [Required]
+        [StringLength(int.MaxValue, MinimumLength = 1)]
         public string DeviceName
         {
             get => BlinkStickSettings.Name;
-            set => BlinkStickSettings.Name = value;
+            set
+            {
+                BlinkStickSettings.Name = value;
+                ValidateProperty(value);
+            }
         }
 
         public string SerialNumber
@@ -108,17 +126,25 @@ namespace cRGB.WPF.ViewModels.Device
             get => BlinkStickSettings.Brightness;
             set => BlinkStickSettings.Brightness = value;
         }
-        
+
         public BindableCollection<LedViewModel> RChannelLedColors { get; set; }
         public BindableCollection<LedViewModel> GChannelLedColors { get; set; }
         public BindableCollection<LedViewModel> BChannelLedColors { get; set; }
 
         public IList<ILedEvent> EventSettings => BlinkStickSettings.Events;
 
+        #endregion
+
+        #region ctor
         public BlinkStickSettingsViewModel(IBlinkStickSettings settings)
         {
             BlinkStickSettings = settings;
-        }
+        } 
+
+        #endregion
+
+
+        #region Methods
 
         public void EnableAllRChannelLedColors()
         {
@@ -174,6 +200,7 @@ namespace cRGB.WPF.ViewModels.Device
             {
                 ledState.FirePropertyChanged();
             }
-        }
+        } 
+        #endregion
     }
 }

@@ -5,7 +5,7 @@
 using System;
 using Caliburn.Micro;
 
-namespace cRGB.WPF.Extensions
+namespace cRGB.Modules.Common.Extensions
 {
     public static class BindableCollectionExtensions
     {

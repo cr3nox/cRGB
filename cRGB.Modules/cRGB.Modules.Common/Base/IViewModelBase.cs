@@ -4,7 +4,7 @@
 
 using Caliburn.Micro;
 
-namespace cRGB.Modules.Common.ViewModelBase
+namespace cRGB.Modules.Common.Base
 {
     public interface IViewModelBase : IScreen
     {

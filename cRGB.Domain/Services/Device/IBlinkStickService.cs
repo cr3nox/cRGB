@@ -19,5 +19,7 @@ namespace cRGB.Domain.Services.Device
         public void AddBlinkStick(BlinkStick stick);
 
         public ObservableCollection<BlinkStick> GetAllConfigured();
+
+        public void Remove(string serial);
     }
 }

@@ -54,7 +54,7 @@
     <PackageReference Include="Caliburn.Micro" Version="4.0.105-alpha" />
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.105-alpha" />
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="MaterialDesignThemes" Version="3.1.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="serilog.sinks.Debug" Version="1.0.1" />

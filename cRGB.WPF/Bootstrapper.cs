@@ -7,22 +7,26 @@ using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using Castle.Facilities.TypedFactory;
+using Castle.MicroKernel.ModelBuilder.Inspectors;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using cRGB.Domain.Models.Device;
 using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
 using cRGB.Modules.Audio;
+using cRGB.Modules.Audio.Windows;
 using cRGB.Tools.Helpers;
 using cRGB.Tools.Interfaces.ViewModel;
-using cRGB.WPF.Extensions;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.Messages;
 using cRGB.WPF.ServiceLocation.Factories;
+using cRGB.WPF.ServiceLocation.Selectors;
 using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Event;
 using cRGB.WPF.ViewModels.Event.Events;
-using cRGB.WPF.ViewModels.Menu;
+using cRGB.WPF.ViewModels.Navigation;
 using cRGB.WPF.ViewModels.Shell;
 using Serilog;
 using Serilog.Events;
@@ -44,7 +48,13 @@ namespace cRGB.WPF
             LogManager.GetLog = type => new DebugLog(type);
 
             _container = new WindsorContainer();
-            
+
+            // Disable property injection in castle.windsor kernel
+            _container.Kernel.ComponentModelBuilder.RemoveContributor(_container.Kernel.ComponentModelBuilder
+                .Contributors
+                .OfType<PropertiesDependenciesModelInspector>()
+                .Single());
+
             _container.Register(Component.For<IWindowManager>().ImplementedBy<WindowManager>().LifestyleSingleton());
             _container.Register(Component.For<IEventAggregator>().ImplementedBy<EventAggregator>().LifestyleSingleton());
             _container.Register(Component.For<ShellViewModel>().ImplementedBy<ShellViewModel>().LifestyleSingleton());
@@ -52,6 +62,12 @@ namespace cRGB.WPF
             // Factories and Facilities
             // used for creating instances without Service Locator
             _container.AddFacility<TypedFactoryFacility>();
+            _container.Register(Component.For<IEventViewModelFactory>().AsFactory(f => f.SelectedWith(new ClassByNameFactoryComponentSelector())));
+            _container.Register(Component.For<IMessageFactory>().AsFactory(f => f.SelectedWith(new ClassByNameFactoryComponentSelector())));
+
+            // Models
+            _container.Register(Component.For<IBlinkStickSettings>().ImplementedBy<BlinkStickSettings>()
+                .LifestyleTransient());
 
             // Helpers
             _container.Register(Component.For<ILocalizationHelper>().ImplementedBy<LocalizationHelper>().LifestyleSingleton());
@@ -62,12 +78,13 @@ namespace cRGB.WPF
             _container.Register(Component.For<IBlinkStickService>().ImplementedBy<BlinkStickService>().LifestyleSingleton());
             _container.Register(Component.For<ISettingsService>().ImplementedBy<SettingsService>().LifestyleSingleton());
 
+            // TODO: Add service interface for each viewmodel
             // ViewModels Transient
-            _container.Register(Component.For<MenuItemViewModel>().ImplementedBy<MenuItemViewModel>().LifestyleTransient());
+            _container.Register(Component.For<IMenuItemViewModel>().ImplementedBy<MenuItemViewModel>().LifestyleTransient(), Component.For<IMenuItemViewModelFactory>().AsFactory());
             _container.Register(Component.For<BlinkStickViewModel>().ImplementedBy<BlinkStickViewModel>().LifestyleTransient(), Component.For<IBlinkStickViewModelFactory>().AsFactory());
+            _container.Register(Component.For<BlinkStickSettingsViewModel>().ImplementedBy<BlinkStickSettingsViewModel>().LifestyleTransient(), Component.For<IBlinkStickSettingsViewModelFactory>().AsFactory());
+            _container.Register(Component.For<LedViewModel>().ImplementedBy<LedViewModel>().LifestyleTransient(), Component.For<ILedViewModelFactory>().AsFactory());
             _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
-            _container.Register(Component.For<BlinkStickSettingsViewModel>().ImplementedBy<BlinkStickSettingsViewModel>().LifestyleTransient());
-            _container.Register(Component.For<LedViewModel>().ImplementedBy<LedViewModel>().LifestyleTransient());
             // ViewModels Singleton
             _container.Register(Component.For<DeviceListViewModel>().ImplementedBy<DeviceListViewModel>().LifestyleSingleton());
             _container.Register(Component.For<IEventListViewModel>().ImplementedBy<EventListViewModel>().LifestyleSingleton());
@@ -80,13 +97,22 @@ namespace cRGB.WPF
                 Classes.FromAssembly(Assembly.GetExecutingAssembly())
                     .BasedOn(typeof(IEventViewModel))
                     .WithService.Base()
+                    .Configure(c => c.Named(c.Implementation.Name))
+                    .LifestyleTransient());
+            
+            // Messages
+            _container.Register(
+                Classes.FromAssembly(Assembly.GetExecutingAssembly())
+                    .BasedOn(typeof(IMessage))
+                    .WithService.Base()
+                    .Configure(c => c.Named(c.Implementation.Name))
                     .LifestyleTransient());
 
             // Windows Only Modules
             if (OS.IsWindows())
             {
                 // cRGB.Modules.Audio Module uses cscore which only runs on .NET Framework. Can only run on Windows
-                _container.Install(new AudioInstaller());
+                _container.Install(new WindowsAudioModuleInstaller());
             }
         }
 
@@ -148,7 +174,7 @@ namespace cRGB.WPF
             base.OnExit(sender, e);
         }
 
-        protected void RecursiveViewModelOnExit(BindableCollection<MenuItemViewModel> menus)
+        protected void RecursiveViewModelOnExit(BindableCollection<IMenuItemViewModel> menus)
         {
             foreach (var menu in menus)
             {

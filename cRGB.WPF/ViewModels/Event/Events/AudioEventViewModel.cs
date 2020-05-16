@@ -7,11 +7,11 @@ using cRGB.WPF.Helpers;
 
 namespace cRGB.WPF.ViewModels.Event.Events
 {
-    public sealed class SpotifyEventViewModel : EventViewModel
+    public sealed class AudioEventViewModel : EventViewModel
     {
         #region Fields
-        ILocalizationHelper _localizationHelper;
-        IEventAggregator _eventAggregator;
+        //ILocalizationHelper _localizationHelper;
+        //IEventAggregator _eventAggregator;
 
         #endregion
 
@@ -23,11 +23,11 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #region ctor
 
-        public SpotifyEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc)
+        public AudioEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc)
         {
-            _eventAggregator = aggregator;
-            _localizationHelper = loc;
-            DisplayName = loc.GetByKey("SpotifyEvent");
+            //_eventAggregator = aggregator;
+            //_localizationHelper = loc;
+            DisplayName = loc.GetByKey("AudioEvent");
         }
 
         #endregion

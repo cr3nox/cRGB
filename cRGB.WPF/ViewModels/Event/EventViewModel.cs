@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Event;
-using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Modules.Common.Base;
 using cRGB.WPF.ViewModels.Effect.Effects;
 
 namespace cRGB.WPF.ViewModels.Event

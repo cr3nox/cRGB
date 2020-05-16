@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using cRGB.Domain.Services;
@@ -6,26 +7,28 @@ using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
 using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
+using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Device;
-using cRGB.WPF.ViewModels.Menu;
+using cRGB.WPF.ViewModels.Navigation;
 using MaterialDesignThemes.Wpf;
 using Screen = Caliburn.Micro.Screen;
 
 namespace cRGB.WPF.ViewModels.Shell
 {
-    public class ShellViewModel : Conductor<Screen>.Collection.OneActive, IHandle<TreeViewSelectionChangedMessage>
+    public class ShellViewModel : Conductor<Screen>.Collection.OneActive, IHandle<TreeViewSelectionChangedMessage>, IDisposable
     {
         readonly IEventAggregator _eventAggregator;
         readonly ISettingsService _settingsService;
+        readonly IMenuItemViewModelFactory _menuFactory;
 
         #region Properties
 
         /// <summary>
         /// All Menu Items are declared here. (Left side navigation bar)
         /// </summary>
-        public BindableCollection<MenuItemViewModel> MenuItems { get; } = new BindableCollection<MenuItemViewModel>();
+        public BindableCollection<IMenuItemViewModel> MenuItems { get; } = new BindableCollection<IMenuItemViewModel>();
 
-        public MenuItemViewModel SelectedMenuItem { get; set; }
+        public IMenuItemViewModel SelectedMenuItem { get; set; }
 
         public int ShellViewHeight
         {
@@ -42,14 +45,15 @@ namespace cRGB.WPF.ViewModels.Shell
 
         #endregion Properties
 
-        public ShellViewModel(IEventAggregator aggregator, ILocalizationHelper loc, DeviceListViewModel deviceListViewModel, ISettingsService settingsService)
+        public ShellViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IMenuItemViewModelFactory menuFactory, ISettingsService settingsService, DeviceListViewModel deviceListViewModel)
         {
             _eventAggregator = aggregator;
-            _eventAggregator.SubscribeOnUIThread(this);
             _settingsService = settingsService;
+            _menuFactory = menuFactory;
+            _eventAggregator.SubscribeOnUIThread(this);
 
             // Adding Menu Items
-            var menuItem = IoC.Get<MenuItemViewModel>();
+            var menuItem = menuFactory.Create();
             menuItem.CreateMenu(deviceListViewModel, null, PackIconKind.Chip, loc.GetByKey("Devices"));
             deviceListViewModel.Menu = menuItem;
             MenuItems.Add(menuItem);
@@ -62,20 +66,24 @@ namespace cRGB.WPF.ViewModels.Shell
             if (message.SelectedItem.IsSelected)
             {
                 SelectedMenuItem = message.SelectedItem;
-                if (SelectedMenuItem.ViewModel is INotifyMeOnMenuSelect menuViewModel)
-                {
-                    menuViewModel.OnMenuSelect();
-                }
+                var menuViewModel = SelectedMenuItem.ViewModel as INotifyMeOnMenuSelect;
+                menuViewModel?.OnMenuSelect();
+
                 ActivateView(SelectedMenuItem);
             }
 
             return Task.CompletedTask;
         }
 
-        private void ActivateView(MenuItemViewModel menu)
+        private void ActivateView(IMenuItemViewModel menu)
         {
             SelectedMenuItem = menu;
-            ActivateItemAsync(SelectedMenuItem.ViewModel, new CancellationToken());
+            ActivateItemAsync((Screen)SelectedMenuItem.ViewModel, new CancellationToken());
+        }
+
+        public void Dispose()
+        {
+            _eventAggregator.Unsubscribe(this);
         }
     }
 }

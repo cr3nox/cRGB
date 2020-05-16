@@ -14,7 +14,6 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:NullVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <validators:NotEmptyValidationRule x:Key="NotEmptyValidationRule" />
         <converters:CountToVisibilityConverter
             x:Key="CountToVisibilityConverter"
             FalseValue="Collapsed"
@@ -24,7 +23,7 @@
     <materialDesign:DialogHost
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
-        CloseOnClickAway="True"
+        CloseOnClickAway="False"
         IsOpen="{Binding Path=IsDeviceSelectionOpen}"
         OverlayBackground="{DynamicResource PrimaryHueDarkBrush}">
         <materialDesign:DialogHost.DialogContent>
@@ -38,12 +37,6 @@
             ClipToBounds="True">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <!--<Button
-                    Name="DeviceSelectionButton"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                    RUN
-                </Button>-->
                     <materialDesign:Card Margin="16" Background="{DynamicResource MaterialDesignBackground}">
                         <Expander
                             HorizontalAlignment="Stretch"
@@ -56,13 +49,8 @@
                                     Margin="15,0,15,15"
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=DeviceName}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                                    <Binding Path="DeviceName" UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                            <validators:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox>
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding Path=DeviceName, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
                                 <TextBox
                                     Name="SerialNumber"
                                     MinWidth="100"

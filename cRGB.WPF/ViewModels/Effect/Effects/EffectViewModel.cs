@@ -2,7 +2,7 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
-using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Modules.Common.Base;
 
 namespace cRGB.WPF.ViewModels.Effect.Effects
 {

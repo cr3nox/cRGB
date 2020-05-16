@@ -1,6 +1,6 @@
 ﻿namespace cRGB.WPF.Messages
 {
-    public class DeviceSelectedMessage
+    public class DeviceSelectedMessage : IMessage
     {
         public object SelectedDevice { get; set; }
 

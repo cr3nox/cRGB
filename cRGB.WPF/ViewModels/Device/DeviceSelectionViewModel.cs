@@ -2,8 +2,9 @@
 using System.Linq;
 using BlinkStickDotNet;
 using Caliburn.Micro;
-using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Modules.Common.Base;
 using cRGB.WPF.Messages;
+using cRGB.WPF.ServiceLocation.Factories;
 using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Device
@@ -11,6 +12,8 @@ namespace cRGB.WPF.ViewModels.Device
     public class DeviceSelectionViewModel : ViewModelBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IMessageFactory _messageFactory;
+
         private List<object> DeviceObjects { get; set; }
 
         public BindableCollection<string> Devices { get; set; } = new BindableCollection<string>();
@@ -29,19 +32,22 @@ namespace cRGB.WPF.ViewModels.Device
             AddDevices(blinkSticks.Select(o => $"{o.BlinkStickDevice} Serial: {o.Serial}").ToArray());
         }
 
-        public DeviceSelectionViewModel(IEventAggregator aggregator)
+        public DeviceSelectionViewModel(IEventAggregator aggregator, IMessageFactory messageFactory)
         {
             _eventAggregator = aggregator;
+            _messageFactory = messageFactory;
         }
 
         public virtual void Cancel()
         {
-            _eventAggregator.PublishOnUIThreadAsync(new DeviceSelectedMessage());
+            _eventAggregator.PublishOnUIThreadAsync(_messageFactory.Create(typeof(DeviceSelectedMessage)));
         }
 
         public virtual void Apply()
         {
-            _eventAggregator.PublishOnCurrentThreadAsync(new DeviceSelectedMessage(DeviceObjects == null ? Devices[SelectedDeviceIndex] : DeviceObjects[SelectedDeviceIndex]));
+            var message = (DeviceSelectedMessage) _messageFactory.Create(typeof(DeviceSelectedMessage));
+            message.SelectedDevice = DeviceObjects == null ? Devices[SelectedDeviceIndex] : DeviceObjects[SelectedDeviceIndex];
+            _eventAggregator.PublishOnCurrentThreadAsync(message);
         }
     }
 }

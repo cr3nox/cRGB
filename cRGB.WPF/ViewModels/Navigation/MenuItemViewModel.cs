@@ -1,19 +1,25 @@
 ﻿using System.ComponentModel;
 using Caliburn.Micro;
-using cRGB.Modules.Common.ViewModelBase;
+using cRGB.Modules.Common.Base;
 using cRGB.WPF.Messages;
+using cRGB.WPF.ServiceLocation.Factories;
 using MaterialDesignThemes.Wpf;
 
-namespace cRGB.WPF.ViewModels.Menu
+namespace cRGB.WPF.ViewModels.Navigation
 {
-    public class MenuItemViewModel : ViewModelBase
+    public class MenuItemViewModel : ViewModelBase, IMenuItemViewModel
     {
-        #region Properties
+        #region Fields
 
         readonly IEventAggregator _eventAggregator;
+        readonly IMenuItemViewModelFactory _menuFactory;
 
-        ViewModelBase _viewModel;
-        public ViewModelBase ViewModel
+        #endregion
+
+        #region Properties
+
+        IViewModelBase _viewModel;
+        public IViewModelBase ViewModel
         {
             get => _viewModel;
             set
@@ -24,10 +30,10 @@ namespace cRGB.WPF.ViewModels.Menu
 
         }
 
-        public MenuItemViewModel ParentMenuItem { get; set; }
+        public IMenuItemViewModel ParentMenuItem { get; set; }
 
-        public BindableCollection<MenuItemViewModel> Children { get; set; } =
-            new BindableCollection<MenuItemViewModel>();
+        public BindableCollection<IMenuItemViewModel> Children { get; set; } =
+            new BindableCollection<IMenuItemViewModel>();
 
         public bool IsExpanded { get; set; }
         private bool _isSelected;
@@ -55,20 +61,21 @@ namespace cRGB.WPF.ViewModels.Menu
 
         #region Constructor
 
-        public MenuItemViewModel(IEventAggregator aggregator)
+        public MenuItemViewModel(IEventAggregator aggregator, IMenuItemViewModelFactory menuFactory)
         {
             _eventAggregator = aggregator;
+            _menuFactory = menuFactory;
         }
 
         #endregion
 
 
-        void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Header)));
         }
 
-        public void CreateMenu(ViewModelBase viewModel, MenuItemViewModel parent = null, PackIconKind icon = PackIconKind.None, string displayName = null, bool isExpanded = true)
+        public void CreateMenu(IViewModelBase viewModel, IMenuItemViewModel parent = null, PackIconKind icon = PackIconKind.None, string displayName = null, bool isExpanded = true)
         {
             ViewModel = viewModel;
             ParentMenuItem = parent;
@@ -77,9 +84,9 @@ namespace cRGB.WPF.ViewModels.Menu
             if (!string.IsNullOrEmpty(displayName)) ViewModel.DisplayName = displayName;
         }
 
-        public MenuItemViewModel CreateChild(ViewModelBase viewModel, PackIconKind icon = PackIconKind.None, bool isExpanded = true, string displayName = null)
+        public IMenuItemViewModel CreateChild(IViewModelBase viewModel, PackIconKind icon = PackIconKind.None, bool isExpanded = true, string displayName = null)
         {
-            var child = IoC.Get<MenuItemViewModel>();
+            var child = _menuFactory.Create();
             child.CreateMenu(viewModel, this, icon, displayName, true);
             child.ViewModel = viewModel;
             child.ParentMenuItem = this;

@@ -1,12 +1,12 @@
-﻿using cRGB.WPF.ViewModels.Menu;
+﻿using cRGB.WPF.ViewModels.Navigation;
 
 namespace cRGB.WPF.Messages
 {
-    public class TreeViewSelectionChangedMessage
+    public class TreeViewSelectionChangedMessage : IMessage
     {
-        public MenuItemViewModel SelectedItem { get; set; }
+        public IMenuItemViewModel SelectedItem { get; set; }
 
-        public TreeViewSelectionChangedMessage(MenuItemViewModel selectedItem)
+        public TreeViewSelectionChangedMessage(IMenuItemViewModel selectedItem)
         {
             SelectedItem = selectedItem;
         }

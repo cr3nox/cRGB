@@ -1,10 +1,10 @@
-﻿using cRGB.Modules.Common.ViewModelBase;
+﻿using cRGB.Modules.Common.Base;
 using cRGB.WPF.ViewModels;
 using cRGB.WPF.ViewModels.Event;
 
 namespace cRGB.WPF.Messages
 {
-    public class DialogSelectedMessage
+    public class DialogSelectedMessage : IMessage
     {
         public object Tag { get; set; }
 

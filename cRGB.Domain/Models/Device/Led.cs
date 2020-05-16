@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
-using cRGB.Domain.Annotations;
 using PropertyChanged;
 
 namespace cRGB.Domain.Models.Device

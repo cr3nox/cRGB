@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.105-alpha" />
     <PackageReference Include="castle.windsor" Version="5.0.1" />
+    <PackageReference Include="materialdesignthemes" Version="3.1.2" />
   </ItemGroup>
 
 </Project>
