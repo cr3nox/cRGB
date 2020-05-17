@@ -3,7 +3,6 @@
 #endregion
 
 using Caliburn.Micro;
-using cRGB.Domain.Models.Event;
 using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
 
