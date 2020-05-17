@@ -46,7 +46,9 @@
                             dd:DragDrop.DropHandler="{Binding}"
                             dd:DragDrop.IsDragSource="True"
                             dd:DragDrop.IsDropTarget="True"
-                            SelectedItem="SelectedEvent">
+                            dd:DragDrop.SelectDroppedItems="True"
+                            SelectedItem="{Binding SelectedEvent}"
+                            SelectionMode="Single">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Width="Auto" Header="{DynamicResource ResourceKey=Enabled}">

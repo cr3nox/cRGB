@@ -58,5 +58,6 @@
     <sys:String x:Key="EventPollingRateSeconds">Event polling rate in seconds</sys:String>
     <sys:String x:Key="AudioEvent">Audio event</sys:String>
     <sys:String x:Key="StaticEvent">Static event</sys:String>
+    <sys:String x:Key="StaticEventDescription">This event gets always executed. It should be ordered as the last event</sys:String>
     <sys:String x:Key="TimerEvent">Timer event</sys:String>
 </ResourceDictionary>

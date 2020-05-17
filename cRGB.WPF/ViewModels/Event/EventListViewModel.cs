@@ -4,11 +4,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Event;
 using cRGB.Modules.Common.Base;
@@ -17,6 +19,7 @@ using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Event.Events;
 using GongSolutions.Wpf.DragDrop;
+using GongSolutions.Wpf.DragDrop.Utilities;
 using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Event
@@ -92,6 +95,20 @@ namespace cRGB.WPF.ViewModels.Event
             }
         }
 
+        public void ReorderLedEvents()
+        {
+            // Remove all entries
+            for (var i = EventSettings.Count - 1; i >= 0; i--)
+            {
+                EventSettings.RemoveAt(i);
+            }
+
+            foreach (var eventViewModel in Events)
+            {
+                EventSettings.Add(eventViewModel.Model);
+            }
+        }
+
         public void DeleteEvent(IEventViewModel eventViewModel)
         {
             EventSettings.Remove(eventViewModel.Model);
@@ -134,14 +151,9 @@ namespace cRGB.WPF.ViewModels.Event
         /// <param name="dropInfo"></param>
         public void Drop(IDropInfo dropInfo)
         {
-            var viewModel = (IEventViewModel)dropInfo.Data;
-            // Remove and Insert into Events BindableCollection
-            Events.Remove(viewModel);
-            Events.Insert(dropInfo.InsertIndex, viewModel);
-
-            // Remove and Insert Model
-            EventSettings.Remove(viewModel.Model);
-            EventSettings.Insert(dropInfo.InsertIndex, viewModel.Model);
+            GongSolutions.Wpf.DragDrop.DragDrop.DefaultDropHandler.Drop(dropInfo);
+            ReorderLedEvents();
+            Events.Refresh();
         }
 
         #endregion
