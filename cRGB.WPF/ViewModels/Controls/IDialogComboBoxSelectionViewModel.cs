@@ -32,7 +32,7 @@ namespace cRGB.WPF.ViewModels.Controls
         #region Methods
 
         public void Init(
-            IEnumerable<IViewModelBase> items, bool canCancel = true,
+            IEnumerable<IViewModelBase> items, bool canCancel = true, object tag = null,
             string helperTextResourceKey = "SelectAnItem", string hintResourceKey = "Item",
             string headerResourceKey = "");
 

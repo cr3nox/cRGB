@@ -47,6 +47,8 @@ namespace cRGB.WPF.ViewModels.Controls
 
         public string Header => string.IsNullOrEmpty(_headerResourceKey) ? "" : _localizationHelper.GetByKey(_headerResourceKey);
 
+        object _tag;
+
         #endregion
 
         #region ctor
@@ -61,11 +63,12 @@ namespace cRGB.WPF.ViewModels.Controls
 
         #region Methods
 
-        public void Init(IEnumerable<IViewModelBase> items, bool canCancel = true, string helperTextResourceKey = "SelectAnItem", string hintResourceKey = "Item", string headerResourceKey = "")
+        public void Init(IEnumerable<IViewModelBase> items, bool canCancel = true, object tag = null, string helperTextResourceKey = "SelectAnItem", string hintResourceKey = "Item", string headerResourceKey = "")
         {
             Items = new BindableCollection<IViewModelBase>(items.ToList());
             CanCancel = canCancel;
 
+            _tag = tag;
             _helperTextResourceKey = helperTextResourceKey;
             _hintResourceKey = hintResourceKey;
             _headerResourceKey = headerResourceKey;
@@ -83,7 +86,7 @@ namespace cRGB.WPF.ViewModels.Controls
             if (!CanAccept) return;
 
             var message = (DialogSelectedMessage)_messageFactory.Create(typeof(DialogSelectedMessage));
-            //message.Tag = "ForEventListView";
+            message.Tag = _tag;
             message.SelectedViewModel = Items[SelectedIndex];
             _eventAggregator.PublishOnCurrentThreadAsync(message);
         }

@@ -56,7 +56,7 @@ namespace cRGB.WPF.ViewModels.Event
 
             // Gets one Instance of each IEventViewModel
             DialogComboBoxSelectionViewModel.Init(_eventFactory.CreateForEachImplementation(), 
-                true, "SelectAnEvent", headerResourceKey: "Events");
+                true, tag: this, helperTextResourceKey: "SelectAnEvent", headerResourceKey: "Events");
         }
 
         #endregion
@@ -66,7 +66,8 @@ namespace cRGB.WPF.ViewModels.Event
         public void AddEvent()
         {
             // Gets one Instance of each IEventViewModel
-            DialogComboBoxSelectionViewModel.Init(_eventFactory.CreateForEachImplementation(), false, "SelectAnEvent", headerResourceKey: "Events");
+            DialogComboBoxSelectionViewModel.Init(_eventFactory.CreateForEachImplementation(), false,
+                tag: this, helperTextResourceKey:"SelectAnEvent", headerResourceKey: "Events");
             IsEventSelectionOpen = true;
         }
 
@@ -102,7 +103,8 @@ namespace cRGB.WPF.ViewModels.Event
 
         public Task HandleAsync(DialogSelectedMessage message, CancellationToken cancellationToken)
         {
-            if (message.SelectedViewModel != null)
+            // Dialog is generic and can be used anywhere. To secure usage only here we check Tag = this
+            if (message.SelectedViewModel != null && message.Tag == this)
             {
                 var eventViewModel = (IEventViewModel) message.SelectedViewModel;
                 Events.Add(eventViewModel);
