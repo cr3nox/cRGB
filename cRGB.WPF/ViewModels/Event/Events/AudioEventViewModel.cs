@@ -11,8 +11,6 @@ namespace cRGB.WPF.ViewModels.Event.Events
     public sealed class AudioEventViewModel : EventViewModel
     {
         #region Fields
-        //ILocalizationHelper _localizationHelper;
-        //IEventAggregator _eventAggregator;
 
         #endregion
 
@@ -24,8 +22,10 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #region ctor
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         public AudioEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IAudioEvent ledEvent) : base(aggregator, loc, ledEvent)
         {
+            ledEvent.EventType = GetType().Name;
             DisplayName = loc.GetByKey("AudioEvent");
         }
 

@@ -8,7 +8,7 @@ namespace cRGB.Domain.Models.Event.Settings
 {
     public class AudioEvent : IAudioEvent
     {
-        public Type EventType { get; set; }
+        public string EventType { get; set; }
     }
 
     public interface IAudioEvent : ILedEvent

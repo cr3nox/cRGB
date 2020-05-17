@@ -46,6 +46,13 @@
                                     VerticalAlignment="Center"
                                     materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=Description}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox
+                                    Name="EventPollingSeconds"
+                                    MinWidth="100"
+                                    Margin="15,0,15,15"
+                                    VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="{DynamicResource ResourceKey=EventPollingRateSeconds}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
                             </WrapPanel>
                             <Border

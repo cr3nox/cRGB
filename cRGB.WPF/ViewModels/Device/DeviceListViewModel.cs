@@ -47,7 +47,7 @@ namespace cRGB.WPF.ViewModels.Device
             _eventAggregator.SubscribeOnUIThread(this);
         }
 
-        public async void DeleteDevice(LedDeviceViewModel deviceViewModel)
+        public async void DeleteDevice(ILedDeviceViewModel deviceViewModel)
         {
             // Todo: implement Generic yes / no Dialog like DialogComboBoxSelectionViewModel
             var result = await DialogHost.Show(deviceViewModel, delegate (object sender, DialogClosingEventArgs args)

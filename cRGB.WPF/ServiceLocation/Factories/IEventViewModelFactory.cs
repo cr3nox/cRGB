@@ -18,6 +18,7 @@ namespace cRGB.WPF.ServiceLocation.Factories
         /// <param name="type"></param>
         /// <returns></returns>
         IEventViewModel Create(Type type);
+        IEventViewModel Create(string type);
         IEventViewModel Create(Type type, ILedEvent eventConfig);
 
         /// <summary>

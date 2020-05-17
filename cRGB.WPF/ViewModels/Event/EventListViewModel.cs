@@ -8,6 +8,7 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Event;
 using cRGB.Modules.Common.Base;
@@ -15,10 +16,12 @@ using cRGB.WPF.Messages;
 using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Event.Events;
+using GongSolutions.Wpf.DragDrop;
+using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Event
 {
-    public class EventListViewModel : ViewModelBase, IEventListViewModel, IHandle<DialogSelectedMessage>, IDisposable
+    public class EventListViewModel : ViewModelBase, IEventListViewModel, IHandle<DialogSelectedMessage>, IDisposable, IDropTarget
     {
         #region Fields
 
@@ -29,7 +32,8 @@ namespace cRGB.WPF.ViewModels.Event
 
         #region Properties
 
-        public BindableCollection<IEventViewModel> Events { get; set; }= new BindableCollection<IEventViewModel>();
+        [AlsoNotifyFor(nameof(EventSettings))]
+        public BindableCollection<IEventViewModel> Events { get; set; } = new BindableCollection<IEventViewModel>();
 
         public IEventViewModel SelectedEvent { get; set; }
 
@@ -37,7 +41,7 @@ namespace cRGB.WPF.ViewModels.Event
 
         public bool IsEventSelectionOpen { get; set; }
 
-        public List<ILedEvent> EventSettings { get; internal set; } = new List<ILedEvent>();
+        public IList<ILedEvent> EventSettings { get; internal set; }
 
         #endregion
 
@@ -76,12 +80,24 @@ namespace cRGB.WPF.ViewModels.Event
             // Create ViewModel for each saved config
             foreach (var eventSetting in EventSettings)
             {
+                // I'm not confident with naming convention here so instead i save viewmodel name in Model
+                // takes Model name (ie: StaticEvent and adds ViewModel => StaticEventViewModel)
+                //var vm = _eventFactory.Create($"{eventSetting.GetType().Name.ToString()}ViewModel");
                 var vm = _eventFactory.Create(eventSetting.EventType);
                 if (!(vm is { } eventViewModel)) continue;
                 eventViewModel.Model = eventSetting;
                 eventViewModel.Init();
                 Events.Add(eventViewModel);
             }
+        }
+
+        public void DeleteEvent(IEventViewModel eventViewModel)
+        {
+            EventSettings.Remove(eventViewModel.Model);
+            if (SelectedEvent == eventViewModel)
+                SelectedEvent = null;
+            Events.Remove(eventViewModel);
+            _eventFactory.Release(eventViewModel);
         }
 
         public Task HandleAsync(DialogSelectedMessage message, CancellationToken cancellationToken)
@@ -97,6 +113,37 @@ namespace cRGB.WPF.ViewModels.Event
             IsEventSelectionOpen = false;
             return Task.CompletedTask;
         }
+
+        #region DragDrop Events ListView
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            if (!(dropInfo.Data is EventViewModel sourceItem) ||
+                !(dropInfo.TargetItem is EventViewModel targetItem)) return;
+
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            dropInfo.Effects = DragDropEffects.Move;
+        }
+
+        /// <summary>
+        /// We have to use this to order the EventSettings model.
+        /// The order of the events is important to save
+        /// </summary>
+        /// <param name="dropInfo"></param>
+        public void Drop(IDropInfo dropInfo)
+        {
+            var viewModel = (IEventViewModel)dropInfo.Data;
+            // Remove and Insert into Events BindableCollection
+            Events.Remove(viewModel);
+            Events.Insert(dropInfo.InsertIndex, viewModel);
+
+            // Remove and Insert Model
+            EventSettings.Remove(viewModel.Model);
+            EventSettings.Insert(dropInfo.InsertIndex, viewModel.Model);
+        }
+
+        #endregion
+
         public void Dispose()
         {
             _eventAggregator.Unsubscribe(this);

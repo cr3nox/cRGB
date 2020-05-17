@@ -8,6 +8,6 @@ namespace cRGB.Domain.Models.Event
 {
     public interface ILedEvent
     {
-        public Type EventType { get; set; }
+        public string EventType { get; set; }
     }
 }

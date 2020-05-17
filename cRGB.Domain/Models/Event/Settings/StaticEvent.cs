@@ -8,7 +8,7 @@ namespace cRGB.Domain.Models.Event.Settings
 {
     public class StaticEvent : IStaticEvent
     {
-        public Type EventType { get; set; }
+        public string EventType { get; set; }
     }
 
     public interface IStaticEvent : ILedEvent

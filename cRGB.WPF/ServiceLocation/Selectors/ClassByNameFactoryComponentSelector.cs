@@ -12,9 +12,15 @@ namespace cRGB.WPF.ServiceLocation.Selectors
     {
         protected override string GetComponentName(MethodInfo method, object[] arguments)
         {
-            if (method.Name == "Create" && arguments.Length >= 1 && arguments[0] is Type type)
+            if (method.Name == "Create" && arguments.Length >= 1)
             {
-                return type.Name;
+                switch (arguments[0])
+                {
+                    case Type type:
+                        return type.Name;
+                    case string strType:
+                        return strType;
+                }
             }
             return base.GetComponentName(method, arguments);
         }

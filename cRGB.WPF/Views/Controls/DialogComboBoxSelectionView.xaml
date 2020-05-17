@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <converters:BoolToVisibilityConverter
             x:Key="BoolToHiddenConverter"
-            FalseValue="Hidden"
+            FalseValue="Collapsed"
             TrueValue="Visible" />
     </UserControl.Resources>
 

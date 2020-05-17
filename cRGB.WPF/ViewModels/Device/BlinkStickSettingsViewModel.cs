@@ -126,17 +126,26 @@ namespace cRGB.WPF.ViewModels.Device
             get => BlinkStickSettings.Brightness;
             set => BlinkStickSettings.Brightness = value;
         }
+        public int EventPollingSeconds
+        {
+            get => BlinkStickSettings.EventPollingSeconds;
+            set => BlinkStickSettings.EventPollingSeconds = value;
+        }
 
         public BindableCollection<ILedViewModel> RChannelLedColors { get; set; }
         public BindableCollection<ILedViewModel> GChannelLedColors { get; set; }
         public BindableCollection<ILedViewModel> BChannelLedColors { get; set; }
 
-        public IList<ILedEvent> EventSettings => BlinkStickSettings.Events;
+        public IList<ILedEvent> EventSettings
+        {
+            get => BlinkStickSettings.Events;
+            set => BlinkStickSettings.Events = value;
+        }
 
-        #endregion
+    #endregion
 
-        #region ctor
-        public BlinkStickSettingsViewModel(IBlinkStickSettings settings)
+    #region ctor
+    public BlinkStickSettingsViewModel(IBlinkStickSettings settings)
         {
             BlinkStickSettings = settings;
         } 

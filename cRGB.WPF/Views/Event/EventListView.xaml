@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cm="http://caliburnmicro.com"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:enums="clr-namespace:cRGB.Domain.Models.Enums;assembly=cRGB.Domain"
     xmlns:local="clr-namespace:cRGB.WPF.Views.Event"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -40,7 +41,12 @@
                         </DockPanel>
                     </GroupBox.Header>
                     <StackPanel>
-                        <ListView Name="Events" SelectedItem="SelectedEvent">
+                        <ListView
+                            Name="Events"
+                            dd:DragDrop.DropHandler="{Binding}"
+                            dd:DragDrop.IsDragSource="True"
+                            dd:DragDrop.IsDropTarget="True"
+                            SelectedItem="SelectedEvent">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Width="Auto" Header="{DynamicResource ResourceKey=Enabled}">
@@ -63,7 +69,7 @@
                                                 <Button
                                                     x:Name="DeleteEvent"
                                                     HorizontalAlignment="Right"
-                                                    cm:Message.Attach="DeleteDevice($dataContext)"
+                                                    cm:Message.Attach="DeleteEvent($dataContext)"
                                                     Content="{materialDesign:PackIcon Delete}"
                                                     Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
                                             </DataTemplate>
@@ -82,6 +88,12 @@
                             Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
                     </StackPanel>
                 </GroupBox>
+                <ContentControl
+                    Name="SelectedEvent"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" />
             </Grid>
         </ScrollViewer>
     </materialDesign:DialogHost>

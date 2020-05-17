@@ -2,6 +2,7 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
+using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Event;
@@ -11,7 +12,7 @@ using cRGB.WPF.ViewModels.Effect.Effects;
 
 namespace cRGB.WPF.ViewModels.Event
 {
-    public abstract class EventViewModel : ViewModelBase, IEventViewModel
+    public abstract class EventViewModel : ViewModelBase, IEventViewModel, IDisposable
     {
         #region Fields
 
@@ -43,13 +44,17 @@ namespace cRGB.WPF.ViewModels.Event
 
         #region Methods
 
-        public void Init()
+        public virtual void Init()
         {
-            if (Model == null)
-                return;
 
         }
 
         #endregion
+
+        public void Dispose()
+        {
+            Model = null;
+            EventAggregator.Unsubscribe(this);
+        }
     }
 }

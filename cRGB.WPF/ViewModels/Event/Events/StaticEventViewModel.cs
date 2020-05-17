@@ -13,8 +13,6 @@ namespace cRGB.WPF.ViewModels.Event.Events
     {
 
         #region Fields
-        ILocalizationHelper _localizationHelper;
-        IEventAggregator _eventAggregator;
 
         #endregion
 
@@ -27,10 +25,10 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #region ctor
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         public StaticEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IStaticEvent ledEvent) : base(aggregator, loc, ledEvent)
         {
-            _eventAggregator = aggregator;
-            _localizationHelper = loc;
+            ledEvent.EventType = GetType().Name;
             DisplayName = loc.GetByKey("StaticEvent");
         }
 

@@ -9,6 +9,6 @@ namespace cRGB.Domain.Models.Effect
 {
     public class LedEvent : ILedEvent
     {
-        public Type EventType { get; set; }
+        public string EventType { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
+using System.Runtime.CompilerServices;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Effect;
 using cRGB.Domain.Models.Event;
@@ -14,7 +15,7 @@ namespace cRGB.WPF.ViewModels.Event.Events
     {
 
         #region Fields
-        readonly IEventAggregator _eventAggregator;
+
 
         #endregion
 
@@ -26,11 +27,11 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #region ctor
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         public TimerEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, ITimerEvent timerEvent) : base(aggregator, loc, timerEvent)
         {
-            _eventAggregator = aggregator;
+            timerEvent.EventType = GetType().Name;
             DisplayName = loc.GetByKey("TimerEvent");
-            Model = timerEvent;
         }
 
         #endregion

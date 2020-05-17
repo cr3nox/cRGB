@@ -9,6 +9,7 @@ namespace cRGB.Domain.Models.Device
 {
     public interface IDeviceSettings
     {
-        public IList<ILedEvent> Events { get; }
+        public int EventPollingSeconds { get; set; }
+        public IList<ILedEvent> Events { get; set; }
     }
 }

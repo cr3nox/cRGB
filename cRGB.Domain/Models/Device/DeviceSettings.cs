@@ -9,6 +9,7 @@ namespace cRGB.Domain.Models.Device
 {
     public class DeviceSettings : IDeviceSettings
     {
+        public int EventPollingSeconds { get; set; } = 5;
         public IList<ILedEvent> Events { get; set; } = new List<ILedEvent>();
     }
 }
