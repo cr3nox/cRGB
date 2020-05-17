@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace cRGB.WPF.Converters
 {
-    public class StringToByteArray :  IValueConverter
+    public class StringToByteArrayConverter :  IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

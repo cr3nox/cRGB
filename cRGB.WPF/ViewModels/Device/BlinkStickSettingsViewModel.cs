@@ -127,9 +127,9 @@ namespace cRGB.WPF.ViewModels.Device
             set => BlinkStickSettings.Brightness = value;
         }
 
-        public BindableCollection<LedViewModel> RChannelLedColors { get; set; }
-        public BindableCollection<LedViewModel> GChannelLedColors { get; set; }
-        public BindableCollection<LedViewModel> BChannelLedColors { get; set; }
+        public BindableCollection<ILedViewModel> RChannelLedColors { get; set; }
+        public BindableCollection<ILedViewModel> GChannelLedColors { get; set; }
+        public BindableCollection<ILedViewModel> BChannelLedColors { get; set; }
 
         public IList<ILedEvent> EventSettings => BlinkStickSettings.Events;
 

@@ -9,7 +9,7 @@ namespace cRGB.WPF.ServiceLocation.Factories
 {
     public interface ILedViewModelFactory
     {
-        LedViewModel Create();
-        void Release(LedViewModel ledViewModel);
+        ILedViewModel Create();
+        void Release(ILedViewModel ledViewModel);
     }
 }

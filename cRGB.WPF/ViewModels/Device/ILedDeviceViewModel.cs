@@ -11,6 +11,6 @@ namespace cRGB.WPF.ViewModels.Device
         public abstract string Description { get; set; }
         public abstract ELedDeviceType DeviceType { get; set; }
 
-        public List<LedViewModel> LedStates { get; set; }
+        public IList<ILedViewModel> LedStates { get; set; }
     }
 }

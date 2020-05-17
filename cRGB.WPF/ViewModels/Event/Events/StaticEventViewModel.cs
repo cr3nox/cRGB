@@ -3,6 +3,8 @@
 #endregion
 
 using Caliburn.Micro;
+using cRGB.Domain.Models.Event;
+using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
 
 namespace cRGB.WPF.ViewModels.Event.Events
@@ -25,7 +27,7 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #region ctor
 
-        public StaticEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc)
+        public StaticEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IStaticEvent ledEvent) : base(aggregator, loc, ledEvent)
         {
             _eventAggregator = aggregator;
             _localizationHelper = loc;

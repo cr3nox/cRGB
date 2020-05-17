@@ -4,8 +4,13 @@
 
 namespace cRGB.Domain.Models.Event.Settings
 {
-    public class TimerEvent : LedEvent
+    public class TimerEvent : LedEvent, ITimerEvent
     {
         
+    }
+
+    public interface ITimerEvent : ILedEvent
+    {
+
     }
 }

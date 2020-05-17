@@ -4,6 +4,7 @@
 
 using Caliburn.Micro;
 using cRGB.Domain.Models.Effect;
+using cRGB.Domain.Models.Event;
 using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
 
@@ -25,15 +26,10 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #region ctor
 
-        public TimerEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc)
+        public TimerEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, ITimerEvent timerEvent) : base(aggregator, loc, timerEvent)
         {
             _eventAggregator = aggregator;
             DisplayName = loc.GetByKey("TimerEvent");
-            Model ??= new TimerEvent();
-        }
-
-        public TimerEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, TimerEvent timerEvent) : this(aggregator, loc)
-        {
             Model = timerEvent;
         }
 

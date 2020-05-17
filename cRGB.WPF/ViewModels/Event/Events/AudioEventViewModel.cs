@@ -3,6 +3,8 @@
 #endregion
 
 using Caliburn.Micro;
+using cRGB.Domain.Models.Event;
+using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
 
 namespace cRGB.WPF.ViewModels.Event.Events
@@ -15,7 +17,7 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #endregion
 
-        #region Properties
+        #region Propertieshttps://github.com/cr3nox/cRGB
 
         public override bool CanActivate { get; }
 
@@ -23,10 +25,8 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #region ctor
 
-        public AudioEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc)
+        public AudioEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IAudioEvent ledEvent) : base(aggregator, loc, ledEvent)
         {
-            //_eventAggregator = aggregator;
-            //_localizationHelper = loc;
             DisplayName = loc.GetByKey("AudioEvent");
         }
 

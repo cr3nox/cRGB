@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Media;
-using cRGB.Tools.Interfaces.View;
-using cRGB.Tools.Interfaces.ViewModel;
+﻿using System.Windows.Controls;
 
 namespace cRGB.WPF.Views.Device
 {

@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using BlinkStickDotNet;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Device;
-using cRGB.Domain.Models.Event;
-using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
@@ -31,7 +27,6 @@ namespace cRGB.WPF.ViewModels.Device
         readonly IBlinkStickService _blinkStickService;
         BlinkStick _device;
         readonly IBlinkStickSettingsViewModelFactory _settingsFactory;
-        readonly ILedViewModelFactory _ledFactory;
 
         #endregion
 
@@ -43,7 +38,7 @@ namespace cRGB.WPF.ViewModels.Device
             set
             {
                 _device = value ?? throw new ArgumentNullException(nameof(value));
-                InitSettings(_device.Serial);
+                InitNewSettings(_device.Serial);
                 _blinkStickService.AddBlinkStick(Device);
                 InitDevice();
             }
@@ -92,9 +87,9 @@ namespace cRGB.WPF.ViewModels.Device
 
         public bool IsDeviceSelectionOpen { get; set; } = true;
 
-        public BindableCollection<LedViewModel> RChannelLedColors { get; set; }                        
-        public BindableCollection<LedViewModel> GChannelLedColors { get; set; }
-        public BindableCollection<LedViewModel> BChannelLedColors { get; set; }
+        public BindableCollection<ILedViewModel> RChannelLedColors { get; set; }                        
+        public BindableCollection<ILedViewModel> GChannelLedColors { get; set; }
+        public BindableCollection<ILedViewModel> BChannelLedColors { get; set; }
 
         #endregion Properties
 
@@ -113,7 +108,7 @@ namespace cRGB.WPF.ViewModels.Device
             InitSettings(settings);
         }
 
-        private void InitSettings(string serial)
+        private void InitNewSettings(string serial)
         {
             if (Settings != null) return;
 
@@ -165,12 +160,12 @@ namespace cRGB.WPF.ViewModels.Device
                 LedStates.Add(led);
             }
 
-            Settings.RChannelLedColors = RChannelLedColors = new BindableCollection<LedViewModel>(LedStates.Take(Settings.RChannelLedCount));
-            Settings.GChannelLedColors = GChannelLedColors = new BindableCollection<LedViewModel>(LedStates.Skip(Settings.RChannelLedCount).Take(Settings.GChannelLedCount));
-            Settings.BChannelLedColors = BChannelLedColors = new BindableCollection<LedViewModel>(LedStates.Skip(Settings.RChannelLedCount + Settings.GChannelLedCount).Take(Settings.BChannelLedCount));
+            Settings.RChannelLedColors = RChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Take(Settings.RChannelLedCount));
+            Settings.GChannelLedColors = GChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount).Take(Settings.GChannelLedCount));
+            Settings.BChannelLedColors = BChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount + Settings.GChannelLedCount).Take(Settings.BChannelLedCount));
         }
 
-        public List<LedViewModel> GetEnabledLedViewModels()
+        public IList<ILedViewModel> GetEnabledLedViewModels()
         {
             return LedStates.Where(o => o.Enabled).ToList();
         }

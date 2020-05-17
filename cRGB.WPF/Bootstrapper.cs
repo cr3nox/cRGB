@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
@@ -10,11 +9,10 @@ using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.ModelBuilder.Inspectors;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using cRGB.Domain;
 using cRGB.Domain.Models.Device;
-using cRGB.Domain.Services;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
-using cRGB.Modules.Audio;
 using cRGB.Modules.Audio.Windows;
 using cRGB.Tools.Helpers;
 using cRGB.Tools.Interfaces.ViewModel;
@@ -25,11 +23,9 @@ using cRGB.WPF.ServiceLocation.Selectors;
 using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Event;
-using cRGB.WPF.ViewModels.Event.Events;
 using cRGB.WPF.ViewModels.Navigation;
 using cRGB.WPF.ViewModels.Shell;
 using Serilog;
-using Serilog.Events;
 
 namespace cRGB.WPF
 {
@@ -66,30 +62,26 @@ namespace cRGB.WPF
             _container.Register(Component.For<IMessageFactory>().AsFactory(f => f.SelectedWith(new ClassByNameFactoryComponentSelector())));
 
             // Models
-            _container.Register(Component.For<IBlinkStickSettings>().ImplementedBy<BlinkStickSettings>()
-                .LifestyleTransient());
+            _container.Install(
+                new DomainInstaller()
+            );
+            _container.Register(Component.For<ILedEventFactory>().AsFactory(f => f.SelectedWith(new ClassByNameFactoryComponentSelector())));
 
             // Helpers
             _container.Register(Component.For<ILocalizationHelper>().ImplementedBy<LocalizationHelper>().LifestyleSingleton());
-
-            // Services
-            _container.Register(Component.For<ILogService>().ImplementedBy<LogService>().LifestyleSingleton());
-            _container.Register(Component.For<IXmlSerializationService>().ImplementedBy<XmlSerializationService>().LifestyleSingleton());
-            _container.Register(Component.For<IBlinkStickService>().ImplementedBy<BlinkStickService>().LifestyleSingleton());
-            _container.Register(Component.For<ISettingsService>().ImplementedBy<SettingsService>().LifestyleSingleton());
 
             // TODO: Add service interface for each viewmodel
             // ViewModels Transient
             _container.Register(Component.For<IMenuItemViewModel>().ImplementedBy<MenuItemViewModel>().LifestyleTransient(), Component.For<IMenuItemViewModelFactory>().AsFactory());
             _container.Register(Component.For<BlinkStickViewModel>().ImplementedBy<BlinkStickViewModel>().LifestyleTransient(), Component.For<IBlinkStickViewModelFactory>().AsFactory());
             _container.Register(Component.For<BlinkStickSettingsViewModel>().ImplementedBy<BlinkStickSettingsViewModel>().LifestyleTransient(), Component.For<IBlinkStickSettingsViewModelFactory>().AsFactory());
-            _container.Register(Component.For<LedViewModel>().ImplementedBy<LedViewModel>().LifestyleTransient(), Component.For<ILedViewModelFactory>().AsFactory());
+            _container.Register(Component.For<ILedViewModel>().ImplementedBy<LedViewModel>().LifestyleTransient(), Component.For<ILedViewModelFactory>().AsFactory());
             _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
             // ViewModels Singleton
             _container.Register(Component.For<DeviceListViewModel>().ImplementedBy<DeviceListViewModel>().LifestyleSingleton());
             _container.Register(Component.For<IEventListViewModel>().ImplementedBy<EventListViewModel>().LifestyleSingleton());
             // ViewModel Controls
-            _container.Register(Component.For<DialogComboBoxSelectionViewModel>().ImplementedBy<DialogComboBoxSelectionViewModel>().LifestyleTransient());
+            _container.Register(Component.For<IDialogComboBoxSelectionViewModel>().ImplementedBy<DialogComboBoxSelectionViewModel>().LifestyleTransient());
 
             // EventViewModels
             // Register All Classes that are IEventViewModel

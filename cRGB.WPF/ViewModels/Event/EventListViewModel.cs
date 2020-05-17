@@ -33,7 +33,7 @@ namespace cRGB.WPF.ViewModels.Event
 
         public IEventViewModel SelectedEvent { get; set; }
 
-        public DialogComboBoxSelectionViewModel DialogComboBoxSelectionViewModel { get; }
+        public IDialogComboBoxSelectionViewModel DialogComboBoxSelectionViewModel { get; }
 
         public bool IsEventSelectionOpen { get; set; }
 
@@ -42,15 +42,15 @@ namespace cRGB.WPF.ViewModels.Event
         #endregion
 
         #region Constructor
-        public EventListViewModel(IEventAggregator aggregator, IEventViewModelFactory eventFactory, DialogComboBoxSelectionViewModel dialogViewModel)
+        public EventListViewModel(IEventAggregator aggregator, IEventViewModelFactory eventFactory, IDialogComboBoxSelectionViewModel dialogViewModel)
         {
             _eventAggregator = aggregator;
             _eventFactory = eventFactory;
             _eventAggregator.SubscribeOnUIThread(this);
 
             DialogComboBoxSelectionViewModel = dialogViewModel;
+
             // Gets one Instance of each IEventViewModel
-            //var x = _eventFactory.Create(typeof(TimerEventViewModel));
             DialogComboBoxSelectionViewModel.Init(_eventFactory.CreateForEachImplementation(), 
                 true, "SelectAnEvent", headerResourceKey: "Events");
         }
@@ -79,6 +79,7 @@ namespace cRGB.WPF.ViewModels.Event
                 var vm = _eventFactory.Create(eventSetting.EventType);
                 if (!(vm is { } eventViewModel)) continue;
                 eventViewModel.Model = eventSetting;
+                eventViewModel.Init();
                 Events.Add(eventViewModel);
             }
         }

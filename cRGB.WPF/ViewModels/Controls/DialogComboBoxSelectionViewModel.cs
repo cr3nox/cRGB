@@ -14,7 +14,7 @@ using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Controls
 {
-    public class DialogComboBoxSelectionViewModel : ViewModelBase
+    public class DialogComboBoxSelectionViewModel : ViewModelBase, IDialogComboBoxSelectionViewModel
     {
         #region Fields
 

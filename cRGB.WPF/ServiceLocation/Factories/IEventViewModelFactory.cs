@@ -4,6 +4,7 @@
 
 using System;
 using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.Event;
 using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Event;
 
@@ -17,6 +18,7 @@ namespace cRGB.WPF.ServiceLocation.Factories
         /// <param name="type"></param>
         /// <returns></returns>
         IEventViewModel Create(Type type);
+        IEventViewModel Create(Type type, ILedEvent eventConfig);
 
         /// <summary>
         /// Creates an Instance for each implementation of IEventViewModel that is registered in the Container

@@ -6,7 +6,7 @@ using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Device
 {
-    public class LedViewModel : ViewModelBase
+    public class LedViewModel : ViewModelBase, ILedViewModel
     {
         [DoNotNotify] readonly Led _led;
 
