@@ -16,7 +16,7 @@ namespace cRGB.WPF.ViewModels.Event.Events
 
         #endregion
 
-        #region Propertieshttps://github.com/cr3nox/cRGB
+        #region Properties
 
         public override bool CanActivate { get; }
 
