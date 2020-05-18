@@ -137,18 +137,13 @@ namespace cRGB.WPF.ViewModels.Event
 
         public void DragOver(IDropInfo dropInfo)
         {
-            if (!(dropInfo.Data is EventViewModel sourceItem) ||
-                !(dropInfo.TargetItem is EventViewModel targetItem)) return;
+            if (!(dropInfo.Data is EventViewModel) ||
+                !(dropInfo.TargetItem is EventViewModel)) return;
 
             dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
             dropInfo.Effects = DragDropEffects.Move;
         }
 
-        /// <summary>
-        /// We have to use this to order the EventSettings model.
-        /// The order of the events is important to save
-        /// </summary>
-        /// <param name="dropInfo"></param>
         public void Drop(IDropInfo dropInfo)
         {
             GongSolutions.Wpf.DragDrop.DragDrop.DefaultDropHandler.Drop(dropInfo);

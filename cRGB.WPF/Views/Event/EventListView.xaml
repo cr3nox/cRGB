@@ -20,10 +20,12 @@
             <ContentControl Name="DeviceSelection" cm:View.Model="{Binding Path=DialogComboBoxSelectionViewModel}" />
         </materialDesign:DialogHost.DialogContent>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="15">
+            <Grid
+                Margin="15"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -32,7 +34,8 @@
                 <GroupBox
                     Grid.Row="0"
                     Grid.Column="0"
-                    Margin="16">
+                    Margin="16"
+                    VerticalAlignment="Stretch">
                     <GroupBox.Header>
                         <DockPanel HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal">
@@ -40,55 +43,58 @@
                             </StackPanel>
                         </DockPanel>
                     </GroupBox.Header>
-                    <StackPanel>
-                        <ListView
-                            Name="Events"
-                            dd:DragDrop.DropHandler="{Binding}"
-                            dd:DragDrop.IsDragSource="True"
-                            dd:DragDrop.IsDropTarget="True"
-                            dd:DragDrop.SelectDroppedItems="True"
-                            SelectedItem="{Binding SelectedEvent}"
-                            SelectionMode="Single">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Width="Auto" Header="{DynamicResource ResourceKey=Enabled}">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox
-                                                    HorizontalAlignment="Center"
-                                                    IsChecked="{Binding IsEnabled, Mode=TwoWay}"
-                                                    Style="{StaticResource MaterialDesignAccentCheckBox}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="Auto"
-                                        DisplayMemberBinding="{Binding DisplayName}"
-                                        Header="{DynamicResource ResourceKey=EventName}" />
-                                    <GridViewColumn Header="{DynamicResource ResourceKey=Delete}">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button
-                                                    x:Name="DeleteEvent"
-                                                    HorizontalAlignment="Right"
-                                                    cm:Message.Attach="DeleteEvent($dataContext)"
-                                                    Content="{materialDesign:PackIcon Delete}"
-                                                    Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <Button
-                            Name="AddEvent"
-                            Width="40"
-                            Height="40"
-                            Margin="0,5,0,0"
-                            HorizontalAlignment="Right"
-                            Content="{materialDesign:PackIcon Kind=Plus}"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
-                    </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <ListView
+                                Name="Events"
+                                dd:DragDrop.DropHandler="{Binding}"
+                                dd:DragDrop.IsDragSource="True"
+                                dd:DragDrop.IsDropTarget="True"
+                                dd:DragDrop.SelectDroppedItems="True"
+                                SelectedItem="{Binding SelectedEvent}"
+                                SelectionMode="Single">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="Auto" Header="{DynamicResource ResourceKey=Enabled}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox
+                                                        HorizontalAlignment="Center"
+                                                        IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                        Style="{StaticResource MaterialDesignAccentCheckBox}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="Auto"
+                                            DisplayMemberBinding="{Binding DisplayName}"
+                                            Header="{DynamicResource ResourceKey=EventName}" />
+                                        <GridViewColumn Header="{DynamicResource ResourceKey=Delete}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        x:Name="DeleteEvent"
+                                                        HorizontalAlignment="Right"
+                                                        cm:Message.Attach="DeleteEvent($dataContext)"
+                                                        Content="{materialDesign:PackIcon Delete}"
+                                                        Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button
+                                Name="AddEvent"
+                                Width="40"
+                                Height="40"
+                                Margin="0,5,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Content="{materialDesign:PackIcon Kind=Plus}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" />
+                        </StackPanel>
+                    </ScrollViewer>
                 </GroupBox>
                 <ContentControl
                     Name="SelectedEvent"

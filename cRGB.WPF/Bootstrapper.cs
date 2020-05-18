@@ -22,6 +22,7 @@ using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ServiceLocation.Selectors;
 using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Device;
+using cRGB.WPF.ViewModels.Effect.Effects;
 using cRGB.WPF.ViewModels.Event;
 using cRGB.WPF.ViewModels.Navigation;
 using cRGB.WPF.ViewModels.Shell;
@@ -79,6 +80,7 @@ namespace cRGB.WPF
             _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
             // ViewModels Singleton
             _container.Register(Component.For<DeviceListViewModel>().ImplementedBy<DeviceListViewModel>().LifestyleSingleton());
+            _container.Register(Component.For<IEffectViewModel>().ImplementedBy<EffectViewModel>().LifestyleSingleton());
             _container.Register(Component.For<IEventListViewModel>().ImplementedBy<EventListViewModel>().LifestyleSingleton());
             // ViewModel Controls
             _container.Register(Component.For<IDialogComboBoxSelectionViewModel>().ImplementedBy<DialogComboBoxSelectionViewModel>().LifestyleTransient());

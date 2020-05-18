@@ -7,6 +7,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.Effect;
 using cRGB.Domain.Models.Event;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
@@ -31,6 +32,15 @@ namespace cRGB.Domain
                     .WithService.DefaultInterfaces()
                     .Configure(c => c.Named(c.Implementation.Name))
                     .LifestyleTransient());
+
+            // Effect Configs
+            container.Register(
+                Classes.FromAssembly(Assembly.GetExecutingAssembly())
+                    .BasedOn(typeof(ILedEffect))
+                    .WithService.DefaultInterfaces()
+                    .Configure(c => c.Named(c.Implementation.Name))
+                    .LifestyleTransient());
+
         }
     }
 }
