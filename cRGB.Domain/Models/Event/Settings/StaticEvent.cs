@@ -6,9 +6,9 @@ using System;
 
 namespace cRGB.Domain.Models.Event.Settings
 {
-    public class StaticEvent : IStaticEvent
+    public class StaticEvent : LedEvent, IStaticEvent
     {
-        public string EventType { get; set; }
+
     }
 
     public interface IStaticEvent : ILedEvent

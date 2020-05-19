@@ -4,6 +4,7 @@
 
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using cRGB.Modules.Common.Base;
 
@@ -20,7 +21,7 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
             EventAggregator.SubscribeOnBackgroundThread(this);
         }
 
-        public abstract byte[] Tick(int ledCount);
+        public abstract Task<byte[]> TickAsync(int ledCount);
 
         public void Dispose()
         {

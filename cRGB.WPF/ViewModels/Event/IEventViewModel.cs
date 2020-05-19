@@ -13,6 +13,6 @@ namespace cRGB.WPF.ViewModels.Event
         public bool IsEnabled { get; set; }
         public ILedEvent Model { get; set; }
 
-        void Init();
+        public void Init();
     }
 }

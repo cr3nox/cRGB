@@ -5,6 +5,7 @@
 using Caliburn.Micro;
 using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.ServiceLocation.Factories;
 
 namespace cRGB.WPF.ViewModels.Event.Events
 {
@@ -17,13 +18,17 @@ namespace cRGB.WPF.ViewModels.Event.Events
         #region Properties
 
         public override bool CanActivate { get; }
+        public override void Init()
+        {
+            throw new System.NotImplementedException();
+        }
 
         #endregion
 
         #region ctor
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        public AudioEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IAudioEvent ledEvent) : base(aggregator, loc, ledEvent)
+        public AudioEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IEffectViewModelFactory effectViewModelFactory, IAudioEvent ledEvent) : base(aggregator, loc, effectViewModelFactory, ledEvent)
         {
             ledEvent.EventType = GetType().Name;
             DisplayName = loc.GetByKey("AudioEvent");

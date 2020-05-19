@@ -46,5 +46,7 @@ namespace cRGB.WPF.ViewModels.Device
                 LedFactory.Release(ledViewModel);
             }
         }
+
+        public abstract void Shutdown();
     }
 }

@@ -5,8 +5,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using Caliburn.Micro;
+using Castle.Core.Logging;
 using cRGB.Domain.Models.Effect.EffectConfigs;
+using cRGB.Domain.Services.System;
 using cRGB.WPF.ViewModels.Device;
 using PropertyChanged;
 
@@ -19,6 +22,7 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
         
         readonly ISingleColorLedEffect _config;
         readonly Random _rng;
+        readonly ILogService _logService;
 
         #endregion
 
@@ -43,28 +47,36 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
 
         #region ctor
 
-        public SingleColorEffectViewModel(IEventAggregator eventAggregator, ISingleColorLedEffect config) : base(eventAggregator)
+        public SingleColorEffectViewModel(IEventAggregator eventAggregator, ILogService logService, ISingleColorLedEffect config) : base(eventAggregator)
         {
             _config = config;
             _rng = new Random();
+            _logService = logService;
         }
 
         #endregion
 
         #region Methods
 
-        public override byte[] Tick(int ledCount)
+        public override async Task<byte[]> TickAsync(int ledCount)
+        {
+            return await Task.Run(() => Tick(ledCount));
+        }
+
+        private byte[] Tick(int ledCount)
         {
             byte r;
             byte g;
+
             byte b;
 
             if (Randomize)
             {
-                r = (byte)_rng.Next(0, 255);
-                g = (byte)_rng.Next(0, 255);
-                b = (byte)_rng.Next(0, 255);
+                r = (byte) _rng.Next(0, 255);
+                g = (byte) _rng.Next(0, 255);
+                b = (byte) _rng.Next(0, 255);
             }
+
             else
             {
                 r = Color.R;
@@ -73,11 +85,11 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
             }
 
             var leds = new byte[ledCount * 3];
-            for (var i = 0; i < ledCount * 3; i+=3)
+            for (var i = 0; i < ledCount * 3; i += 3)
             {
                 leds[i] = r;
-                leds[i+1] = g;
-                leds[i+2] = b;
+                leds[i + 1] = g;
+                leds[i + 2] = b;
             }
 
             return leds;

@@ -4,21 +4,29 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Caliburn.Micro;
+using cRGB.Domain.Models.Effect;
 using cRGB.Domain.Models.Event;
 using cRGB.Modules.Common.Base;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.Messages;
+using cRGB.WPF.ServiceLocation.Factories;
+using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Effect.Effects;
+using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Event
 {
-    public abstract class EventViewModel : ViewModelBase, IEventViewModel, IDisposable
+    public abstract class EventViewModel : ViewModelBase, IHandle<DialogSelectedMessage>, IEventViewModel, IDisposable
     {
         #region Fields
 
         protected IEventAggregator EventAggregator;
-        readonly ILocalizationHelper _loc;
 
+        protected ILocalizationHelper Loc;
+        protected IEffectViewModelFactory EffectViewModelFactory;
         #endregion
 
         #region Properties
@@ -27,17 +35,25 @@ namespace cRGB.WPF.ViewModels.Event
         public bool IsEnabled { get; set; }
         public ILedEvent Model { get; set; }
 
-        public BindableCollection<EffectViewModel> Effects { get; set; } = new BindableCollection<EffectViewModel>();
+        public BindableCollection<IEffectViewModel> Effects { get; set; }
+        public IDialogComboBoxSelectionViewModel SelectionViewModel { get; set; }
+
+        public bool IsEventSelectionOpen { get; set; } = false;
 
         #endregion
 
         #region ctor
 
-        protected EventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, ILedEvent model)
+        protected EventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IEffectViewModelFactory effectViewModelFactory, IDialogComboBoxSelectionViewModel selection, ILedEvent model)
         {
             EventAggregator = aggregator;
-            _loc = loc;
+            EventAggregator.SubscribeOnUIThread(this);
+            Loc = loc;
             Model = model;
+            EffectViewModelFactory = effectViewModelFactory;
+            SelectionViewModel = selection;
+
+            Effects = new BindableCollection<IEffectViewModel>();
         }
 
         #endregion
@@ -46,7 +62,24 @@ namespace cRGB.WPF.ViewModels.Event
 
         public virtual void Init()
         {
+            foreach (ILedEffect ledEffect in Model.LedEffects)
+            {
+                var vm = EffectViewModelFactory.Create(ledEffect.EffectType, ledEffect);
+                Effects.Add(vm);
+            }
+        }
 
+        public void AddEffect()
+        {
+            // Gets one Instance of each IEventViewModel
+            SelectionViewModel.Init(EffectViewModelFactory.CreateForEachImplementation(), false,
+                tag: this, helperTextResourceKey: "SelectAnEffect", headerResourceKey: "Effects");
+            IsEventSelectionOpen = true;
+        }
+
+        public Task HandleAsync(DialogSelectedMessage message, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

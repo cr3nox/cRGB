@@ -3,11 +3,15 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using cRGB.Domain.Models.Effect;
 
 namespace cRGB.Domain.Models.Event
 {
     public interface ILedEvent
     {
-        public string EventType { get; set; }
+        public Type EventType { get; set; }
+
+        public IList<ILedEffect> LedEffects { get; set; }
     }
 }

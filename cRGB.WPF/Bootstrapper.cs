@@ -59,14 +59,16 @@ namespace cRGB.WPF
             // Factories and Facilities
             // used for creating instances without Service Locator
             _container.AddFacility<TypedFactoryFacility>();
-            _container.Register(Component.For<IEventViewModelFactory>().AsFactory(f => f.SelectedWith(new ClassByNameFactoryComponentSelector())));
-            _container.Register(Component.For<IMessageFactory>().AsFactory(f => f.SelectedWith(new ClassByNameFactoryComponentSelector())));
+            _container.Register(Component.For<IEventViewModelFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
+            _container.Register(Component.For<IEffectViewModelFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
+            _container.Register(Component.For<IMessageFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
 
             // Models
             _container.Install(
                 new DomainInstaller()
             );
-            _container.Register(Component.For<ILedEventFactory>().AsFactory(f => f.SelectedWith(new ClassByNameFactoryComponentSelector())));
+            _container.Register(Component.For<ILedEventFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
+            _container.Register(Component.For<ILedEffectFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
 
             // Helpers
             _container.Register(Component.For<ILocalizationHelper>().ImplementedBy<LocalizationHelper>().LifestyleSingleton());

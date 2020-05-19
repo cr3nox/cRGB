@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using cRGB.Domain.Models.Event;
 using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.ServiceLocation.Factories;
 
 namespace cRGB.WPF.ViewModels.Event.Events
 {
@@ -26,7 +27,7 @@ namespace cRGB.WPF.ViewModels.Event.Events
         #region ctor
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        public StaticEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IStaticEvent ledEvent) : base(aggregator, loc, ledEvent)
+        public StaticEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IEffectViewModelFactory effectViewModelFactory, IStaticEvent ledEvent) : base(aggregator, loc, effectViewModelFactory, ledEvent)
         {
             ledEvent.EventType = GetType().Name;
             DisplayName = loc.GetByKey("StaticEvent");
@@ -35,7 +36,6 @@ namespace cRGB.WPF.ViewModels.Event.Events
         #endregion
 
         #region Methods
-
 
 
         #endregion

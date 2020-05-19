@@ -8,7 +8,7 @@ using Castle.Facilities.TypedFactory;
 
 namespace cRGB.WPF.ServiceLocation.Selectors
 {
-    public class ClassByNameFactoryComponentSelector : DefaultTypedFactoryComponentSelector
+    public class ClassByNameComponentSelector : DefaultTypedFactoryComponentSelector
     {
         protected override string GetComponentName(MethodInfo method, object[] arguments)
         {

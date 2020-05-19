@@ -6,9 +6,9 @@ using System;
 
 namespace cRGB.Domain.Models.Event.Settings
 {
-    public class AudioEvent : IAudioEvent
+    public class AudioEvent : LedEvent, IAudioEvent
     {
-        public string EventType { get; set; }
+
     }
 
     public interface IAudioEvent : ILedEvent

@@ -131,7 +131,10 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void OnAppExit()
         {
-
+            foreach (var ledDeviceViewModel in LedDevices)
+            {
+                ledDeviceViewModel.Shutdown();
+            }
         }
         public void Dispose()
         {

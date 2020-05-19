@@ -215,5 +215,11 @@ namespace cRGB.WPF.ViewModels.Device
 
             base.Dispose();
         }
+
+        public override void Shutdown()
+        {
+            // Todo: Stop Events
+            Device.TurnOff();
+        }
     }
 }

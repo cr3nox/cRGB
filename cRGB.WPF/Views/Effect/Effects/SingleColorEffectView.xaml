@@ -8,11 +8,13 @@
     xmlns:local="clr-namespace:cRGB.WPF.Views.Effect.Effects"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        <converters:BoolToVisibilityConverter
+            x:Key="BoolToVisibilityConverter"
+            FalseValue="Collapsed"
+            TrueValue="Visible" />
     </UserControl.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -28,12 +30,10 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-
-        <Label
-            Grid.Row="0"
-            Grid.Column="0"
-            Margin="0,0,15,0"
-            Content="{DynamicResource ResourceKey=Color}" />
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Label Margin="0,0,15,0" Content="{DynamicResource ResourceKey=Color}" />
+            <CheckBox Name="Randomize" Content="{DynamicResource ResourceKey=Randomize}" />
+        </StackPanel>
         <controls:ColorPickerControl
             Grid.Row="0"
             Grid.Column="1"
