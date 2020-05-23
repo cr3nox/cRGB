@@ -12,6 +12,6 @@ namespace cRGB.Domain.Models.Effect
     public interface ILedEffect
     {
 
-        public Type EffectType { get; set; }
+        public string EffectType { get; set; }
     }
 }

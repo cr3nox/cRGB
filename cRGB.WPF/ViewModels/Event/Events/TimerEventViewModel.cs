@@ -8,6 +8,8 @@ using cRGB.Domain.Models.Effect;
 using cRGB.Domain.Models.Event;
 using cRGB.Domain.Models.Event.Settings;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.ServiceLocation.Factories;
+using cRGB.WPF.ViewModels.Controls;
 
 namespace cRGB.WPF.ViewModels.Event.Events
 {
@@ -28,7 +30,8 @@ namespace cRGB.WPF.ViewModels.Event.Events
         #region ctor
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        public TimerEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, ITimerEvent timerEvent) : base(aggregator, loc, timerEvent)
+        public TimerEventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IEffectViewModelFactory effectViewModelFactory, IDialogComboBoxSelectionViewModel selection, ITimerEvent timerEvent)
+            : base(aggregator, loc, effectViewModelFactory, selection,  timerEvent)
         {
             timerEvent.EventType = GetType().Name;
             DisplayName = loc.GetByKey("TimerEvent");

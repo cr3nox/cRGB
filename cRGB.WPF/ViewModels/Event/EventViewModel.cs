@@ -14,6 +14,7 @@ using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
 using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Controls;
+using cRGB.WPF.ViewModels.Effect;
 using cRGB.WPF.ViewModels.Effect.Effects;
 using PropertyChanged;
 
@@ -36,9 +37,10 @@ namespace cRGB.WPF.ViewModels.Event
         public ILedEvent Model { get; set; }
 
         public BindableCollection<IEffectViewModel> Effects { get; set; }
+        public IEffectViewModel SelectedEffect { get; set; }
         public IDialogComboBoxSelectionViewModel SelectionViewModel { get; set; }
 
-        public bool IsEventSelectionOpen { get; set; } = false;
+        public bool IsEffectSelectionOpen { get; set; } = false;
 
         #endregion
 
@@ -47,7 +49,6 @@ namespace cRGB.WPF.ViewModels.Event
         protected EventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IEffectViewModelFactory effectViewModelFactory, IDialogComboBoxSelectionViewModel selection, ILedEvent model)
         {
             EventAggregator = aggregator;
-            EventAggregator.SubscribeOnUIThread(this);
             Loc = loc;
             Model = model;
             EffectViewModelFactory = effectViewModelFactory;
@@ -62,6 +63,7 @@ namespace cRGB.WPF.ViewModels.Event
 
         public virtual void Init()
         {
+            EventAggregator.SubscribeOnUIThread(this);
             foreach (ILedEffect ledEffect in Model.LedEffects)
             {
                 var vm = EffectViewModelFactory.Create(ledEffect.EffectType, ledEffect);
@@ -74,12 +76,27 @@ namespace cRGB.WPF.ViewModels.Event
             // Gets one Instance of each IEventViewModel
             SelectionViewModel.Init(EffectViewModelFactory.CreateForEachImplementation(), false,
                 tag: this, helperTextResourceKey: "SelectAnEffect", headerResourceKey: "Effects");
-            IsEventSelectionOpen = true;
+            IsEffectSelectionOpen = true;
+        }
+
+        public void RemoveEffect(IEffectViewModel effectViewModel)
+        {
+            Model.LedEffects.Remove(effectViewModel.Config);
+            Effects.Remove(effectViewModel);
+            effectViewModel.Dispose();
         }
 
         public Task HandleAsync(DialogSelectedMessage message, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                if (message.SelectedViewModel == null || message.Tag != this) return;
+
+                var vm = (IEffectViewModel) message.SelectedViewModel;
+                Effects.Add(vm);
+                Model.LedEffects.Add(vm.Config);
+                IsEffectSelectionOpen = false;
+            }, cancellationToken);
         }
 
         #endregion

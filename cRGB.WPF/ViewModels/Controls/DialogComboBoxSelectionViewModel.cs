@@ -2,6 +2,7 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.VisualStyles;
@@ -21,9 +22,9 @@ namespace cRGB.WPF.ViewModels.Controls
         readonly IEventAggregator _eventAggregator;
         readonly ILocalizationHelper _localizationHelper;
         readonly IMessageFactory _messageFactory;
-        string _helperTextResourceKey;
-        string _hintResourceKey;
-        string _headerResourceKey;
+        string _helperTextResourceKey = "SelectAnItem";
+        string _hintResourceKey = "Item";
+        string _headerResourceKey = "";
 
         #endregion
 
@@ -33,7 +34,9 @@ namespace cRGB.WPF.ViewModels.Controls
         public BindableCollection<IViewModelBase> Items { get; set; }
 
         [AlsoNotifyFor(nameof(Items), nameof(CanAccept))]
-        public BindableCollection<string> ItemDisplayNames => new BindableCollection<string>(Items.Select(o => o.DisplayName).ToList());
+        public BindableCollection<string> ItemDisplayNames => Items != null
+            ? new BindableCollection<string>(Items.Select(o => o.DisplayName).ToList())
+            : null;
 
         public bool CanAccept => SelectedIndex > -1;
 
@@ -78,6 +81,11 @@ namespace cRGB.WPF.ViewModels.Controls
         {
             if (!CanCancel) return;
 
+            foreach (var viewModelBase in Items.OfType<IDisposable>())
+            {
+                viewModelBase.Dispose();
+            }
+
             _eventAggregator.PublishOnUIThreadAsync(_messageFactory.Create(typeof(DialogSelectedMessage)));
         }
 
@@ -88,6 +96,12 @@ namespace cRGB.WPF.ViewModels.Controls
             var message = (DialogSelectedMessage)_messageFactory.Create(typeof(DialogSelectedMessage));
             message.Tag = _tag;
             message.SelectedViewModel = Items[SelectedIndex];
+            
+            foreach (var viewModelBase in Items.OfType<IDisposable>().Where(o => o != message.SelectedViewModel))
+            {
+                viewModelBase.Dispose();
+            }
+
             _eventAggregator.PublishOnCurrentThreadAsync(message);
         }
         

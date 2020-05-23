@@ -5,13 +5,17 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Castle.Core.Logging;
+using cRGB.Domain.Models.Effect;
 using cRGB.Domain.Models.Effect.EffectConfigs;
 using cRGB.Domain.Services.System;
+using cRGB.WPF.Helpers;
 using cRGB.WPF.ViewModels.Device;
 using PropertyChanged;
+using Serilog;
 
 namespace cRGB.WPF.ViewModels.Effect.Effects
 {
@@ -19,51 +23,84 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
     {
 
         #region Fields
-        
-        readonly ISingleColorLedEffect _config;
+
         readonly Random _rng;
-        readonly ILogService _logService;
 
         #endregion
 
         #region Properties
 
+        public ISingleColorLedEffect Cfg => (ISingleColorLedEffect) Config;
+
         [AlsoNotifyFor(nameof(ColorAsBytes))]
         public Color Color
         {
-            get => _config.Color;
-            set => _config.Color = value;
+            get => Cfg.Color;
+            set => Cfg.Color = value;
         }
 
         public byte[] ColorAsBytes => new byte[3] { (byte)Color.R, (byte)Color.G, (byte)Color.B };
 
         public bool Randomize
         {
-            get => _config.Randomize;
-            set => _config.Randomize = value;
+            get => Cfg.Randomize;
+            set => Cfg.Randomize = value;
         }
 
         #endregion
 
         #region ctor
 
-        public SingleColorEffectViewModel(IEventAggregator eventAggregator, ILogService logService, ISingleColorLedEffect config) : base(eventAggregator)
+        public SingleColorEffectViewModel(IEventAggregator eventAggregator, ILocalizationHelper loc, ISingleColorLedEffect config) : base(eventAggregator, config)
         {
-            _config = config;
+            DisplayName = loc.GetByKey("SingleColorEffect");
             _rng = new Random();
-            _logService = logService;
         }
 
         #endregion
 
         #region Methods
 
-        public override async Task<byte[]> TickAsync(int ledCount)
+        public override async Task<IList<ILedViewModel>> TickAsync(CancellationToken ct, IList<ILedViewModel> leds)
         {
-            return await Task.Run(() => Tick(ledCount));
+            //Log.Debug("TickAsync");
+            return await Task.Run(() => Tick(ct, leds), ct);
         }
 
-        private byte[] Tick(int ledCount)
+        private IList<ILedViewModel> Tick(CancellationToken ct, IList<ILedViewModel> leds)
+        {
+            int r;
+            int g;
+            int b;
+
+            if (Randomize)
+            {
+                r = _rng.Next(0, 255);
+                g = _rng.Next(0, 255);
+                b = _rng.Next(0, 255);
+            }
+            else
+            {
+                r = Color.R;
+                g = Color.G;
+                b = Color.B;
+            }
+
+            foreach (var led in leds)
+            {
+                ct.ThrowIfCancellationRequested();
+                led.SetLedColors(r, g, b);
+            }
+
+            return leds;
+        }
+
+        public async Task<byte[]> TickAsync(CancellationToken ct, int ledCount)
+        {
+            return await Task.Run(() => Tick(ct, ledCount), ct);
+        }
+
+        private byte[] Tick(CancellationToken ct, int ledCount)
         {
             byte r;
             byte g;
@@ -72,9 +109,9 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
 
             if (Randomize)
             {
-                r = (byte) _rng.Next(0, 255);
-                g = (byte) _rng.Next(0, 255);
-                b = (byte) _rng.Next(0, 255);
+                r = (byte)_rng.Next(0, 255);
+                g = (byte)_rng.Next(0, 255);
+                b = (byte)_rng.Next(0, 255);
             }
 
             else
@@ -87,6 +124,7 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
             var leds = new byte[ledCount * 3];
             for (var i = 0; i < ledCount * 3; i += 3)
             {
+                ct.ThrowIfCancellationRequested();
                 leds[i] = r;
                 leds[i + 1] = g;
                 leds[i + 2] = b;

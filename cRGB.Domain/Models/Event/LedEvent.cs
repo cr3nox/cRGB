@@ -10,7 +10,7 @@ namespace cRGB.Domain.Models.Event
 {
     public class LedEvent : ILedEvent
     {
-        public Type EventType { get; set; }
+        public string EventType { get; set; }
         public IList<ILedEffect> LedEffects { get; set; } = new List<ILedEffect>();
     }
 }

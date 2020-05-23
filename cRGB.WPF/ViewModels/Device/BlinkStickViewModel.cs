@@ -38,7 +38,7 @@ namespace cRGB.WPF.ViewModels.Device
             set
             {
                 _device = value ?? throw new ArgumentNullException(nameof(value));
-                InitNewSettings(_device.Serial);
+                SettingsService.RegisterBlinkStickSettings(_device.Serial);
                 _blinkStickService.AddBlinkStick(Device);
                 InitDevice();
             }
@@ -106,13 +106,6 @@ namespace cRGB.WPF.ViewModels.Device
 
             DeviceSelection.AddBlinkSticks(_blinkStickService.FindAllNotAlreadyConfigured());
             InitSettings(settings);
-        }
-
-        private void InitNewSettings(string serial)
-        {
-            if (Settings != null) return;
-
-            InitSettings(SettingsService.RegisterBlinkStickSettings(serial));
         }
 
         private void InitSettings(IBlinkStickSettings settings)
@@ -209,7 +202,6 @@ namespace cRGB.WPF.ViewModels.Device
         public new void Dispose()
         {
             EventAggregator.Unsubscribe(this);
-            _blinkStickService.Remove(SerialNumber);
             Menu = null;
             _device?.Dispose();
 

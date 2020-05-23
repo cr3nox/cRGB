@@ -10,6 +10,6 @@ namespace cRGB.Domain.Models.Effect
 {
     public class LedEffect : ILedEffect
     {
-        public Type EffectType { get; set; }
+        public string EffectType { get; set; }
     }
 }

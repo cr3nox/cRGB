@@ -20,21 +20,19 @@
             <ContentControl Name="DeviceSelection" cm:View.Model="{Binding Path=DialogComboBoxSelectionViewModel}" />
         </materialDesign:DialogHost.DialogContent>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid
-                Margin="15"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <GroupBox
                     Grid.Row="0"
                     Grid.Column="0"
-                    Margin="16"
+                    Margin="15,15,5,15"
                     VerticalAlignment="Stretch">
                     <GroupBox.Header>
                         <DockPanel HorizontalAlignment="Stretch">
@@ -96,10 +94,17 @@
                         </StackPanel>
                     </ScrollViewer>
                 </GroupBox>
+                <GridSplitter
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="3"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Stretch"
+                    ResizeBehavior="PreviousAndNext" />
                 <ContentControl
                     Name="SelectedEvent"
                     Grid.Row="0"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch" />
             </Grid>

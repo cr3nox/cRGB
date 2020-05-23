@@ -22,6 +22,7 @@ using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ServiceLocation.Selectors;
 using cRGB.WPF.ViewModels.Controls;
 using cRGB.WPF.ViewModels.Device;
+using cRGB.WPF.ViewModels.Effect;
 using cRGB.WPF.ViewModels.Effect.Effects;
 using cRGB.WPF.ViewModels.Event;
 using cRGB.WPF.ViewModels.Navigation;
@@ -82,7 +83,7 @@ namespace cRGB.WPF
             _container.Register(Component.For<DeviceSelectionViewModel>().ImplementedBy<DeviceSelectionViewModel>().LifestyleTransient());
             // ViewModels Singleton
             _container.Register(Component.For<DeviceListViewModel>().ImplementedBy<DeviceListViewModel>().LifestyleSingleton());
-            _container.Register(Component.For<IEffectViewModel>().ImplementedBy<EffectViewModel>().LifestyleSingleton());
+            //_container.Register(Component.For<IEffectViewModel>().ImplementedBy<EffectViewModel>().LifestyleSingleton());
             _container.Register(Component.For<IEventListViewModel>().ImplementedBy<EventListViewModel>().LifestyleSingleton());
             // ViewModel Controls
             _container.Register(Component.For<IDialogComboBoxSelectionViewModel>().ImplementedBy<DialogComboBoxSelectionViewModel>().LifestyleTransient());
@@ -93,14 +94,26 @@ namespace cRGB.WPF
                 Classes.FromAssembly(Assembly.GetExecutingAssembly())
                     .BasedOn(typeof(IEventViewModel))
                     .WithService.Base()
+                    .Unless(o => o.IsAbstract)
                     .Configure(c => c.Named(c.Implementation.Name))
                     .LifestyleTransient());
-            
+
+            // EffectViewModels
+            // Register All Classes that are IEffectViewModel
+            _container.Register(
+                Classes.FromAssembly(Assembly.GetExecutingAssembly())
+                    .BasedOn(typeof(IEffectViewModel))
+                    .WithService.Base()
+                    .Unless(o => o.IsAbstract)
+                    .Configure(c => c.Named(c.Implementation.Name))
+                    .LifestyleTransient());
+
             // Messages
             _container.Register(
                 Classes.FromAssembly(Assembly.GetExecutingAssembly())
                     .BasedOn(typeof(IMessage))
                     .WithService.Base()
+                    .Unless(o => o.IsAbstract)
                     .Configure(c => c.Named(c.Implementation.Name))
                     .LifestyleTransient());
 

@@ -65,6 +65,8 @@
     <sys:String x:Key="Randomize">Randomize</sys:String>
     <sys:String x:Key="PickAColor">Pick a color</sys:String>
     <sys:String x:Key="SelectAnEffect">Select an effect</sys:String>
-    <sys:String x:Key="Effects">effects</sys:String>
-    <sys:String x:Key="Effect">effect</sys:String>
+    <sys:String x:Key="Effects">Effects</sys:String>
+    <sys:String x:Key="Effect">Effect</sys:String>
+    <sys:String x:Key="EffectName">Effect name</sys:String>
+    <sys:String x:Key="SingleColorEffect">Single color effect</sys:String>
 </ResourceDictionary>
