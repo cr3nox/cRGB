@@ -12,7 +12,7 @@ namespace cRGB.WPF.Converters
     /* Usage:
      
         <UserControl.Resources>
-            <local:BoolToVisibilityConverter
+            <converters:BoolToVisibilityConverter
                 x:Key="BoolToHiddenConverter"
                 TrueValue="Visible" FalseValue="Hidden" />
         </UserControl.Resources>

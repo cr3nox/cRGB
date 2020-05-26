@@ -22,6 +22,8 @@ namespace cRGB.WPF.ViewModels.Event
 
         public IList<ILedEvent> EventSettings { get; }
 
-        public void InitSettings(IList<ILedEvent> settings = null); 
+        public void InitSettings(IList<ILedEvent> settings = null);
+
+        public void SetHighestLedIndex(int index);
     }
 }

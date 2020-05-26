@@ -19,7 +19,6 @@ namespace cRGB.WPF.ViewModels.Shell
     {
         readonly IEventAggregator _eventAggregator;
         readonly ISettingsService _settingsService;
-        readonly IMenuItemViewModelFactory _menuFactory;
 
         #region Properties
 
@@ -45,11 +44,11 @@ namespace cRGB.WPF.ViewModels.Shell
 
         #endregion Properties
 
-        public ShellViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IMenuItemViewModelFactory menuFactory, ISettingsService settingsService, DeviceListViewModel deviceListViewModel)
+        public ShellViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IMenuItemViewModelFactory menuFactory, ISettingsService settingsService, 
+            DeviceListViewModel deviceListViewModel)
         {
             _eventAggregator = aggregator;
             _settingsService = settingsService;
-            _menuFactory = menuFactory;
             _eventAggregator.SubscribeOnUIThread(this);
 
             // Adding Menu Items
@@ -63,22 +62,23 @@ namespace cRGB.WPF.ViewModels.Shell
 
         public Task HandleAsync(TreeViewSelectionChangedMessage message, CancellationToken cancellationToken)
         {
-            if (message.SelectedItem.IsSelected)
+            return Task.Run(() =>
             {
+                if (!message.SelectedItem.IsSelected) return;
+
                 SelectedMenuItem = message.SelectedItem;
                 var menuViewModel = SelectedMenuItem.ViewModel as INotifyMeOnMenuSelect;
                 menuViewModel?.OnMenuSelect();
 
                 ActivateView(SelectedMenuItem);
-            }
-
-            return Task.CompletedTask;
+            }, cancellationToken);
         }
 
         private void ActivateView(IMenuItemViewModel menu)
         {
             SelectedMenuItem = menu;
-            ActivateItemAsync((Screen)SelectedMenuItem.ViewModel, new CancellationToken());
+            var cts = new CancellationTokenSource();
+            ActivateItemAsync((Screen)SelectedMenuItem.ViewModel, cts.Token);
         }
 
         public void Dispose()

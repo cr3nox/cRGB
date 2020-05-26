@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 using Castle.Core;
 using cRGB.Domain.Models.Enums;

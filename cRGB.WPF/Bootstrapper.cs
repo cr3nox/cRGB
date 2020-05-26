@@ -63,6 +63,7 @@ namespace cRGB.WPF
             _container.Register(Component.For<IEventViewModelFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
             _container.Register(Component.For<IEffectViewModelFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
             _container.Register(Component.For<IMessageFactory>().AsFactory(f => f.SelectedWith(new ClassByNameComponentSelector())));
+            _container.Register(Component.For<ILedColorFactory>().AsFactory());
 
             // Models
             _container.Install(

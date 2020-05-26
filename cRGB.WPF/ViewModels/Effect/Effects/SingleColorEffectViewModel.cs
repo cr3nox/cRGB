@@ -4,18 +4,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Caliburn.Micro;
-using Castle.Core.Logging;
-using cRGB.Domain.Models.Effect;
 using cRGB.Domain.Models.Effect.EffectConfigs;
-using cRGB.Domain.Services.System;
 using cRGB.WPF.Helpers;
+using cRGB.WPF.Messages;
+using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Device;
 using PropertyChanged;
-using Serilog;
 
 namespace cRGB.WPF.ViewModels.Effect.Effects
 {
@@ -25,6 +25,7 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
         #region Fields
 
         readonly Random _rng;
+        readonly ILedColorFactory _ledColorFactory;
 
         #endregion
 
@@ -33,13 +34,13 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
         public ISingleColorLedEffect Cfg => (ISingleColorLedEffect) Config;
 
         [AlsoNotifyFor(nameof(ColorAsBytes))]
-        public Color Color
+        public Color EffectColor
         {
-            get => Cfg.Color;
-            set => Cfg.Color = value;
+            get => Color.FromRgb(Cfg.Color.R, Cfg.Color.G, Cfg.Color.B);
+            set => Cfg.Color.SetColor(value.R, value.G, value.B);
         }
 
-        public byte[] ColorAsBytes => new byte[3] { (byte)Color.R, (byte)Color.G, (byte)Color.B };
+        public byte[] ColorAsBytes => new byte[3] { EffectColor.R, EffectColor.G, EffectColor.B };
 
         public bool Randomize
         {
@@ -51,10 +52,13 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
 
         #region ctor
 
-        public SingleColorEffectViewModel(IEventAggregator eventAggregator, ILocalizationHelper loc, ISingleColorLedEffect config) : base(eventAggregator, config)
+        public SingleColorEffectViewModel(IEventAggregator eventAggregator, ILocalizationHelper loc, ISingleColorLedEffect config, ILedColorFactory ledColorFactory) 
+            : base(eventAggregator, config)
         {
             DisplayName = loc.GetByKey("SingleColorEffect");
             _rng = new Random();
+            _ledColorFactory = ledColorFactory;
+            config.Color ??= _ledColorFactory.Create();
         }
 
         #endregion
@@ -81,9 +85,9 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
             }
             else
             {
-                r = Color.R;
-                g = Color.G;
-                b = Color.B;
+                r = EffectColor.R;
+                g = EffectColor.G;
+                b = EffectColor.B;
             }
 
             foreach (var led in leds)
@@ -116,9 +120,9 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
 
             else
             {
-                r = Color.R;
-                g = Color.G;
-                b = Color.B;
+                r = EffectColor.R;
+                g = EffectColor.G;
+                b = EffectColor.B;
             }
 
             var leds = new byte[ledCount * 3];
@@ -131,6 +135,11 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
             }
 
             return leds;
+        }
+
+        public void Test()
+        {
+            EffectColor = Color.FromArgb(255, (byte)_rng.Next(0, 255), (byte)_rng.Next(0, 255), (byte)_rng.Next(0, 255));
         }
 
         #endregion

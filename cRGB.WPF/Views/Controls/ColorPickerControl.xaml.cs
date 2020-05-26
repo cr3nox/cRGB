@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
+using Caliburn.Micro;
+using Serilog;
 
 namespace cRGB.WPF.Views.Controls
 {
@@ -22,16 +16,24 @@ namespace cRGB.WPF.Views.Controls
         public Color SelectedColor
         {
             get => (Color)GetValue(SelectedColorProperty);
-            set => SetValue(SelectedColorProperty, value);
+            set => SetValue(SelectedColorProperty, value); 
         }
 
         public static readonly DependencyProperty SelectedColorProperty =
-            DependencyProperty.Register("SelectedColorProperty", typeof(string),
-                typeof(ColorPicker), new PropertyMetadata(""));
+            DependencyProperty.Register("SelectedColor", typeof(Color),
+                typeof(ColorPickerControl), new PropertyMetadata());
 
         public ColorPickerControl()
         {
             InitializeComponent();
+            LayoutRoot.DataContext = this;
+        }
+
+        void RandomButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var rng = new Random();
+            SelectedColor = Color.FromRgb((byte)rng.Next(0, 255), (byte)rng.Next(0, 255), (byte)rng.Next(0, 255));
+            
         }
     }
 }

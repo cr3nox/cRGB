@@ -9,7 +9,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Margin="15">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -20,17 +20,18 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Label
+        <!--<Label
             Name="DisplayName"
             Grid.Row="0"
             Grid.Column="0"
-            HorizontalAlignment="Center" />
-        <Label
+            HorizontalAlignment="Center" />-->
+        <!--<Label
             Grid.Row="1"
             Grid.Column="0"
             HorizontalAlignment="Center"
-            Content="{DynamicResource ResourceKey=StaticEventDescription}" />
+            Content="{DynamicResource ResourceKey=StaticEventDescription}" />-->
         <materialDesign:DialogHost
             Grid.Row="4"
             Grid.Column="0"
@@ -104,11 +105,11 @@
                 </ScrollViewer>
             </GroupBox>
         </materialDesign:DialogHost>
-
+        <GridSplitter Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" />
         <ContentControl
             Name="SelectedEffect"
             Grid.Row="4"
-            Grid.Column="1" />
+            Grid.Column="2" />
     </Grid>
 
 </UserControl>

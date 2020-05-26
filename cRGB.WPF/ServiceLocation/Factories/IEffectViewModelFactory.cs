@@ -21,7 +21,7 @@ namespace cRGB.WPF.ServiceLocation.Factories
         /// <param name="type"></param>
         /// <returns></returns>
         IEffectViewModel Create(string type);
-        IEffectViewModel Create(string type, ILedEffect eventConfig);
+        IEffectViewModel Create(string type, ILedEffect config);
 
         /// <summary>
         /// Creates an Instance for each implementation of IEventViewModel that is registered in the Container

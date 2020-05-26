@@ -11,5 +11,7 @@ namespace cRGB.Domain.Models.Effect
     public class LedEffect : ILedEffect
     {
         public string EffectType { get; set; }
+        public int LedStartIndex { get; set; } = 0;
+        public int LedEndIndex { get; set; } = 0;
     }
 }

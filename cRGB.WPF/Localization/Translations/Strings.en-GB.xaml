@@ -63,6 +63,7 @@
     <sys:String x:Key="ColorHexValue">Color HEX value</sys:String>
     <sys:String x:Key="Color">Color</sys:String>
     <sys:String x:Key="Randomize">Randomize</sys:String>
+    <sys:String x:Key="Random">Random</sys:String>
     <sys:String x:Key="PickAColor">Pick a color</sys:String>
     <sys:String x:Key="SelectAnEffect">Select an effect</sys:String>
     <sys:String x:Key="Effects">Effects</sys:String>

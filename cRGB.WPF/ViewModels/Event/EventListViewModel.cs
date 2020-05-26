@@ -95,6 +95,15 @@ namespace cRGB.WPF.ViewModels.Event
             }
         }
 
+        public void SetHighestLedIndex(int index)
+        {
+            foreach (var eventViewModel in Events)
+            {
+                eventViewModel.HighestLedIndex = index;
+            }
+        }
+
+
         public void ReorderLedEvents()
         {
             // Remove all entries

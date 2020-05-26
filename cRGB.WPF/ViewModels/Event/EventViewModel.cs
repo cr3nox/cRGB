@@ -41,12 +41,14 @@ namespace cRGB.WPF.ViewModels.Event
         public IDialogComboBoxSelectionViewModel SelectionViewModel { get; set; }
 
         public bool IsEffectSelectionOpen { get; set; } = false;
+        public int HighestLedIndex { get; set; } = 0;
 
         #endregion
 
         #region ctor
 
-        protected EventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IEffectViewModelFactory effectViewModelFactory, IDialogComboBoxSelectionViewModel selection, ILedEvent model)
+        protected EventViewModel(IEventAggregator aggregator, ILocalizationHelper loc, IEffectViewModelFactory effectViewModelFactory, 
+            IDialogComboBoxSelectionViewModel selection, ILedEvent model)
         {
             EventAggregator = aggregator;
             Loc = loc;
@@ -74,7 +76,7 @@ namespace cRGB.WPF.ViewModels.Event
         public void AddEffect()
         {
             // Gets one Instance of each IEventViewModel
-            SelectionViewModel.Init(EffectViewModelFactory.CreateForEachImplementation(), false,
+            SelectionViewModel.Init(EffectViewModelFactory.CreateForEachImplementation(), true,
                 tag: this, helperTextResourceKey: "SelectAnEffect", headerResourceKey: "Effects");
             IsEffectSelectionOpen = true;
         }
@@ -90,12 +92,18 @@ namespace cRGB.WPF.ViewModels.Event
         {
             return Task.Run(() =>
             {
-                if (message.SelectedViewModel == null || message.Tag != this) return;
-
-                var vm = (IEffectViewModel) message.SelectedViewModel;
-                Effects.Add(vm);
-                Model.LedEffects.Add(vm.Config);
+                if (message.SelectedViewModel == null || message.Tag != this)
+                {
+                    if (message.SelectedViewModel is IEffectViewModel vm)
+                    {
+                        // So User does not has to lookup index himself
+                        vm.Config.LedEndIndex = HighestLedIndex;
+                        Effects.Add(vm);
+                        Model.LedEffects.Add(vm.Config);
+                    }
+                }
                 IsEffectSelectionOpen = false;
+
             }, cancellationToken);
         }
 

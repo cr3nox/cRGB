@@ -121,8 +121,8 @@ namespace cRGB.WPF.ViewModels.Device
 
         private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == nameof(DeviceName))
-                DisplayName = Settings.DeviceName;
+            if (e.PropertyName == nameof(DeviceName)) DisplayName = Settings.DeviceName;
+
             OnPropertyChanged(e);
         }
 
@@ -156,6 +156,7 @@ namespace cRGB.WPF.ViewModels.Device
             Settings.RChannelLedColors = RChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Take(Settings.RChannelLedCount));
             Settings.GChannelLedColors = GChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount).Take(Settings.GChannelLedCount));
             Settings.BChannelLedColors = BChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount + Settings.GChannelLedCount).Take(Settings.BChannelLedCount));
+            EventListViewModel.SetHighestLedIndex(LedStates.Where(o => o.Enabled).Max(o => o.Index));
         }
 
         public IList<ILedViewModel> GetEnabledLedViewModels()
@@ -166,13 +167,15 @@ namespace cRGB.WPF.ViewModels.Device
 
         public Task HandleAsync(DeviceSelectedMessage message, CancellationToken cancellationToken)
         {
-            if (!(message.SelectedDevice is BlinkStick))
-                return Task.CompletedTask;
+            return Task.Run(() =>
+            {
+                if (!(message.SelectedDevice is BlinkStick))
+                    return ;
 
-            Device = (BlinkStick)message.SelectedDevice;
-            SerialNumber = Device.Serial;
-            CloseDialog();
-            return Task.CompletedTask;
+                Device = (BlinkStick) message.SelectedDevice;
+                SerialNumber = Device.Serial;
+                CloseDialog();
+            }, cancellationToken);
         }
 
         private void CloseDialog()

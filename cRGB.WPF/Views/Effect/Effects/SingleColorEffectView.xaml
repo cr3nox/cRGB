@@ -16,7 +16,10 @@
             FalseValue="Collapsed"
             TrueValue="Visible" />
     </UserControl.Resources>
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid
+        Margin="15,15,0,0"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -37,6 +40,6 @@
         <controls:ColorPickerControl
             Grid.Row="0"
             Grid.Column="1"
-            SelectedColor="{Binding Color, Mode=TwoWay}" />
+            SelectedColor="{Binding EffectColor, Mode=TwoWay}" />
     </Grid>
 </UserControl>

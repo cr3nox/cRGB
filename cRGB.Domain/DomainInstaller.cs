@@ -23,8 +23,8 @@ namespace cRGB.Domain
             container.Register(Component.For<IBlinkStickService>().ImplementedBy<BlinkStickService>().LifestyleSingleton());
             container.Register(Component.For<ISettingsService>().ImplementedBy<SettingsService>().LifestyleSingleton());
 
-            container.Register(Component.For<IBlinkStickSettings>().ImplementedBy<BlinkStickSettings>()
-                .LifestyleTransient());
+            container.Register(Component.For<IBlinkStickSettings>().ImplementedBy<BlinkStickSettings>().LifestyleTransient());
+            container.Register(Component.For<ILedColor>().ImplementedBy<LedColor>().LifestyleTransient());
 
             container.Register(
                 Classes.FromAssembly(Assembly.GetExecutingAssembly())
