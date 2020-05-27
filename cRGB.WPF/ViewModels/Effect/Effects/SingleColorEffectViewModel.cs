@@ -73,27 +73,12 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
 
         private IList<ILedViewModel> Tick(CancellationToken ct, IList<ILedViewModel> leds)
         {
-            int r;
-            int g;
-            int b;
-
-            if (Randomize)
-            {
-                r = _rng.Next(0, 255);
-                g = _rng.Next(0, 255);
-                b = _rng.Next(0, 255);
-            }
-            else
-            {
-                r = EffectColor.R;
-                g = EffectColor.G;
-                b = EffectColor.B;
-            }
-
-            foreach (var led in leds)
+            var bytes = Tick(ct, leds.Count);
+            var index = LedStartIndex;
+            for(var i = LedStartIndex * 3; i < bytes.Length; i += 3)
             {
                 ct.ThrowIfCancellationRequested();
-                led.SetLedColors(r, g, b);
+                leds[index++].SetLedColors(bytes[i], bytes[i+1], bytes[i+2]);
             }
 
             return leds;
@@ -126,9 +111,11 @@ namespace cRGB.WPF.ViewModels.Effect.Effects
             }
 
             var leds = new byte[ledCount * 3];
-            for (var i = 0; i < ledCount * 3; i += 3)
+            for (var i = LedStartIndex * 3; i < ledCount * 3; i += 3)
             {
                 ct.ThrowIfCancellationRequested();
+                if (i > LedEndIndex * 3)
+                    break;
                 leds[i] = r;
                 leds[i + 1] = g;
                 leds[i + 2] = b;

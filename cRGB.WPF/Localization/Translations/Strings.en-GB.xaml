@@ -70,4 +70,7 @@
     <sys:String x:Key="Effect">Effect</sys:String>
     <sys:String x:Key="EffectName">Effect name</sys:String>
     <sys:String x:Key="SingleColorEffect">Single color effect</sys:String>
+    <sys:String x:Key="Configuration">Configuration</sys:String>
+    <sys:String x:Key="FirstLedIndex">First led index</sys:String>
+    <sys:String x:Key="LastLedIndex">Last led index</sys:String>
 </ResourceDictionary>

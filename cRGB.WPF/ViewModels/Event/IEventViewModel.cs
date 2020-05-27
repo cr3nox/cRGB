@@ -2,8 +2,11 @@
 // Author: Andreas Hofmann, 05 2020
 #endregion
 
+using System.Collections.Generic;
+using System.Threading;
 using cRGB.Domain.Models.Event;
 using cRGB.Modules.Common.Base;
+using cRGB.WPF.ViewModels.Device;
 
 namespace cRGB.WPF.ViewModels.Event
 {
@@ -15,5 +18,8 @@ namespace cRGB.WPF.ViewModels.Event
         public int HighestLedIndex { get; set; }
 
         public void Init();
+
+        public abstract IAsyncEnumerable<IList<ILedViewModel>> Activate(CancellationToken ct, IList<ILedViewModel> leds);
+        public abstract void Stop();
     }
 }

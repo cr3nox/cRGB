@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
@@ -22,6 +23,7 @@ namespace cRGB.WPF.ViewModels.Effect
         public ILedEffect Config { get; internal set; }
 
         [Required]
+        [IntegerValidator(MinValue = 0)]
         public int LedStartIndex
         {
             get => Config.LedStartIndex;
@@ -47,7 +49,6 @@ namespace cRGB.WPF.ViewModels.Effect
 
         public void Dispose()
         {
-            Config = null;
             EventAggregator.Unsubscribe(this);
         }
     }

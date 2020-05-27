@@ -37,6 +37,7 @@
             ClipToBounds="True">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
+                    <Button Name="RunEvents" />
                     <materialDesign:Card Margin="16" Background="{DynamicResource MaterialDesignBackground}">
                         <Expander
                             HorizontalAlignment="Stretch"

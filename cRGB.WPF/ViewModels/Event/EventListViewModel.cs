@@ -37,14 +37,12 @@ namespace cRGB.WPF.ViewModels.Event
 
         [AlsoNotifyFor(nameof(EventSettings))]
         public BindableCollection<IEventViewModel> Events { get; set; } = new BindableCollection<IEventViewModel>();
-
         public IEventViewModel SelectedEvent { get; set; }
-
         public IDialogComboBoxSelectionViewModel DialogComboBoxSelectionViewModel { get; }
-
         public bool IsEventSelectionOpen { get; set; }
-
         public IList<ILedEvent> EventSettings { get; internal set; }
+        public IEventViewModel ActiveEvent { get; set; }
+        public int HighestLedIndex { get; set; }
 
         #endregion
 
@@ -69,7 +67,7 @@ namespace cRGB.WPF.ViewModels.Event
         public void AddEvent()
         {
             // Gets one Instance of each IEventViewModel
-            DialogComboBoxSelectionViewModel.Init(_eventFactory.CreateForEachImplementation(), false,
+            DialogComboBoxSelectionViewModel.Init(_eventFactory.CreateForEachImplementation(), true,
                 tag: this, helperTextResourceKey:"SelectAnEvent", headerResourceKey: "Events");
             IsEventSelectionOpen = true;
         }
@@ -89,6 +87,7 @@ namespace cRGB.WPF.ViewModels.Event
                 //var vm = _eventFactory.Create($"{eventSetting.GetType().Name.ToString()}ViewModel");
                 var vm = _eventFactory.Create(eventSetting.EventType);
                 if (!(vm is { } eventViewModel)) continue;
+                eventViewModel.HighestLedIndex = HighestLedIndex;
                 eventViewModel.Model = eventSetting;
                 eventViewModel.Init();
                 Events.Add(eventViewModel);
@@ -101,6 +100,8 @@ namespace cRGB.WPF.ViewModels.Event
             {
                 eventViewModel.HighestLedIndex = index;
             }
+
+            HighestLedIndex = index;
         }
 
 
@@ -129,17 +130,29 @@ namespace cRGB.WPF.ViewModels.Event
 
         public Task HandleAsync(DialogSelectedMessage message, CancellationToken cancellationToken)
         {
-            // Dialog is generic and can be used anywhere. To secure usage only here we check Tag = this
-            if (message.SelectedViewModel != null && message.Tag == this)
+            return Task.Run(() =>
             {
-                var eventViewModel = (IEventViewModel) message.SelectedViewModel;
-                Events.Add(eventViewModel);
-                SelectedEvent = eventViewModel;
-                EventSettings.Add(eventViewModel.Model);
+                // Dialog is generic and can be used anywhere. To secure usage only here we check Tag = this
+                if (message.SelectedViewModel != null && message.Tag == this)
+                {
+                    var eventViewModel = (IEventViewModel)message.SelectedViewModel;
+                    eventViewModel.HighestLedIndex = HighestLedIndex;
+                    Events.Add(eventViewModel);
+                    SelectedEvent = eventViewModel;
+                    EventSettings.Add(eventViewModel.Model);
+                }
+
+                IsEventSelectionOpen = false;
+            }, cancellationToken);
+        }
+
+        public void Dispose()
+        {
+            _eventAggregator.Unsubscribe(this);
+            foreach (var viewModelBase1 in DialogComboBoxSelectionViewModel.Items)
+            {
+                _eventFactory.Release((IEventViewModel)viewModelBase1);
             }
-            
-            IsEventSelectionOpen = false;
-            return Task.CompletedTask;
         }
 
         #region DragDrop Events ListView
@@ -161,15 +174,6 @@ namespace cRGB.WPF.ViewModels.Event
         }
 
         #endregion
-
-        public void Dispose()
-        {
-            _eventAggregator.Unsubscribe(this);
-            foreach (var viewModelBase1 in DialogComboBoxSelectionViewModel.Items)
-            {
-                _eventFactory.Release((IEventViewModel)viewModelBase1);
-            }
-        }
 
         #endregion
 

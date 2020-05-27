@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -81,9 +81,9 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button
-                                                    x:Name="DeleteEvent"
+                                                    x:Name="DeleteEffect"
                                                     HorizontalAlignment="Right"
-                                                    cm:Message.Attach="DeleteEvent($dataContext)"
+                                                    cm:Message.Attach="RemoveEffect($dataContext)"
                                                     Content="{materialDesign:PackIcon Delete}"
                                                     Style="{DynamicResource MaterialDesignRaisedAccentButton}" />
                                             </DataTemplate>
@@ -105,7 +105,14 @@
                 </ScrollViewer>
             </GroupBox>
         </materialDesign:DialogHost>
-        <GridSplitter Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" />
+        <GridSplitter
+            Grid.Row="0"
+            Grid.RowSpan="5"
+            Grid.Column="1"
+            Width="3"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Stretch"
+            ResizeBehavior="PreviousAndNext" />
         <ContentControl
             Name="SelectedEffect"
             Grid.Row="4"

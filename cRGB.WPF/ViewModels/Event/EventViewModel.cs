@@ -14,6 +14,7 @@ using cRGB.WPF.Helpers;
 using cRGB.WPF.Messages;
 using cRGB.WPF.ServiceLocation.Factories;
 using cRGB.WPF.ViewModels.Controls;
+using cRGB.WPF.ViewModels.Device;
 using cRGB.WPF.ViewModels.Effect;
 using cRGB.WPF.ViewModels.Effect.Effects;
 using PropertyChanged;
@@ -33,7 +34,7 @@ namespace cRGB.WPF.ViewModels.Event
         #region Properties
 
         public abstract bool CanActivate { get; }
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
         public ILedEvent Model { get; set; }
 
         public BindableCollection<IEffectViewModel> Effects { get; set; }
@@ -73,6 +74,13 @@ namespace cRGB.WPF.ViewModels.Event
             }
         }
 
+        public virtual IAsyncEnumerable<IList<ILedViewModel>> Activate(CancellationToken ct, IList<ILedViewModel> leds)
+        {
+            return null;
+        }
+
+        public virtual void Stop(){}
+
         public void AddEffect()
         {
             // Gets one Instance of each IEventViewModel
@@ -92,7 +100,7 @@ namespace cRGB.WPF.ViewModels.Event
         {
             return Task.Run(() =>
             {
-                if (message.SelectedViewModel == null || message.Tag != this)
+                if (message.SelectedViewModel != null && message.Tag == this)
                 {
                     if (message.SelectedViewModel is IEffectViewModel vm)
                     {

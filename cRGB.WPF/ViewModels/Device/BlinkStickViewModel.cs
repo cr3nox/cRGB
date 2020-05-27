@@ -5,9 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using BlinkStickDotNet;
 using Caliburn.Micro;
 using cRGB.Domain.Models.Device;
+using cRGB.Domain.Models.Enums;
 using cRGB.Domain.Services.Device;
 using cRGB.Domain.Services.System;
 using cRGB.Tools.Interfaces.ViewModel;
@@ -157,6 +159,7 @@ namespace cRGB.WPF.ViewModels.Device
             Settings.GChannelLedColors = GChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount).Take(Settings.GChannelLedCount));
             Settings.BChannelLedColors = BChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount + Settings.GChannelLedCount).Take(Settings.BChannelLedCount));
             EventListViewModel.SetHighestLedIndex(LedStates.Where(o => o.Enabled).Max(o => o.Index));
+            SetAllColorsBlack();
         }
 
         public IList<ILedViewModel> GetEnabledLedViewModels()
@@ -176,6 +179,118 @@ namespace cRGB.WPF.ViewModels.Device
                 SerialNumber = Device.Serial;
                 CloseDialog();
             }, cancellationToken);
+        }
+
+        public override void RunEvents()
+        {
+            Cts = new CancellationTokenSource();
+            Task.Run(async () =>
+            {
+                foreach (var eventViewModel in EventListViewModel.Events.Where(o => o.IsEnabled))
+                {
+                    if (!eventViewModel.CanActivate) continue;
+
+                    // Do Nothing if Event is already Running
+                    if (eventViewModel == EventListViewModel.ActiveEvent)
+                        break;
+
+                    // Stop Active Event
+                    EventListViewModel.ActiveEvent?.Stop();
+                    // Start New Event
+                    EventListViewModel.ActiveEvent = eventViewModel;
+                    try
+                    {
+                        await foreach (var result in eventViewModel.Activate(Cts.Token, LedStates))
+                        {
+                            //LedStates = result;
+                            await SetBlinkStickColors(result);
+                        }
+                    }
+                    catch (OperationCanceledException ocEx)
+                    {
+
+                    }
+                    break;
+                }
+            }, Cts.Token);
+        }
+
+        private Task SetBlinkStickColors(IList<ILedViewModel> leds)
+        {
+            return Task.Run(() =>
+            {
+                var channels = new List<(int, int, bool)>()
+                {
+                    ((int)EBlinkStickChannel.R, Settings.RChannelLedCount, Settings.RChannelLedInvert),
+                    ((int)EBlinkStickChannel.G, Settings.GChannelLedCount, Settings.GChannelLedInvert),
+                    ((int)EBlinkStickChannel.B, Settings.BChannelLedCount, Settings.BChannelLedInvert)
+                };
+
+                var count = 0;
+                foreach (var (channel, amountOfLeds, invertLeds) in channels)
+                {
+                    var bytes = new List<byte>();
+                    // for each LED in each Channel
+                    //if (invertLeds)
+                    //{
+                    //    for (var i = count; i > amountOfLeds; i--)
+                    //    {
+                    //        bytes.AddRange(GetLedColorsAsBytes(leds[count]));
+                    //        count++;
+                    //    }
+                    //}
+                    //else
+                    //{
+                        for (var i = 0; i < amountOfLeds; i++)
+                        {
+                            bytes.AddRange(GetLedColorsAsBytes(leds[count]));
+                            count++;
+                        }
+                    //}
+                    /*
+                     * G count 64 index 63
+                     *
+                     */
+                    Device.SetColors((byte)channel, bytes.ToArray());
+                }
+            });
+
+        }
+        void SetAllColorsBlack()
+        {
+            Task.Run(() =>
+            {
+                var channels = new List<(int, int, bool)>()
+                {
+                    ((int)EBlinkStickChannel.R, Settings.RChannelLedCount, Settings.RChannelLedInvert),
+                    ((int)EBlinkStickChannel.G, Settings.GChannelLedCount, Settings.GChannelLedInvert),
+                    ((int)EBlinkStickChannel.B, Settings.BChannelLedCount, Settings.BChannelLedInvert)
+                };
+
+                var count = 0;
+                foreach (var (channel, amountOfLeds, invertLeds) in channels)
+                {
+                    var bytes = new List<byte>();
+                    for (var i = 0; i < amountOfLeds; i++)
+                    {
+                        bytes.AddRange(new byte[] { 0, 0, 0});
+                        count++;
+                    }
+                    Device.SetColors((byte)channel, bytes.ToArray());
+                }
+            });
+
+        }
+
+        private byte[] GetLedColorsAsBytes(ILedViewModel led)
+        {
+            // if not enabled stay black
+            if (!led.Enabled)
+                return new byte[] {0, 0, 0};
+
+            var brightness = (double)Settings.Brightness / 100;
+            // get colors from LedViewModel, multiply with brightness (example: Settings.Brightness = 95 (%) => ledR * 0.95)
+            return new[] {(byte)(led.R * brightness), (byte)(led.G * brightness), (byte)(led.B * brightness)};
         }
 
         private void CloseDialog()
