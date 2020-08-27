@@ -61,15 +61,12 @@ namespace cRGB.WPF.ViewModels.Device
 
         public void FirePropertyChanged()
         {
-            OnPropertyChanged(new PropertyChangedEventArgs(nameof(GetLedAsByteArray)));
+            NotifyOfPropertyChange(nameof(GetLedAsByteArray));
         }
 
         public void ActivationButton()
         {
             Enabled = !Enabled;
-            // Testing Stuff
-            //var rnd = new Random();
-            //SetLedColors(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
         }
     }
 }

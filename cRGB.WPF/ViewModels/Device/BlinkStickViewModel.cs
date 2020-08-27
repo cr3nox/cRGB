@@ -143,6 +143,7 @@ namespace cRGB.WPF.ViewModels.Device
             Device.Mode = 2;
             Device.OpenDevice();
             InitLeds();
+            Device.SetColorDelay = 0;
         }
 
         void InitLeds()
@@ -159,7 +160,7 @@ namespace cRGB.WPF.ViewModels.Device
             Settings.GChannelLedColors = GChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount).Take(Settings.GChannelLedCount));
             Settings.BChannelLedColors = BChannelLedColors = new BindableCollection<ILedViewModel>(LedStates.Skip(Settings.RChannelLedCount + Settings.GChannelLedCount).Take(Settings.BChannelLedCount));
             EventListViewModel.SetHighestLedIndex(LedStates.Where(o => o.Enabled).Max(o => o.Index));
-            SetAllColorsBlack();
+            Device.SetColor(0,0,0);
         }
 
         public IList<ILedViewModel> GetEnabledLedViewModels()
@@ -200,15 +201,41 @@ namespace cRGB.WPF.ViewModels.Device
                     EventListViewModel.ActiveEvent = eventViewModel;
                     try
                     {
-                        await foreach (var result in eventViewModel.Activate(Cts.Token, LedStates))
+                        if (false)
                         {
-                            //LedStates = result;
+                            await foreach (var result in eventViewModel.Activate(Cts.Token, LedStates))
+                            {
                             await SetBlinkStickColors(result);
+                            }
+                        }
+                        else
+                        {
+                             Device.SetColor(255, 0, 0);
+                            await Task.Delay(2000);
+                             Device.SetColor(0, 255, 0);
+                            await Task.Delay(2000);
+                             Device.SetColor(0, 0, 255);
+                            await Task.Delay(2000);
+                             Device.SetColor(255, 0, 0);
+                            await Task.Delay(2000);
+                             Device.SetColor(0, 255, 255);
+                            await Task.Delay(2000);
+                             Device.SetColor(128, 128, 128);
+                            await Task.Delay(2000);
+                             Device.SetColor(128, 0, 0);
+                            await Task.Delay(2000);
+                             Device.SetColor(0, 128, 128);
+                            await Task.Delay(2000);
+                             Device.SetColor(55, 55, 55);
+                            await Task.Delay(2000);
+                             Device.SetColor(0, 0, 0);
+                            await Task.Delay(2000);
+                            Device.TurnOff();
                         }
                     }
-                    catch (OperationCanceledException ocEx)
+                    catch (OperationCanceledException)
                     {
-
+                        EventListViewModel.ActiveEvent = null;
                     }
                     break;
                 }
@@ -256,33 +283,8 @@ namespace cRGB.WPF.ViewModels.Device
             });
 
         }
-        void SetAllColorsBlack()
-        {
-            Task.Run(() =>
-            {
-                var channels = new List<(int, int, bool)>()
-                {
-                    ((int)EBlinkStickChannel.R, Settings.RChannelLedCount, Settings.RChannelLedInvert),
-                    ((int)EBlinkStickChannel.G, Settings.GChannelLedCount, Settings.GChannelLedInvert),
-                    ((int)EBlinkStickChannel.B, Settings.BChannelLedCount, Settings.BChannelLedInvert)
-                };
-
-                var count = 0;
-                foreach (var (channel, amountOfLeds, invertLeds) in channels)
-                {
-                    var bytes = new List<byte>();
-                    for (var i = 0; i < amountOfLeds; i++)
-                    {
-                        bytes.AddRange(new byte[] { 0, 0, 0});
-                        count++;
-                    }
-                    Device.SetColors((byte)channel, bytes.ToArray());
-                }
-            });
-
-        }
-
-        private byte[] GetLedColorsAsBytes(ILedViewModel led)
+        
+        private IEnumerable<byte> GetLedColorsAsBytes(ILedViewModel led)
         {
             // if not enabled stay black
             if (!led.Enabled)
@@ -290,7 +292,7 @@ namespace cRGB.WPF.ViewModels.Device
 
             var brightness = (double)Settings.Brightness / 100;
             // get colors from LedViewModel, multiply with brightness (example: Settings.Brightness = 95 (%) => ledR * 0.95)
-            return new[] {(byte)(led.R * brightness), (byte)(led.G * brightness), (byte)(led.B * brightness)};
+            return new[] {(byte)(led.G * brightness), (byte)(led.R * brightness), (byte)(led.B * brightness)};
         }
 
         private void CloseDialog()
@@ -328,7 +330,8 @@ namespace cRGB.WPF.ViewModels.Device
 
         public override void Shutdown()
         {
-            // Todo: Stop Events
+            Cts?.Cancel();
+            //Todo: not working. BlinkStick still active °_° wtf
             Device.TurnOff();
         }
     }

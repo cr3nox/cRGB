@@ -16,6 +16,7 @@ namespace cRGB.WPF.ViewModels.Effect
     {
         public ILedEffect Config { get; }
         public abstract Task<IList<ILedViewModel>> TickAsync(CancellationToken ct, IList<ILedViewModel> ledCount);
+        public bool IsEnabled { get; set; }
 
     }
 }

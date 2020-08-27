@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
@@ -20,8 +21,6 @@ namespace cRGB.WPF.ViewModels.Event.Events
     {
 
         #region Fields
-
-        CancellationToken _ct;
         #endregion
 
         #region Properties
@@ -52,13 +51,13 @@ namespace cRGB.WPF.ViewModels.Event.Events
             while (true)
             {
                 ct.ThrowIfCancellationRequested();
-                foreach (var effectViewModel in Effects)
+                foreach (var effectViewModel in Effects.Where(o => o.IsEnabled))
                 {
-                    var task = await effectViewModel.TickAsync(ct, leds);
-                    yield return task;
+                    await effectViewModel.TickAsync(ct, leds);
                 }
 
-                _ = Task.Delay(100, ct);
+                yield return leds;
+                await Task.Delay(1000, ct);
             }
         }
 

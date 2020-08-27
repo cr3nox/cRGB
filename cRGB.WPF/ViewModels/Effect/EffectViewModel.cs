@@ -12,6 +12,7 @@ using Caliburn.Micro;
 using cRGB.Domain.Models.Effect;
 using cRGB.Modules.Common.Base;
 using cRGB.WPF.ViewModels.Device;
+using PropertyChanged;
 
 namespace cRGB.WPF.ViewModels.Effect
 {
@@ -19,7 +20,11 @@ namespace cRGB.WPF.ViewModels.Effect
     {
         protected IEventAggregator EventAggregator;
 
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled
+        {
+            get => Config.IsEnabled;
+            set => Config.IsEnabled = value;
+        }
         public ILedEffect Config { get; internal set; }
 
         [Required]

@@ -13,6 +13,7 @@ namespace cRGB.Domain.Models.Effect
     {
 
         public string EffectType { get; set; }
+        public bool IsEnabled { get; set; }
 
         //public IList<int> EnabledLeds { get; set; }
         public int LedStartIndex { get; set; }
